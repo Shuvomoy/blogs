@@ -1,0 +1,178 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blogs/libs/highlight/github.min.css"> <link rel=stylesheet  href="/blogs/css/franklin.css"> <link rel=stylesheet  href="/blogs/css/tufte.css"> <link rel=stylesheet  href="/blogs/css/latex.css"> <link rel=stylesheet  href="/blogs/css/adjust.css"> <link rel=icon  href="/blogs/assets/favicon.png"> <title>Working with dataframes in Julia</title> <div id=layout > <div id=menu > <ul> <li><a href="/blogs/">Home</a> <li><a href="/blogs/menu1/">Code blocks</a> <li><a href="/blogs/menu2/">More goodies</a> <li><a href="/blogs/menu3/">Tags</a> </ul> </div> <div id=main > <div class=franklin-content ><h1 id=working_with_dataframes_in_julia ><a href="#working_with_dataframes_in_julia" class=header-anchor >Working with dataframes in Julia</a></h1> <p><strong>Shuvomoy Das Gupta</strong></p> <p><em>May 5, 2020</em></p> <p>In this blog, we will discuss how to work with dataframes using the <code>DataFrames</code> package in <code>Julia</code>. As an illustrative example, we will work with the MovieLens dataset. This is an introductory blog, and for learning how to use the <code>DataFrames</code> package in greater details, a great set of tutorials is available with jupyter notebooks at <a href="https://github.com/bkamins/Julia-DataFrames-Tutorial/">this link</a>.</p> <hr /> <p><strong>Table of contents</strong></p> <div class=franklin-toc ><ol><li><a href="#putting_the_data_into_dataframes">Putting the data into dataframes</a><li><a href="#converting_a_dataframe_into_wide_format">Converting a dataframe into wide format</a><li><a href="#working_with_missing_values">Working with missing values</a><li><a href="#saving_and_loading_dataframe">Saving and loading dataframe</a><li><a href="#converting_a_dataframe_into_a_matrix">Converting a dataframe into a matrix</a></ol></div> <hr /> <p><strong>Jupyter notebook for this blog.</strong> The jupyter notebook for this blog can be downloaded from <a href="https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/codes/working_with_dataframes_intro_Julia.ipynb">this link</a> and the data files in zip format are available <a href="https://github.com/Shuvomoy/blog/blob/gh-pages/data/movielens_datasets.zip">here</a>. Please unzip them in the folder, where your ipynb or julia file is.</p> <p><strong>What is the MovieLens dataset?</strong> The <code>MovieLens</code> dataset is one of the most common datasets people use for testing recommendation system algorithm. The version I will work with contains 1,000,209 ratings for approximately 3,900 movies; these recommendations were made by 6,040 MovieLens users. </p> <p>Let us start with the necessary packages. </p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> CSV, DataFrames</code></pre>
+<p>First, let us check if the files are loaded correctly. The files are available here: <strong>Provide the link</strong>.</p>
+<pre><code class="julia hljs"><span class=hljs-comment ># First, let us check if the files are loaded correctly</span>
+cd(<span class=hljs-string >&quot;C:\\Users\\shuvo\\Desktop\\MovieLensDataSet_Experiment&quot;</span>)
+isfile.([<span class=hljs-string >&quot;users.csv&quot;</span> <span class=hljs-string >&quot;movies.csv&quot;</span> <span class=hljs-string >&quot;ratings.csv&quot;</span>])</code></pre>
+<p>1×3 BitArray&#123;2&#125;:
+ 1  1  1</p>
+<h3 id=putting_the_data_into_dataframes ><a href="#putting_the_data_into_dataframes" class=header-anchor >Putting the data into dataframes</a></h3>
+<p>Let us put the data into dataframes.</p>
+<pre><code class="julia hljs"><span class=hljs-comment ># put the data in dataframes</span>
+df_users = CSV.read(<span class=hljs-string >&quot;users.csv&quot;</span>);
+df_movies = CSV.read(<span class=hljs-string >&quot;movies.csv&quot;</span>);
+df_ratings = CSV.read(<span class=hljs-string >&quot;ratings.csv&quot;</span>);</code></pre>
+<p><strong>The <code>df_users</code> dataframe.</strong> Let us briefly explore the contents of the <code>df_users</code> dataframe. </p>
+<pre><code class="julia hljs">size(df_users)</code></pre>
+<p>&#40;6040, 8&#41;</p>
+<p>So, <code>df_users</code> has 6040 rows and 8 columns. It is too large, but let us peek into the first and last few of the rows rows.</p>
+<pre><code class="julia hljs">first(df_users,<span class=hljs-number >3</span>)</code></pre>
+
+
+
+<table class=data-frame ><thead><tr><th><th>Column1<th>user_id<th>gender<th>age<th>occupation<th>zipcode<th>age_desc<th>occ_desc<tr><th><th>Int64<th>Int64<th>String<th>Int64<th>Int64<th>String<th>String<th>String<p>3 rows × 8 columns</p><tr><th>1<td>0<td>1<td>F<td>1<td>10<td>48067<td>Under 18<td>K-12 student<tr><th>2<td>1<td>2<td>M<td>56<td>16<td>70072<td>56+<td>self-employed<tr><th>3<td>2<td>3<td>M<td>25<td>15<td>55117<td>25-34<td>scientist</table>
+
+
+
+<pre><code class="julia hljs">last(df_users, <span class=hljs-number >4</span>)</code></pre>
+
+
+
+
+<table class=data-frame ><thead><tr><th><th>Column1<th>user_id<th>gender<th>age<th>occupation<th>zipcode<th>age_desc<th>occ_desc<tr><th><th>Int64<th>Int64<th>String<th>Int64<th>Int64<th>String<th>String<th>String<p>4 rows × 8 columns</p><tr><th>1<td>6036<td>6037<td>F<td>45<td>1<td>76006<td>45-49<td>academic/educator<tr><th>2<td>6037<td>6038<td>F<td>56<td>1<td>14706<td>56+<td>academic/educator<tr><th>3<td>6038<td>6039<td>F<td>45<td>0<td>01060<td>45-49<td>other or not specified<tr><th>4<td>6039<td>6040<td>M<td>25<td>6<td>11106<td>25-34<td>doctor/health care</table>
+
+
+<p>Now let us take a look at the basic summary statistics of data in df_users.</p>
+<pre><code class="julia hljs"><span class=hljs-comment ># Let us take a look at a quick summary about df_users for a few users</span>
+describe(df_users, cols = <span class=hljs-number >1</span>:<span class=hljs-number >3</span>)
+<span class=hljs-comment ># if we were interested about all the columns, then we could run the following command:</span>
+<span class=hljs-comment ># describe(df_users)</span></code></pre>
+
+<table class=data-frame ><thead><tr><th><th>variable<th>mean<th>min<th>median<th>max<th>nunique<th>nmissing<th>eltype<tr><th><th>Symbol<th>Union…<th>Any<th>Union…<th>Any<th>Union…<th>Nothing<th>DataType<p>3 rows × 8 columns</p><tr><th>1<td>Column1<td>3019.5<td>0<td>3019.5<td>6039<td><td><td>Int64<tr><th>2<td>user_id<td>3020.5<td>1<td>3020.5<td>6040<td><td><td>Int64<tr><th>3<td>gender<td><td>F<td><td>M<td>2<td><td>String</table>
+
+<p>The get the name of all the columns of <code>df_users</code>, we can use the function <code>names</code>. </p>
+<pre><code class="julia hljs">names(df_users)</code></pre>
+<p>8-element Array&#123;Symbol,1&#125;:
+ :Column1   
+ :user_id   
+ :gender    
+ :age       
+ :occupation
+ :zipcode   
+ :age_desc  
+ :occ_desc</p>
+<p>If we want to know the element types of each column, we can run the following.</p>
+<pre><code class="julia hljs">eltype.(eachcol(df_users))</code></pre>
+<p>8-element Array&#123;DataType,1&#125;:
+ Int64 
+ Int64 
+ String
+ Int64 
+ Int64 
+ String
+ String
+ String</p>
+<p><strong>The <code>df_movies</code> dataframe.</strong> Let us repeat the previous commands for the <code>df_movies</code> dataframe.</p>
+<pre><code class="julia hljs">size(df_movies);</code></pre>
+<pre><code class="julia hljs">first(df_movies,<span class=hljs-number >5</span>);</code></pre>
+<pre><code class="julia hljs">last(df_movies, <span class=hljs-number >3</span>);</code></pre>
+<pre><code class="julia hljs">describe(df_movies, cols = <span class=hljs-number >1</span>:<span class=hljs-number >3</span>);</code></pre>
+<pre><code class="julia hljs">names(df_movies)</code></pre>
+<p>4-element Array&#123;Symbol,1&#125;:
+ :Column1 
+ :movie_id
+ :title   
+ :genres</p>
+<pre><code class="julia hljs">eltype.(eachcol(df_movies));</code></pre>
+<p><strong>The <code>df_ratings</code> dataframe.</strong> Let us see what is going on with the dataframe <code>df_ratings</code>.</p>
+<pre><code class="julia hljs">size(df_ratings); <span class=hljs-comment ># quite large with 1000209 columns and 7 rows</span></code></pre>
+<pre><code class="julia hljs">first(df_ratings,<span class=hljs-number >3</span>)</code></pre>
+
+<table class=data-frame ><thead><tr><th><th>Column1<th>user_id<th>movie_id<th>rating<th>timestamp<th>user_emb_id<th>movie_emb_id<tr><th><th>Int64<th>Int64<th>Int64<th>Int64<th>Int64<th>Int64<th>Int64<p>3 rows × 7 columns</p><tr><th>1<td>0<td>1<td>1193<td>5<td>978300760<td>0<td>1192<tr><th>2<td>1<td>1<td>661<td>3<td>978302109<td>0<td>660<tr><th>3<td>2<td>1<td>914<td>3<td>978301968<td>0<td>913</table>
+
+<pre><code class="julia hljs">last(df_ratings,<span class=hljs-number >3</span>);</code></pre>
+<pre><code class="julia hljs">describe(df_ratings, cols = <span class=hljs-number >1</span>:<span class=hljs-number >3</span>);</code></pre>
+<pre><code class="julia hljs">names(df_ratings);</code></pre>
+<pre><code class="julia hljs">eltype.(eachcol(df_ratings));</code></pre>
+<pre><code class="julia hljs"><span class=hljs-comment >## Let us create the rating matrix</span>
+<span class=hljs-comment ># first let us create the number of unique users and matrices</span>
+n_users = length(unique(df_ratings.user_id))
+n_movies = length(unique(df_ratings.movie_id))
+println(<span class=hljs-string >&quot;Number of users = <span class=hljs-subst >$(n_users)</span> | Number of movies = <span class=hljs-subst >$(n_movies)</span>&quot;</span>)</code></pre>
+<p>Number of users &#61; 6040 | Number of movies &#61; 3706</p>
+<h3 id=converting_a_dataframe_into_wide_format ><a href="#converting_a_dataframe_into_wide_format" class=header-anchor >Converting a dataframe into wide format</a></h3>
+<p>Now we construct a wide format dataframe for the <code>df_ratings</code> dataframe using the <code>unstack</code> function. Our goal is creating a dataframe, which will have the users as the rows, the movies as the columns, and the rating as the value. The <code>unstack</code> function requires specifying which columns would act as id variable, column variable name, and column values. </p>
+<pre><code class="julia hljs">df_ratings_unstacked = unstack(df_ratings, :user_id, :movie_id, :rating);</code></pre>
+<pre><code class="julia hljs">size(df_ratings_unstacked)</code></pre>
+<p>&#40;6040, 3707&#41;</p>
+<pre><code class="julia hljs">first(df_ratings_unstacked, <span class=hljs-number >6</span>)</code></pre>
+
+<table class=data-frame ><thead><tr><th><th>user_id<th>1<th>2<th>3<th>4<th>5<th>6<th>7<th>8<tr><th><th>Int64<th>Int64⍰<th>Int64⍰<th>Int64⍰<th>Int64⍰<th>Int64⍰<th>Int64⍰<th>Int64⍰<th>Int64⍰<p>6 rows × 3,707 columns (omitted printing of 3698 columns)</p><tr><th>1<td>1<td>5<td>missing<td>missing<td>missing<td>missing<td>missing<td>missing<td>missing<tr><th>2<td>2<td>missing<td>missing<td>missing<td>missing<td>missing<td>missing<td>missing<td>missing<tr><th>3<td>3<td>missing<td>missing<td>missing<td>missing<td>missing<td>missing<td>missing<td>missing<tr><th>4<td>4<td>missing<td>missing<td>missing<td>missing<td>missing<td>missing<td>missing<td>missing<tr><th>5<td>5<td>missing<td>missing<td>missing<td>missing<td>missing<td>2<td>missing<td>missing<tr><th>6<td>6<td>4<td>missing<td>missing<td>missing<td>missing<td>missing<td>missing<td>missing</table>
+
+<h3 id=working_with_missing_values ><a href="#working_with_missing_values" class=header-anchor >Working with missing values</a></h3>
+<p>We have lot of missing values, which we can see the let us replace the missing values with <code>NaN</code>.</p>
+<pre><code class="julia hljs"><span class=hljs-comment ># replace the missing values in the data frame</span>
+column_names_ru = names(df_ratings_unstacked);
+<span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >1</span>:length(column_names_ru)
+   df_ratings_unstacked[!, column_names_ru[i]] = replace(df_ratings_unstacked[!, column_names_ru[i]], <span class=hljs-literal >missing</span> =&gt; <span class=hljs-literal >NaN</span>) <span class=hljs-comment ># If we want to replace the missing values with any other number, then we use: missing =&gt; NaN</span>
+<span class=hljs-keyword >end</span></code></pre>
+<p>Let us see if the values have indeed changed.</p>
+<pre><code class="julia hljs">first(df_ratings_unstacked, <span class=hljs-number >6</span>)</code></pre>
+
+<table class=data-frame ><thead><tr><th><th>user_id<th>1<th>2<th>3<th>4<th>5<th>6<th>7<th>8<tr><th><th>Float64<th>Float64<th>Float64<th>Float64<th>Float64<th>Float64<th>Float64<th>Float64<th>Float64<p>6 rows × 3,707 columns (omitted printing of 3698 columns)</p><tr><th>1<td>1.0<td>5.0<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<tr><th>2<td>2.0<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<tr><th>3<td>3.0<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<tr><th>4<td>4.0<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<tr><th>5<td>5.0<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>2.0<td>NaN<td>NaN<tr><th>6<td>6.0<td>4.0<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN</table>
+
+<p><strong>What if the missing values are represented as some other symbol in the original dataframe?</strong> In the previous example, the missing values were convenienetly recognized by Julia as <code>missing</code> type. Now, in some data files the missing values are represented by some other symbols, such as &quot;?&quot;. In such case the column that contains &quot;?&quot; may be diagnosed as an array of strings by Julia. In that case, we could run the following command to replace the &quot;?&quot;s with <code>missing</code> using the following command.</p>
+<pre><code class="julia hljs">type_of_columns = eltype.(eachcol(df)) <span class=hljs-comment ># say the name of the dataframe is df</span>
+
+m, n = size(df)
+
+<span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >3</span>:n <span class=hljs-comment ># let the important columns containing missing values start from column number 3</span>
+
+  <span class=hljs-keyword >if</span> type_of_columns[i] == <span class=hljs-built_in >String</span> <span class=hljs-comment ># due to presence of &quot;?&quot; in the column, it may get diagnosed by an array of strings by Julia</span>
+  
+          df[!, i]  = map(x-&gt;
+                         <span class=hljs-keyword >begin</span>
+                         val = tryparse(<span class=hljs-built_in >Float64</span>, x)
+                         ifelse(typeof(val) == <span class=hljs-built_in >Nothing</span>, <span class=hljs-literal >missing</span>, val)                         
+                         <span class=hljs-keyword >end</span>, df[!,i])
+                         
+  <span class=hljs-keyword >end</span>
+<span class=hljs-keyword >end</span></code></pre>
+<h3 id=saving_and_loading_dataframe ><a href="#saving_and_loading_dataframe" class=header-anchor >Saving and loading dataframe</a></h3>
+<p>Let us see how to load and safe a dataframe. We can save <code>df_ratings_unstacked</code> using the <code>write</code> function provided by the <code>CSV</code> package. </p>
+<pre><code class="julia hljs">CSV.write(<span class=hljs-string >&quot;df_ratings_unstacked.csv&quot;</span>, df_ratings_unstacked)</code></pre>
+<p>&quot;df_ratings_unstacked.csv&quot;</p>
+<p>To load back the dataframe that we just saved into the csv file, we can use <code>read</code> command provided by <code>CSV</code> package. The command <code>use_mmap &#61; false</code> is used, so that the file can be deleted in the same session; this is required only in Windows.</p>
+<pre><code class="julia hljs">df_loaded = CSV.read(<span class=hljs-string >&quot;df_ratings_unstacked.csv&quot;</span>, use_mmap=<span class=hljs-literal >false</span>);
+first(df_loaded, <span class=hljs-number >5</span>)</code></pre>
+
+<table class=data-frame ><thead><tr><th><th>user_id<th>1<th>2<th>3<th>4<th>5<th>6<th>7<th>8<tr><th><th>Float64<th>Float64<th>Float64<th>Float64<th>Float64<th>Float64<th>Float64<th>Float64<th>Float64<p>5 rows × 3,707 columns (omitted printing of 3698 columns)</p><tr><th>1<td>1.0<td>5.0<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<tr><th>2<td>2.0<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<tr><th>3<td>3.0<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<tr><th>4<td>4.0<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<tr><th>5<td>5.0<td>NaN<td>NaN<td>NaN<td>NaN<td>NaN<td>2.0<td>NaN<td>NaN</table>
+
+<h3 id=converting_a_dataframe_into_a_matrix ><a href="#converting_a_dataframe_into_a_matrix" class=header-anchor >Converting a dataframe into a matrix</a></h3>
+<p>Now let us convert the <code>df_ratings_unstacked</code> dataframe into a matrix.</p>
+<pre><code class="julia hljs">ratings_matrix = df_ratings_unstacked[:,  <span class=hljs-number >2</span>:length(column_names_ru)];
+rating_matrix = convert(<span class=hljs-built_in >Matrix</span>, ratings_matrix)</code></pre>
+<pre><code class="julia hljs"><span class=hljs-number >6040</span>×<span class=hljs-number >3706</span> <span class=hljs-built_in >Array</span>{<span class=hljs-built_in >Float64</span>,<span class=hljs-number >2</span>}:
+       <span class=hljs-number >5.0</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    …  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+       <span class=hljs-number >4.0</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    …  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+       <span class=hljs-number >4.0</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>      <span class=hljs-number >3.0</span>  <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+       <span class=hljs-number >5.0</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-number >3.0</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+       <span class=hljs-number >5.0</span>    <span class=hljs-number >5.0</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-number >4.0</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    …  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>      <span class=hljs-number >3.0</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+       ⋮                                ⋱         ⋮                          ⋮
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>      <span class=hljs-number >4.0</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    …  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+       <span class=hljs-number >4.0</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+       <span class=hljs-number >4.0</span>  <span class=hljs-literal >NaN</span>      <span class=hljs-number >1.0</span>    <span class=hljs-number >2.0</span>    <span class=hljs-number >1.0</span>     <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>      <span class=hljs-number >2.0</span>  <span class=hljs-literal >NaN</span>    …  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+     <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>
+       <span class=hljs-number >3.0</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>       <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>    <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span>  <span class=hljs-literal >NaN</span></code></pre>
+<div class=page-foot >
+  <div class=copyright >
+    &copy; Shuvomoy Das Gupta. Last modified: June 05, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div>
+        </div> 
+    </div>

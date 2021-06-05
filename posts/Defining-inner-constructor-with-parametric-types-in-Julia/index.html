@@ -1,0 +1,53 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blogs/libs/highlight/github.min.css"> <link rel=stylesheet  href="/blogs/css/franklin.css"> <link rel=stylesheet  href="/blogs/css/tufte.css"> <link rel=stylesheet  href="/blogs/css/latex.css"> <link rel=stylesheet  href="/blogs/css/adjust.css"> <link rel=icon  href="/blogs/assets/favicon.png"> <title> Defining inner constructor with parametric types in Julia</title> <div id=layout > <div id=menu > <ul> <li><a href="/blogs/">Home</a> <li><a href="/blogs/menu1/">Code blocks</a> <li><a href="/blogs/menu2/">More goodies</a> <li><a href="/blogs/menu3/">Tags</a> </ul> </div> <div id=main > <div class=franklin-content ><h1 id=defining_inner_constructor_with_parametric_types_in_julia ><a href="#defining_inner_constructor_with_parametric_types_in_julia" class=header-anchor >Defining inner constructor with parametric types in Julia</a></h1> <p><strong>Shuvomoy Das Gupta</strong></p> <p><em>January 12, 2021</em></p> <p>Suppose we define the following parametric type in Julia. </p> <pre><code class="julia hljs"><span class=hljs-keyword >abstract type</span> CombinatorialProblem <span class=hljs-keyword >end</span>
+
+<span class=hljs-keyword >struct</span> BinIntOptSF{V &lt;: <span class=hljs-built_in >AbstractVector</span>{&lt;: <span class=hljs-built_in >Real</span>}, M &lt;: <span class=hljs-built_in >AbstractMatrix</span>{&lt;: <span class=hljs-built_in >Real</span>}} &lt;: CombinatorialProblem <span class=hljs-comment ># means the concrete type BinIntOptSF is a subtype of the abstract type CombinatorialProblem</span>
+    c::V
+    A::M
+    b::V
+<span class=hljs-keyword >end</span></code></pre> <p>This is a parametric type. We can create an instance of this type as follows. </p> <pre><code class="julia hljs">m = <span class=hljs-number >4</span>
+n = <span class=hljs-number >5</span>
+c = randn(n)
+A = randn(m,n)
+b = randn(m)
+sf_bin_int_opt = BinIntOptSF(c, A, b)</code></pre> <p>Now suppose, we want to enforce the following check in an instance of the type: <code>A</code> must have number of rows less than or equal to number of columns, number of rows of <code>A</code> is equal number of entries in <code>b</code>, and number of columns of <code>A</code> is equal to the number of entries in <code>c</code>. </p> <p>In this case we can enforce the check by writing the following inner constructor for the parametric type. </p> <pre><code class="julia hljs"><span class=hljs-keyword >struct</span> BinIntOptSF2{V &lt;: <span class=hljs-built_in >AbstractVector</span>{&lt;: <span class=hljs-built_in >Real</span>}, M &lt;: <span class=hljs-built_in >AbstractMatrix</span>{&lt;: <span class=hljs-built_in >Real</span>}} &lt;: CombinatorialProblem
+
+    c::V
+    A::M
+    b::V
+    
+    <span class=hljs-comment ># Inner constructor </span>
+    <span class=hljs-comment ># -----------------</span>
+    <span class=hljs-keyword >function</span> BinIntOptSF2{V,M}(c::V, A::M, b::V) <span class=hljs-keyword >where</span> {V &lt;: <span class=hljs-built_in >AbstractVector</span>{&lt;: <span class=hljs-built_in >Real</span>}, M &lt;: <span class=hljs-built_in >AbstractMatrix</span>{&lt;: <span class=hljs-built_in >Real</span>}}
+        
+        <span class=hljs-keyword >if</span> size(A,<span class=hljs-number >1</span>) != size(b,<span class=hljs-number >1</span>)
+            error(<span class=hljs-string >&quot;A and b have incompatible direction&quot;</span>)
+        <span class=hljs-keyword >end</span>
+        
+        <span class=hljs-keyword >if</span> size(A,<span class=hljs-number >1</span>) &gt; size(A,<span class=hljs-number >2</span>)
+            error(<span class=hljs-string >&quot;A must have number of row less than or equal to number of columns&quot;</span>)
+        <span class=hljs-keyword >end</span>
+        
+        <span class=hljs-keyword >if</span> size(A,<span class=hljs-number >2</span>) != size(c,<span class=hljs-number >1</span>)
+            error(<span class=hljs-string >&quot;A and c have incompatible dimension&quot;</span>)
+        <span class=hljs-keyword >end</span>
+        
+        new{V, M}(c,A,b)
+    <span class=hljs-keyword >end</span>
+
+<span class=hljs-comment ># Writing the inner constructor above is going to replace the default constructor that is automatically defined by Julia. This may cause slight inconvenience, as we have to instantiate by running: bin_opt_instance = BinIntOptSF2{.,.}(...). Fortunately we can avoid this by adding the following line. </span>
+    
+    <span class=hljs-comment ># Ensuring the one shot instantiation</span>
+    <span class=hljs-comment ># -----------------------------------</span>
+    BinIntOptSF2(c::V, A::M, b::V) <span class=hljs-keyword >where</span> {V &lt;: <span class=hljs-built_in >AbstractVector</span>{&lt;: <span class=hljs-built_in >Real</span>}, M &lt;: <span class=hljs-built_in >AbstractMatrix</span>{&lt;: <span class=hljs-built_in >Real</span>}} = BinIntOptSF2{V,M}(c,A,b) 
+
+<span class=hljs-comment ># We need to add this line so that we can instantiate by the convenient: bin_opt_instance = BinIntOptSF2(.). If we do not add this line, but call BinIntOptSF2(.), then we will get an error &quot;No method matching...&quot;.</span>
+    
+<span class=hljs-keyword >end</span></code></pre> <p>Let us instantiate the type above.</p> <pre><code class="julia hljs">sf_bin_int_opt_2 = BinIntOptSF2(c, A, b)</code></pre>
+<div class=page-foot >
+  <div class=copyright >
+    &copy; Shuvomoy Das Gupta. Last modified: June 05, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div>
+        </div> 
+    </div>

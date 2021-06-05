@@ -1,0 +1,175 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blogs/libs/katex/katex.min.css"> <link rel=stylesheet  href="/blogs/libs/highlight/github.min.css"> <link rel=stylesheet  href="/blogs/css/franklin.css"> <link rel=stylesheet  href="/blogs/css/tufte.css"> <link rel=stylesheet  href="/blogs/css/latex.css"> <link rel=stylesheet  href="/blogs/css/adjust.css"> <link rel=icon  href="/blogs/assets/favicon.png"> <title>Running parallel Julia code on MIT Supercloud</title> <div id=layout > <div id=menu > <ul> <li><a href="/blogs/">Home</a> <li><a href="/blogs/menu1/">Code blocks</a> <li><a href="/blogs/menu2/">More goodies</a> <li><a href="/blogs/menu3/">Tags</a> </ul> </div> <div id=main > <div class=franklin-content ><h1 id=running_parallel_julia_code_on_mit_supercloud ><a href="#running_parallel_julia_code_on_mit_supercloud" class=header-anchor >Running parallel Julia code on MIT Supercloud</a></h1> <p><strong>Shuvomoy Das Gupta</strong></p> <p><em>December 1, 2020</em></p> <p>In this blog, we will discuss how to run parallel <code>Julia</code> code on MIT Supercloud. For the basics on how to run <code>Julia</code> code in MIT Supercloud, please see my previous blog post <a href="https://shuvomoy.github.io/blog/programming/2020/01/24/Running-Julia-code-on-MIT-supercloud.html">here</a>. </p> <hr /> <p><strong>Table of contents</strong></p> <div class=franklin-toc ><ol><li><a href="#sparse_regression_problem">Sparse regression problem. </a><li><a href="#shell_script_to_submit_the_job">Shell script to submit the job</a><li><a href="#submitting_the_job">Submitting the job</a></ol></div> <hr /> <p>As an example for running parallel code, we will consider solving sparse regression problem. </p> <h2 id=sparse_regression_problem ><a href="#sparse_regression_problem" class=header-anchor >Sparse regression problem. </a></h2> <p>The sparse regression problem &#40;also known as regressor selection problem&#41; is concerned with approximating a vector <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>∈</mo><msup><mi mathvariant=bold >R</mi><mi>m</mi></msup></mrow><annotation encoding="application/x-tex">b\in\mathbf{R}^{m}</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">b</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class=mrel >∈</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span></span><span class=base ><span class=strut  style="height:0.68611em;vertical-align:0em;"></span><span class=mord ><span class="mord mathbf">R</span><span class=msupsub ><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span></span></span></span></span></span></span></span></span></span></span></span> with a linear combination of at most <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> columns of a matrix <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>∈</mo><msup><mi mathvariant=bold >R</mi><mrow><mi>m</mi><mo>×</mo><mi>d</mi></mrow></msup></mrow><annotation encoding="application/x-tex">A\in\mathbf{R}^{m\times d}</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">A</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class=mrel >∈</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span></span><span class=base ><span class=strut  style="height:0.8491079999999999em;vertical-align:0em;"></span><span class=mord ><span class="mord mathbf">R</span><span class=msupsub ><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.8491079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mbin mtight">×</span><span class="mord mathnormal mtight">d</span></span></span></span></span></span></span></span></span></span></span></span> with bounded coefficients. The problem can be written as the following optimization problem</p> <span class=katex-display ><span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML" display=block ><semantics><mtable rowspacing=0.1600em  columnspacing=1em ><mtr><mtd class ="mtr-glue"></mtd><mtd><mstyle scriptlevel=0  displaystyle=true ><mtable rowspacing=0.1600em  columnalign="left left" columnspacing=1em ><mtr><mtd><mstyle scriptlevel=0  displaystyle=false ><mtext>minimize</mtext></mstyle></mtd><mtd><mstyle scriptlevel=0  displaystyle=false ><mrow><mi mathvariant=normal >∥</mi><mi>A</mi><mi>x</mi><mo>−</mo><mi>b</mi><msubsup><mi mathvariant=normal >∥</mi><mn>2</mn><mn>2</mn></msubsup><mo>+</mo><mfrac><mi>β</mi><mn>2</mn></mfrac><mi mathvariant=normal >∥</mi><mi>x</mi><msup><mi mathvariant=normal >∥</mi><mn>2</mn></msup></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel=0  displaystyle=false ><mtext>subject to</mtext></mstyle></mtd><mtd><mstyle scriptlevel=0  displaystyle=false ><mrow><mrow><mi mathvariant=bold >c</mi><mi mathvariant=bold >a</mi><mi mathvariant=bold >r</mi><mi mathvariant=bold >d</mi></mrow><mo stretchy=false >(</mo><mi>x</mi><mo stretchy=false >)</mo><mo>≤</mo><mi>k</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel=0  displaystyle=false ><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel=0  displaystyle=false ><mrow><mi mathvariant=normal >∥</mi><mi>x</mi><msub><mi mathvariant=normal >∥</mi><mi mathvariant=normal >∞</mi></msub><mo>≤</mo><mi>M</mi><mo separator=true >,</mo></mrow></mstyle></mtd></mtr></mtable></mstyle></mtd><mtd class ="mtr-glue"></mtd><mtd class ="mml-eqn-num"></mtd></mtr></mtable><annotation encoding="application/x-tex"> \begin{equation} \begin{array}{ll} \textrm{minimize} &amp; \|Ax-b\|_{2}^{2}+\frac{\beta}{2}\|x\|^{2}\\ \textrm{subject to} &amp; \mathbf{card}(x)\leq k\\ &amp; \|x\|_{\infty}\leq M, \end{array} \end{equation} </annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:3.6922159999999997em;vertical-align:-1.5961079999999996em;"></span><span class=mtable ><span class=col-align-c ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:2.096108em;"><span style="top:-4.096108em;"><span class=pstrut  style="height:4.096108em;"></span><span class=mord ><span class=mord ><span class=mtable ><span class=arraycolsep  style="width:0.5em;"></span><span class=col-align-l ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:2.096108em;"><span style="top:-4.163892000000001em;"><span class=pstrut  style="height:3em;"></span><span class=mord ><span class="mord text"><span class="mord textrm">minimize</span></span></span></span><span style="top:-2.963892em;"><span class=pstrut  style="height:3em;"></span><span class=mord ><span class="mord text"><span class="mord textrm">subject to</span></span></span></span><span style="top:-1.7638920000000005em;"><span class=pstrut  style="height:3em;"></span><span class=mord ></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:1.5961079999999996em;"><span></span></span></span></span></span><span class=arraycolsep  style="width:0.5em;"></span><span class=arraycolsep  style="width:0.5em;"></span><span class=col-align-l ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:2.096108em;"><span style="top:-4.163892000000001em;"><span class=pstrut  style="height:3em;"></span><span class=mord ><span class=mord >∥</span><span class="mord mathnormal">A</span><span class="mord mathnormal">x</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span><span class=mbin >−</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">b</span><span class=mord ><span class=mord >∥</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.8141079999999999em;"><span style="top:-2.4518920000000004em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.24810799999999997em;"><span></span></span></span></span></span></span><span class=mspace  style="margin-right:0.2222222222222222em;"></span><span class=mbin >+</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span><span class=mord ><span class="mopen nulldelimiter"></span><span class=mfrac ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.9322159999999999em;"><span style="top:-2.6550000000000002em;"><span class=pstrut  style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class=pstrut  style="height:3em;"></span><span class=frac-line  style="border-bottom-width:0.04em;"></span></span><span style="top:-3.446108em;"><span class=pstrut  style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05278em;">β</span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class=mord >∥</span><span class="mord mathnormal">x</span><span class=mord ><span class=mord >∥</span><span class=msupsub ><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><span style="top:-2.963892em;"><span class=pstrut  style="height:3em;"></span><span class=mord ><span class=mord ><span class="mord mathbf">card</span></span><span class=mopen >(</span><span class="mord mathnormal">x</span><span class=mclose >)</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class=mrel >≤</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span><span style="top:-1.7638920000000005em;"><span class=pstrut  style="height:3em;"></span><span class=mord ><span class=mord >∥</span><span class="mord mathnormal">x</span><span class=mord ><span class=mord >∥</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∞</span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class=mrel >≤</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class=mpunct >,</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:1.5961079999999996em;"><span></span></span></span></span></span><span class=arraycolsep  style="width:0.5em;"></span></span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:1.5961079999999996em;"><span></span></span></span></span></span></span></span><span class=tag ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:2.096108em;"><span style="top:-4.096108em;"><span class=pstrut  style="height:4.096108em;"></span><span class=eqn-num ></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:1.5961079999999996em;"><span></span></span></span></span></span></span></span></span> <p>where <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><msup><mi mathvariant=bold >R</mi><mi>d</mi></msup></mrow><annotation encoding="application/x-tex">x\in\mathbf{R}^{d}</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class=mrel >∈</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span></span><span class=base ><span class=strut  style="height:0.849108em;vertical-align:0em;"></span><span class=mord ><span class="mord mathbf">R</span><span class=msupsub ><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span></span></span></span></span></span></span></span></span></span></span></span> is the decision variable, and <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>∈</mo><msup><mi mathvariant=bold >R</mi><mrow><mi>m</mi><mo>×</mo><mi>d</mi></mrow></msup><mo separator=true >,</mo><mi>b</mi><mo>∈</mo><msup><mi mathvariant=bold >R</mi><mi>m</mi></msup><mo separator=true >,</mo></mrow><annotation encoding="application/x-tex">A\in\mathbf{R}^{m\times d},b\in\mathbf{R}^{m},</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">A</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class=mrel >∈</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span></span><span class=base ><span class=strut  style="height:1.043548em;vertical-align:-0.19444em;"></span><span class=mord ><span class="mord mathbf">R</span><span class=msupsub ><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.8491079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mbin mtight">×</span><span class="mord mathnormal mtight">d</span></span></span></span></span></span></span></span></span><span class=mpunct >,</span><span class=mspace  style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">b</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class=mrel >∈</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span></span><span class=base ><span class=strut  style="height:0.8805499999999999em;vertical-align:-0.19444em;"></span><span class=mord ><span class="mord mathbf">R</span><span class=msupsub ><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span></span></span></span></span></span></span></span></span><span class=mpunct >,</span></span></span></span> and <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M&gt;0</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class=mrel >&gt;</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span></span><span class=base ><span class=strut  style="height:0.64444em;vertical-align:0em;"></span><span class=mord >0</span></span></span></span> are problem data. The term <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant=bold >c</mi><mi mathvariant=bold >a</mi><mi mathvariant=bold >r</mi><mi mathvariant=bold >d</mi></mrow><mo stretchy=false >(</mo><mi>x</mi><mo stretchy=false >)</mo></mrow><annotation encoding="application/x-tex">\mathbf{card}(x)</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:1em;vertical-align:-0.25em;"></span><span class=mord ><span class="mord mathbf">card</span></span><span class=mopen >(</span><span class="mord mathnormal">x</span><span class=mclose >)</span></span></span></span> represents the number of nonzero components of the vector <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>.</p> <p><strong>Setup.</strong> We have a nonconvex optimization problem &#40;sparse regression problem&#41; and an algorithm <a href="https://github.com/Shuvomoy/NExOS.jl"><code>NExOS</code></a> that is able to compute a locally optimal solution of this problem under <a href="https://arxiv.org/pdf/2011.04552.pdf">certain regularity conditions</a>. Depending on different initializations, <code>NExOS</code> will provide us with different locally optimal solutions. So, naturally we can think of initializing our algorithm with different random points, observe the solutions provided by <code>NExOS</code> for different initializations and then pick the locally optimal solution that corresponds to the smallest objective value. We can achieve this task by using parallelization techniques provided in <code>Julia</code>. For this blog, we will consider <code>pmap</code>.</p> <p><strong>Julia Code.</strong> The code for the <code>julia</code> file is given below, please save it in a text file and name it <code>pmap_julia.jl</code>.</p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> ClusterManagers,Distributed
+
+<span class=hljs-comment ># Add in the cores allocated by the scheduler as workers</span>
+
+addprocs(SlurmManager(parse(<span class=hljs-built_in >Int</span>,<span class=hljs-literal >ENV</span>[<span class=hljs-string >&quot;SLURM_NTASKS&quot;</span>])-<span class=hljs-number >1</span>))
+
+print(<span class=hljs-string >&quot;Added workers: &quot;</span>)
+
+println(nworkers())
+    
+<span class=hljs-keyword >using</span> Random, NExOS, ProximalOperators, Distributions <span class=hljs-comment ># load it centrally</span>
+
+<span class=hljs-meta >@everywhere</span> <span class=hljs-keyword >using</span> Random, NExOS, ProximalOperators, Distributions <span class=hljs-comment ># load it on each process</span>
+
+<span class=hljs-comment ># DATA GENERATION: The following code will be run only on one core</span>
+<span class=hljs-comment ># ----------------------------------------------------------------</span>
+
+<span class=hljs-comment ># create the array of random initial points</span>
+
+n = <span class=hljs-number >20</span>
+
+M = <span class=hljs-number >1</span>
+
+<span class=hljs-keyword >function</span> random_z(n, M)
+    uniDst = Uniform(-M, M)
+    x = rand(uniDst,n)
+    z = x
+    <span class=hljs-keyword >return</span> z
+<span class=hljs-keyword >end</span>
+
+<span class=hljs-comment >## create array of random z s</span>
+
+<span class=hljs-keyword >function</span> create_array_z_randomized(n, N_random_points, M)
+    <span class=hljs-comment ># this array has its first column all zeros and the rest are uniformly distrubted over [-M,M]</span>
+    array_z_randomized = zeros(n, N_random_points)
+    <span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >2</span>:N_random_points
+        array_z_randomized[:,i] = random_z(n, M)
+    <span class=hljs-keyword >end</span>
+    <span class=hljs-keyword >return</span> array_z_randomized
+<span class=hljs-keyword >end</span>
+
+<span class=hljs-comment >## necessary info to generate the data</span>
+
+bigM = <span class=hljs-number >1e99</span> <span class=hljs-comment ># this is the bigM, which is a global variable we are not gonna change</span>
+
+N_random_points = <span class=hljs-number >100</span>
+
+array_z_randomized = create_array_z_randomized(n, N_random_points, M)
+
+array_z_randomized_formatted = [array_z_randomized[:,i] <span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >1</span>:N_random_points]
+
+<span class=hljs-comment ># DISTRIBUTED CODE: The following part of the code will be run parallely on different cores</span>
+<span class=hljs-comment ># -----------------------------------------------------------------------------------------</span>
+
+<span class=hljs-comment ># we write the distributed part that is loaded everywhere on the processes we created</span>
+
+<span class=hljs-meta >@everywhere</span> <span class=hljs-keyword >begin</span>
+
+    <span class=hljs-comment >## create data</span>
+    m = <span class=hljs-number >10</span>
+    n = <span class=hljs-number >20</span>
+    A = randn(m,n)
+    b = randn(m)
+    M = <span class=hljs-number >1</span>
+    k = convert(<span class=hljs-built_in >Int64</span>, round(m/<span class=hljs-number >3</span>))
+    beta = <span class=hljs-number >10</span>^-<span class=hljs-number >10</span>
+
+
+    <span class=hljs-comment ># Let us put everything in a function, which we are going to use later for parallel implementation.</span>
+
+    C = NExOS.SparseSet(M, k) <span class=hljs-comment ># Create the set</span>
+    f = ProximalOperators.LeastSquares(A, b, iterative = <span class=hljs-literal >true</span>) <span class=hljs-comment ># Create the function</span>
+    settings = NExOS.Settings(μ_max = <span class=hljs-number >2</span>, μ_min = <span class=hljs-number >1e-8</span>, μ_mult_fact = <span class=hljs-number >0.5</span>, verbose = <span class=hljs-literal >false</span>, freq = <span class=hljs-number >250</span>, γ_updt_rule = :adaptive, β = beta) <span class=hljs-comment ># settings</span>
+
+    <span class=hljs-comment >#function sparse_reg_NExOS(z0, C, f, settings) # z0 is the initial point</span>
+    <span class=hljs-keyword >function</span> sparse_reg_NExOS(z0)
+        
+        problem = NExOS.Problem(f, C, settings.β, z0) <span class=hljs-comment ># problem instance</span>
+        state_final = NExOS.solve!(problem, settings)
+        <span class=hljs-keyword >return</span> state_final
+
+    <span class=hljs-keyword >end</span>
+
+<span class=hljs-keyword >end</span> <span class=hljs-comment ># end the begin block</span>
+
+<span class=hljs-comment ># serial implementation</span>
+
+output_map =  map(sparse_reg_NExOS, array_z_randomized_formatted)
+
+<span class=hljs-comment ># parallel implementatin</span>
+
+output_pmap = pmap(sparse_reg_NExOS, array_z_randomized_formatted)
+
+<span class=hljs-comment ># BENCHMARKING:</span>
+<span class=hljs-comment ># ------------</span>
+
+<span class=hljs-comment ># benchmarking the results, note that we did not benchmark the first time, because in that </span>
+<span class=hljs-comment ># case we would also count the precompilation time</span>
+
+<span class=hljs-keyword >using</span> BenchmarkTools 
+
+BenchmarkTools.DEFAULT_PARAMETERS.seconds = <span class=hljs-number >25</span> <span class=hljs-comment ># The number of seconds budgeted for the benchmarking process. The trial will terminate if this time is exceeded (regardless of samples), but at least one sample will always be taken.</span>
+
+<span class=hljs-comment ># benchmark serial implementation</span>
+b1 = <span class=hljs-meta >@benchmark</span> map(sparse_reg_NExOS, array_z_randomized_formatted)
+
+println(<span class=hljs-string >&quot;benchmark for serial code&quot;</span>)
+println(<span class=hljs-string >&quot;*************************&quot;</span>)
+io = <span class=hljs-built_in >IOBuffer</span>()
+show(io, <span class=hljs-string >&quot;text/plain&quot;</span>, b1)
+s = <span class=hljs-built_in >String</span>(take!(io))
+println(s)
+
+<span class=hljs-comment ># benchmark parallel implementation</span>
+b2 = <span class=hljs-meta >@benchmark</span> pmap(sparse_reg_NExOS, array_z_randomized_formatted)
+
+println(<span class=hljs-string >&quot;benchmark for parallel code&quot;</span>)
+println(<span class=hljs-string >&quot;***************************&quot;</span>)
+io = <span class=hljs-built_in >IOBuffer</span>()
+show(io, <span class=hljs-string >&quot;text/plain&quot;</span>, b2)
+s = <span class=hljs-built_in >String</span>(take!(io))
+println(s)</code></pre> <h2 id=shell_script_to_submit_the_job ><a href="#shell_script_to_submit_the_job" class=header-anchor >Shell script to submit the job</a></h2> <p>Now we are going to create a shell script that will be used to submit the job. The code for the shell script is below. Please save it in a text file, and name it <code>run_pmap_julia.sh</code>. In the code, <code>SBATCH -o pmap_julia.log-&#37;j</code> indicates the name of the file where the output is written, and <code>SBATCH -n 14</code> indicates the number of cores or cpus allocated to the job. </p> <pre><code class="julia hljs"><span class=hljs-comment >#!/bin/bash</span>
+
+<span class=hljs-comment ># Slurm sbatch options</span>
+<span class=hljs-comment >#SBATCH -o pmap_julia.log-%j</span>
+<span class=hljs-comment >#SBATCH -n 14</span>
+
+<span class=hljs-comment ># Initialize the module command first source</span>
+source /etc/profile
+
+<span class=hljs-comment ># Load Julia Module</span>
+<span class=hljs-keyword >module</span> load julia/<span class=hljs-number >1.5</span><span class=hljs-number >.2</span>
+ 
+<span class=hljs-comment ># Load Gurobi Module</span>
+<span class=hljs-comment ># module load gurobi/gurobi-811            </span>
+ 
+<span class=hljs-comment ># Call your script as you would from the command line</span>
+<span class=hljs-comment ># Call your script as you would from the command line</span>
+julia pmap_julia.jl</code></pre> <h2 id=submitting_the_job ><a href="#submitting_the_job" class=header-anchor >Submitting the job</a></h2> <p>Now log in to MIT supercloud, copy the files created above to your working directory, and run the following command. Ensure that the <code>pwd</code> command results in the working directory, else use the command <code>cd directory_that_contains_the_code</code> to change the working directory.</p> <pre><code class="julia hljs">LLsub run_pmap_julia.sh</code></pre>
+<p>That&#39;s it&#33; Once the computation is done, we see from the output log file that parallelization has decreased the computation time significantly. </p>
+<pre><code class="julia hljs">benchmark <span class=hljs-keyword >for</span> serial code
+*************************
+BenchmarkTools.Trial: 
+  memory estimate:  <span class=hljs-number >26.20</span> GiB
+  allocs estimate:  <span class=hljs-number >210157358</span>
+  --------------
+  minimum time:     <span class=hljs-number >14.033</span> s (<span class=hljs-number >7.09</span>% GC)
+  median time:      <span class=hljs-number >14.093</span> s (<span class=hljs-number >7.41</span>% GC)
+  mean time:        <span class=hljs-number >14.093</span> s (<span class=hljs-number >7.41</span>% GC)
+  maximum time:     <span class=hljs-number >14.154</span> s (<span class=hljs-number >7.74</span>% GC)
+  --------------
+  samples:          <span class=hljs-number >2</span>
+  evals/sample:     <span class=hljs-number >1</span>
+benchmark <span class=hljs-keyword >for</span> parallel code
+***************************
+BenchmarkTools.Trial: 
+  memory estimate:  <span class=hljs-number >449.78</span> KiB
+  allocs estimate:  <span class=hljs-number >10213</span>
+  --------------
+  minimum time:     <span class=hljs-number >1.337</span> s (<span class=hljs-number >0.00</span>% GC)
+  median time:      <span class=hljs-number >1.369</span> s (<span class=hljs-number >0.00</span>% GC)
+  mean time:        <span class=hljs-number >1.377</span> s (<span class=hljs-number >0.00</span>% GC)
+  maximum time:     <span class=hljs-number >1.436</span> s (<span class=hljs-number >0.00</span>% GC)
+  --------------
+  samples:          <span class=hljs-number >19</span>
+  evals/sample:     <span class=hljs-number >1</span></code></pre>
+<p></p>
+<div class=page-foot >
+  <div class=copyright >
+    &copy; Shuvomoy Das Gupta. Last modified: June 05, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div>
+        </div> 
+    </div>

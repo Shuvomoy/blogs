@@ -1,0 +1,56 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blogs/libs/highlight/github.min.css"> <link rel=stylesheet  href="/blogs/css/franklin.css"> <link rel=stylesheet  href="/blogs/css/tufte.css"> <link rel=stylesheet  href="/blogs/css/latex.css"> <link rel=stylesheet  href="/blogs/css/adjust.css"> <link rel=icon  href="/blogs/assets/favicon.png"> <title> Saving data files in Julia</title> <div id=layout > <div id=menu > <ul> <li><a href="/blogs/">Home</a> <li><a href="/blogs/menu1/">Code blocks</a> <li><a href="/blogs/menu2/">More goodies</a> <li><a href="/blogs/menu3/">Tags</a> </ul> </div> <div id=main > <div class=franklin-content ><h1 id=saving_data_files_in_julia ><a href="#saving_data_files_in_julia" class=header-anchor >Saving data files in Julia</a></h1> <p><strong>Shuvomoy Das Gupta</strong></p> <p><em>April 28, 2020</em></p> <p>In this blog we will discuss ways of saving data into a file in Julia. We will discuss two methods of doing it: using <code>JLD2</code> package and writing directly into a <code>.jl</code> file. The literate code for this blog is available at: <a href="https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/codes/saving_data_files_julia.jl">this link</a>.</p> <hr /> <p><strong>Table of contents</strong></p> <div class=franklin-toc ><ol><li><a href="#method_1_using_jld2_package">Method 1: Using <code>JLD2</code> Package</a><li><a href="#method_2_writing_into_a_jl_file">Method 2: Writing into a <code>.jl</code> File</a></ol></div> <hr /> <h2 id=method_1_using_jld2_package ><a href="#method_1_using_jld2_package" class=header-anchor >Method 1: Using <code>JLD2</code> Package</a></h2> <p>Probably the quickest method to save the relevant data is to use the package <code>JLD2</code>.</p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> JLD2
+
+A = randn(<span class=hljs-number >5</span>,<span class=hljs-number >5</span>)
+
+b = randn(<span class=hljs-number >5</span>)
+
+str = <span class=hljs-string >&quot;hello world&quot;</span></code></pre> <p>Suppose, we want to save the variables <code>A</code>, <code>b</code>, and <code>str</code>, so that we could load them later for some other purpose.</p> <p>Saving is done by using the following command.</p> <pre><code class="julia hljs"><span class=hljs-meta >@save</span> <span class=hljs-string >&quot;example.jld2&quot;</span> A b str</code></pre>
+<p>Now suppose we want to load the variables<code>A</code>, <code>b</code>, and <code>str</code> into our workspace. Then we can do that using the following command.</p>
+<pre><code class="julia hljs"><span class=hljs-meta >@load</span> <span class=hljs-string >&quot;example.jld2&quot;</span> A b str</code></pre>
+<p>Which will load the desired variables in our work space.</p>
+<h2 id=method_2_writing_into_a_jl_file ><a href="#method_2_writing_into_a_jl_file" class=header-anchor >Method 2: Writing into a <code>.jl</code> File</a></h2>
+<p>Now, in some circles, people prefer to save their data into some sort of text file that can be opened and seen using notepad etc. In such case, we could proceed as follows.</p>
+<pre><code class="julia hljs">output_file = open(<span class=hljs-string >&quot;output_file.jl&quot;</span>,<span class=hljs-string >&quot;w&quot;</span>) <span class=hljs-comment ># this will create a file named output_file.jl, where we will write the data.</span>
+
+write(output_file, <span class=hljs-string >&quot;# We are saving the variables A, b, and str \n \n&quot;</span>) <span class=hljs-comment ># this line will act as a comment in the original file</span></code></pre>
+<p>The following command will write <code>A</code> into <code>output_file.jl</code></p>
+<pre><code class="julia hljs">write(output_file, <span class=hljs-string >&quot;A = &quot;</span>) <span class=hljs-comment ># writes A =</span>
+
+show(output_file, A) <span class=hljs-comment ># writes the content of A</span>
+
+write(output_file, <span class=hljs-string >&quot;; \n \n&quot;</span>) <span class=hljs-comment ># puts a semicolon to suppress the output and two line breaks</span></code></pre>
+<p>The following command will write <code>b</code> into <code>output_file.jl</code></p>
+<pre><code class="julia hljs">write(output_file, <span class=hljs-string >&quot;b = &quot;</span>) <span class=hljs-comment ># writes b =</span>
+
+show(output_file, b) <span class=hljs-comment ># writes the content of b</span>
+
+write(output_file, <span class=hljs-string >&quot;; \n \n&quot;</span>) <span class=hljs-comment ># puts a semicolon to suppress the output and two line breaks</span></code></pre>
+<p>The following command will write <code>str</code> into <code>output_file.jl</code></p>
+<pre><code class="julia hljs">write(output_file, <span class=hljs-string >&quot;str = &quot;</span>) <span class=hljs-comment ># writes str =</span>
+
+show(output_file, str) <span class=hljs-comment ># writes the content of str</span>
+
+write(output_file, <span class=hljs-string >&quot;; \n \n&quot;</span>) <span class=hljs-comment ># puts a semicolon to suppress the output and two line breaks</span></code></pre>
+<p>Finally we close the file.</p>
+<pre><code class="julia hljs">close(output_file)</code></pre>
+<p>The benefit of this method is that we can open <code>output_file.jl</code> as a normal julia file and observe the contents of <code>A</code>, <code>b</code>, <code>str</code> which are preferred by some people. If we open the file, it will look something similar to the following.</p>
+<pre><code class="julia hljs"><span class=hljs-comment ># We are saving the variables A, b, and c</span>
+
+A = [<span class=hljs-number >0.2660919202329622</span> <span class=hljs-number >0.3836364273856932</span> -<span class=hljs-number >0.0843680697224458</span> -<span class=hljs-number >0.41802388053627293</span> -<span class=hljs-number >0.3642969656325985</span>; -<span class=hljs-number >1.6326433489594656</span> <span class=hljs-number >0.8264017202126758</span> <span class=hljs-number >0.822230872741246</span> -<span class=hljs-number >2.131477875645448</span> -<span class=hljs-number >0.47154398683850046</span>; <span class=hljs-number >0.44945692740036236</span> <span class=hljs-number >1.8601083201122803</span> <span class=hljs-number >0.21328754042393291</span> <span class=hljs-number >1.6337810748330106</span> <span class=hljs-number >0.22377743588354782</span>; <span class=hljs-number >0.4650833154598731</span> <span class=hljs-number >0.7577147546636607</span> -<span class=hljs-number >0.3759919034593861</span> -<span class=hljs-number >0.7268603483224291</span> -<span class=hljs-number >1.355544453370908</span>; <span class=hljs-number >1.22775636169604</span> -<span class=hljs-number >0.6810273422844582</span> <span class=hljs-number >0.39118388831225326</span> <span class=hljs-number >0.6436653188719305</span> <span class=hljs-number >0.7072677389318383</span>];
+
+b = [-<span class=hljs-number >0.4480408521367389</span>, -<span class=hljs-number >0.2470478314562805</span>, -<span class=hljs-number >0.5170341188440505</span>, -<span class=hljs-number >0.5941415056081019</span>, -<span class=hljs-number >1.3602127485958821</span>];
+
+str = <span class=hljs-string >&quot;hello world&quot;</span>;</code></pre>
+<p>To load the variables in this case, we just run the following command.</p>
+<pre><code class="julia hljs">include(<span class=hljs-string >&quot;output_file.jl&quot;</span>)</code></pre>
+<p><strong>Some side note regarding generating the literate code:</strong> First, cd to the directory where the file is in by running the a command similar to the following. <code>cd&#40;&quot;C:\\Users\\shuvo\\Desktop&quot;&#41;</code> Then, run <code>using Literate</code> Finally, run <code>Literate.markdown&#40;&quot;name_of_the_file.jl&quot;, &quot;.&quot;; documenter&#61;false&#41;</code></p>
+<hr />
+<p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p>
+<div class=page-foot >
+  <div class=copyright >
+    &copy; Shuvomoy Das Gupta. Last modified: June 05, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div>
+        </div> 
+    </div>

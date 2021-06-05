@@ -1,0 +1,99 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blogs/libs/highlight/github.min.css"> <link rel=stylesheet  href="/blogs/css/franklin.css"> <link rel=stylesheet  href="/blogs/css/tufte.css"> <link rel=stylesheet  href="/blogs/css/latex.css"> <link rel=stylesheet  href="/blogs/css/adjust.css"> <link rel=icon  href="/blogs/assets/favicon.png"> <title>Running parallel Julia code on MIT Engaging</title> <div id=layout > <div id=menu > <ul> <li><a href="/blogs/">Home</a> <li><a href="/blogs/menu1/">Code blocks</a> <li><a href="/blogs/menu2/">More goodies</a> <li><a href="/blogs/menu3/">Tags</a> </ul> </div> <div id=main > <div class=franklin-content ><h1 id=running_parallel_julia_code_on_mit_engaging ><a href="#running_parallel_julia_code_on_mit_engaging" class=header-anchor >Running parallel Julia code on MIT Engaging</a></h1> <p><strong>Shuvomoy Das Gupta</strong></p> <p><em>February 1, 2021</em></p> <p>In this blog, we will discuss how to run parallel <code>Julia</code> code on MIT Engaging. </p> <hr /> <p><strong>Table of contents</strong></p> <div class=franklin-toc ><ol><li><a href="#setup">Setup</a><li><a href="#shell_script_to_submit_the_job">Shell script to submit the job</a><li><a href="#submitting_the_job">Submitting the job</a></ol></div> <hr /> <h2 id=setup ><a href="#setup" class=header-anchor >Setup</a></h2> <p>We can achieve this task by using parallelization techniques provided in <code>Julia</code>. For this blog, we will consider <code>pmap</code>. In the following code, we create 10 large matrices and then perform a singular value decomposition on each. We will show that parallelizing this computation can attain significant speedup simply.</p> <p><strong>Julia Code.</strong> The code for the <code>Julia</code> file is given below. Please save it in a text file and name it <code>pmap_julia.jl</code>. </p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> ClusterManagers,Distributed, BenchmarkTools
+
+<span class=hljs-comment ># Add in the cores allocated by the scheduler as workers</span>
+
+addprocs(SlurmManager(parse(<span class=hljs-built_in >Int</span>,<span class=hljs-literal >ENV</span>[<span class=hljs-string >&quot;SLURM_NTASKS&quot;</span>])-<span class=hljs-number >1</span>))
+
+print(<span class=hljs-string >&quot;Added workers: &quot;</span>)
+
+println(nworkers())
+
+<span class=hljs-keyword >using</span> LinearAlgebra <span class=hljs-comment ># Load the package centrally</span>
+
+<span class=hljs-meta >@everywhere</span> <span class=hljs-keyword >using</span> LinearAlgebra <span class=hljs-comment ># load it on each process</span>
+
+<span class=hljs-comment ># DATA GENERATION: The following code will be run only on one core</span>
+<span class=hljs-comment ># ----------------------------------------------------------------</span>
+
+<span class=hljs-comment ># create the array of random initial points</span>
+X_array=[rand(<span class=hljs-number >100</span>,<span class=hljs-number >100</span>) <span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >1</span>:<span class=hljs-number >10</span>]
+
+<span class=hljs-comment ># benchmark serial implementation</span>
+b1 = <span class=hljs-meta >@benchmark</span> map(svd, X_array)
+
+println(<span class=hljs-string >&quot;benchmark for serial code&quot;</span>)
+println(<span class=hljs-string >&quot;*************************&quot;</span>)
+io = <span class=hljs-built_in >IOBuffer</span>()
+show(io, <span class=hljs-string >&quot;text/plain&quot;</span>, b1)
+s = <span class=hljs-built_in >String</span>(take!(io))
+println(s)
+
+<span class=hljs-comment ># benchmark parallel implementation</span>
+b2 = <span class=hljs-meta >@benchmark</span> pmap(svd, X_array)
+
+println(<span class=hljs-string >&quot;benchmark for parallel code&quot;</span>)
+println(<span class=hljs-string >&quot;***************************&quot;</span>)
+io = <span class=hljs-built_in >IOBuffer</span>()
+show(io, <span class=hljs-string >&quot;text/plain&quot;</span>, b2)
+s = <span class=hljs-built_in >String</span>(take!(io))
+println(s)</code></pre> <p>Note that in the first line, we have loaded the packages that we use. If they are not installed, you can install them by running the following commands from <code>bash</code>. </p> <pre><code class="julia hljs">srun --pty -p sched_mit_sloan_interactive julia</code></pre>
+<p>This will start a <code>Julia REPL</code> in <code>bash</code>. Run the following commands: </p>
+<pre><code class="julia hljs">] add ClusterManagers,Distributed, BenchmarkTools</code></pre>
+<h2 id=shell_script_to_submit_the_job ><a href="#shell_script_to_submit_the_job" class=header-anchor >Shell script to submit the job</a></h2>
+<p>Now we are going to create a shell script that will be used to submit the job. The code for the shell script is below. Please save it in a text file, and name it <code>run_pmap_julia.sh</code>. In the code, <code>SBATCH -o pmap_julia.log-&#37;j</code> indicates the name of the file where the output is written, and <code>SBATCH -n 14</code> indicates the number of cores or cpus allocated to the job. </p>
+<pre><code class="julia hljs"><span class=hljs-comment >#!/bin/bash</span>
+
+<span class=hljs-comment ># Slurm sbatch options</span>
+<span class=hljs-comment >#SBATCH -o pmap_julia_log-%j.txt</span>
+<span class=hljs-comment >#SBATCH -n 14</span>
+
+<span class=hljs-comment ># Initialize the module command first source</span>
+source /etc/profile
+
+<span class=hljs-comment ># Load Julia Module</span>
+<span class=hljs-keyword >module</span> load julia/<span class=hljs-number >1.5</span><span class=hljs-number >.2</span>
+   
+ 
+<span class=hljs-comment ># Call your script as you would from the command line</span>
+<span class=hljs-comment ># Call your script as you would from the command line</span>
+julia pmap_julia.jl</code></pre>
+<h2 id=submitting_the_job ><a href="#submitting_the_job" class=header-anchor >Submitting the job</a></h2>
+<p>Now log in to MIT engaging, copy the files created above to your working directory, and run the following command. Ensure that the <code>pwd</code> command results in the working directory, else use the command <code>cd directory_that_contains_the_code</code> to change the working directory.</p>
+<pre><code class="julia hljs">sbatch run_pmap_julia.sh</code></pre>
+<p>That&#39;s it&#33; Once the computation is done, we see from the output log file that parallelization has decreased the computation time significantly: </p>
+<pre><code class="julia hljs">benchmark <span class=hljs-keyword >for</span> serial code
+*************************
+BenchmarkTools.Trial: 
+  memory estimate:  <span class=hljs-number >4.71</span> MiB
+  allocs estimate:  <span class=hljs-number >102</span>
+  --------------
+  minimum time:     <span class=hljs-number >52.735</span> ms (<span class=hljs-number >0.00</span>% GC)
+  median time:      <span class=hljs-number >53.473</span> ms (<span class=hljs-number >0.00</span>% GC)
+  mean time:        <span class=hljs-number >53.792</span> ms (<span class=hljs-number >0.15</span>% GC)
+  maximum time:     <span class=hljs-number >56.662</span> ms (<span class=hljs-number >4.62</span>% GC)
+  --------------
+  samples:          <span class=hljs-number >93</span>
+  evals/sample:     <span class=hljs-number >1</span>
+    
+benchmark <span class=hljs-keyword >for</span> parallel code
+***************************
+BenchmarkTools.Trial: 
+  memory estimate:  <span class=hljs-number >1.60</span> MiB
+  allocs estimate:  <span class=hljs-number >1436</span>
+  --------------
+  minimum time:     <span class=hljs-number >6.624</span> ms (<span class=hljs-number >0.00</span>% GC)
+  median time:      <span class=hljs-number >6.927</span> ms (<span class=hljs-number >0.00</span>% GC)
+  mean time:        <span class=hljs-number >7.172</span> ms (<span class=hljs-number >0.78</span>% GC)
+  maximum time:     <span class=hljs-number >12.139</span> ms (<span class=hljs-number >0.00</span>% GC)
+  --------------
+  samples:          <span class=hljs-number >697</span>
+  evals/sample:     <span class=hljs-number >1</span></code></pre>
+<p>where we see that the parallel code is more than 7 times faster than that of the serial code&#33;</p>
+<div class=page-foot >
+  <div class=copyright >
+    &copy; Shuvomoy Das Gupta. Last modified: June 05, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div>
+        </div> 
+    </div>
