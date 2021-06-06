@@ -4,10 +4,12 @@ var lunr    = require("lunr");
 var cheerio = require("cheerio");
 
 // don't modify this, it'll be modified on the fly by lunr() in Franklin
-const PATH_PREPEND = "../blogs";
+const PATH_PREPEND = "..";
 
-const HTML_FOLDER  = "../../__site";
+const HTML_FOLDER  = "../../__site/posts";
 const OUTPUT_INDEX = "lunr_index.js";
+
+const SHUVOS_SITE_URL = "https://shuvomoy.github.io/blogs"
 
 function isHtml(filename) {
     lower = filename.toLowerCase();
@@ -72,13 +74,18 @@ function buildIndex(docs) {
 }
 
 function buildPreviews(docs) {
+	console.log("Running the build preview function");
     var result = {};
     for (var i = 0; i < docs.length; i++) {
         var doc = docs[i];
+		console.log("document link before is", doc["l"]);
+		console.log("match found: ",doc["l"].match(/^\.\.\\\.\.\\__site/gi));
         result[doc["id"]] = {
             "t": doc["t"],
-            "l": doc["l"].replace(/^\.\.\/\.\.\/__site/gi, '/' + PATH_PREPEND)
+            "l": doc["l"].replace(/^\.\.\\\.\.\\__site/gi, SHUVOS_SITE_URL).replace(/\\/g, "/"),
+			// "l": doc["l"].replace('..\\..\\__site\\posts\\Computing-composition-of-operators-via-scaled-relative-graph-in-Mathematica\\index.html', SHUVOS_SITE_URL)
         }
+		console.log("document link after is", result);
     }
     return result;
 }
