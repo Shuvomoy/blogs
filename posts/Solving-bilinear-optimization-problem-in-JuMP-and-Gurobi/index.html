@@ -68,12 +68,15 @@
 <span class=hljs-keyword >end</span></code></pre> <h3 id=solve_from_scratch ><a href="#solve_from_scratch" class=header-anchor >Solve from scratch</a></h3> <pre><code class="julia hljs">d = <span class=hljs-number >10</span>
 status, x_sol, obj_value =  solve_bilinear(d; start_value_provided = :off, x_start_value = zeros(d), warm_start_type = :none, silent_flag = :off)</code></pre> <p>The output is:</p> <pre><code class="julia hljs">Continuous model is non-convex -- solving as a MIP.
 
-Presolve time: <span class=hljs-number >0.00</span>s
+Presolve time: <span class=hljs-number >0.02</span>s
 Presolved: <span class=hljs-number >61</span> rows, <span class=hljs-number >22</span> columns, <span class=hljs-number >120</span> nonzeros
 Presolved model has <span class=hljs-number >20</span> bilinear constraint(s)
 Variable types: <span class=hljs-number >22</span> continuous, <span class=hljs-number >0</span> integer (<span class=hljs-number >0</span> binary)
+Presolve removed <span class=hljs-number >39</span> rows and <span class=hljs-number >2</span> columns
+Presolved: <span class=hljs-number >22</span> rows, <span class=hljs-number >20</span> columns, <span class=hljs-number >59</span> nonzeros
 
-Root relaxation: objective <span class=hljs-number >4.955556e+01</span>, <span class=hljs-number >22</span> iterations, <span class=hljs-number >0.00</span> seconds
+
+Root relaxation: objective <span class=hljs-number >4.955556e+01</span>, <span class=hljs-number >19</span> iterations, <span class=hljs-number >0.01</span> seconds
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -89,22 +92,19 @@ Root relaxation: objective <span class=hljs-number >4.955556e+01</span>, <span c
 H    <span class=hljs-number >0</span>     <span class=hljs-number >0</span>                    -<span class=hljs-number >100.0000000</span>   <span class=hljs-number >24.99291</span>   <span class=hljs-number >125</span>%     -    <span class=hljs-number >0</span>s
 H    <span class=hljs-number >0</span>     <span class=hljs-number >0</span>                      <span class=hljs-number >23.9993796</span>   <span class=hljs-number >24.99291</span>  <span class=hljs-number >4.14</span>%     -    <span class=hljs-number >0</span>s
      <span class=hljs-number >0</span>     <span class=hljs-number >2</span>   <span class=hljs-number >24.99291</span>    <span class=hljs-number >0</span>   <span class=hljs-number >10</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >24.99291</span>  <span class=hljs-number >4.14</span>%     -    <span class=hljs-number >0</span>s
-*   <span class=hljs-number >88</span>    <span class=hljs-number >40</span>              <span class=hljs-number >21</span>      <span class=hljs-number >23.9997302</span>   <span class=hljs-number >24.02209</span>  <span class=hljs-number >0.09</span>%   <span class=hljs-number >3.1</span>    <span class=hljs-number >0</span>s
-*   <span class=hljs-number >89</span>    <span class=hljs-number >40</span>              <span class=hljs-number >20</span>      <span class=hljs-number >23.9997323</span>   <span class=hljs-number >24.02209</span>  <span class=hljs-number >0.09</span>%   <span class=hljs-number >3.0</span>    <span class=hljs-number >0</span>s
-*  <span class=hljs-number >113</span>    <span class=hljs-number >42</span>              <span class=hljs-number >21</span>      <span class=hljs-number >24.0000007</span>   <span class=hljs-number >24.01527</span>  <span class=hljs-number >0.06</span>%   <span class=hljs-number >2.4</span>    <span class=hljs-number >0</span>s
 
 Cutting planes:
-  RLT: <span class=hljs-number >12</span>
+  RLT: <span class=hljs-number >22</span>
 
-Explored <span class=hljs-number >397</span> nodes (<span class=hljs-number >334</span> simplex iterations) <span class=hljs-keyword >in</span> <span class=hljs-number >0.08</span> seconds
+Explored <span class=hljs-number >81</span> nodes (<span class=hljs-number >380</span> simplex iterations) <span class=hljs-keyword >in</span> <span class=hljs-number >0.18</span> seconds
 Thread count was <span class=hljs-number >8</span> (of <span class=hljs-number >8</span> available processors)
 
-Solution count <span class=hljs-number >5</span>: <span class=hljs-number >24</span> <span class=hljs-number >23.9997</span> <span class=hljs-number >23.9997</span> ... -<span class=hljs-number >100</span>
+Solution count <span class=hljs-number >2</span>: <span class=hljs-number >23.9994</span> -<span class=hljs-number >100</span>
 
 Optimal solution found (tolerance <span class=hljs-number >1.00e-04</span>)
-Best objective <span class=hljs-number >2.400000000071e+01</span>, best bound <span class=hljs-number >2.400212882957e+01</span>, gap <span class=hljs-number >0.0089</span>%
+Best objective <span class=hljs-number >2.399937963333e+01</span>, best bound <span class=hljs-number >2.400151700222e+01</span>, gap <span class=hljs-number >0.0089</span>%
 
-User-callback calls <span class=hljs-number >913</span>, time <span class=hljs-keyword >in</span> user-callback <span class=hljs-number >0.00</span> sec</code></pre> <p>Let us benchmark the results.</p> <pre><code class="julia hljs">b1 = <span class=hljs-meta >@benchmark</span> solve_bilinear(d; start_value_provided = :off, x_start_value = zeros(d), warm_start_type = :none,  silent_flag = :on)
+User-callback calls <span class=hljs-number >298</span>, time <span class=hljs-keyword >in</span> user-callback <span class=hljs-number >0.01</span> sec</code></pre> <p>Let us benchmark the results.</p> <pre><code class="julia hljs">b1 = <span class=hljs-meta >@benchmark</span> solve_bilinear(d; start_value_provided = :off, x_start_value = zeros(d), warm_start_type = :none,  silent_flag = :on)
 println(<span class=hljs-string >&quot;benchmark for original code without start value&quot;</span>)
 println(<span class=hljs-string >&quot;***************************&quot;</span>)
 io = <span class=hljs-built_in >IOBuffer</span>()
@@ -113,60 +113,57 @@ s = <span class=hljs-built_in >String</span>(take!(io))
 println(s)</code></pre> <p>Benchmarked output is as follows.</p> <pre><code class="julia hljs">benchmark <span class=hljs-keyword >for</span> original code without start value
 ***************************
 BenchmarkTools.Trial:
-  memory estimate:  <span class=hljs-number >70.95</span> KiB
-  allocs estimate:  <span class=hljs-number >1609</span>
+  memory estimate:  <span class=hljs-number >48.24</span> KiB
+  allocs estimate:  <span class=hljs-number >884</span>
   --------------
-  minimum time:     <span class=hljs-number >43.986</span> ms (<span class=hljs-number >0.00</span>% GC)
-  median time:      <span class=hljs-number >49.411</span> ms (<span class=hljs-number >0.00</span>% GC)
-  mean time:        <span class=hljs-number >50.885</span> ms (<span class=hljs-number >0.00</span>% GC)
-  maximum time:     <span class=hljs-number >99.086</span> ms (<span class=hljs-number >0.00</span>% GC)
+  minimum time:     <span class=hljs-number >45.491</span> ms (<span class=hljs-number >0.00</span>% GC)
+  median time:      <span class=hljs-number >55.348</span> ms (<span class=hljs-number >0.00</span>% GC)
+  mean time:        <span class=hljs-number >56.950</span> ms (<span class=hljs-number >0.00</span>% GC)
+  maximum time:     <span class=hljs-number >70.355</span> ms (<span class=hljs-number >0.00</span>% GC)
   --------------
-  samples:          <span class=hljs-number >99</span>
+  samples:          <span class=hljs-number >88</span>
   evals/sample:     <span class=hljs-number >1</span></code></pre> <h3 id=warm-starting_gurobi_with_a_known_feasible_solution ><a href="#warm-starting_gurobi_with_a_known_feasible_solution" class=header-anchor >Warm-starting <code>Gurobi</code> with a known feasible solution</a></h3> <p>What if we have a good guess of a solution for this problem? In that case, we can feed that vaue using <code>set_start_value&#40;variable_name, variable_start_value&#41;</code> function or <code>MOI.set&#40;nonlinear_model, Gurobi.VariableAttribute&#40;&quot;Start&quot;&#41;, variable_name, variable_start_value&#41;</code>. To test this, we just feed the optimal solution that we just found to test if the warm-starting is working. </p> <h3 id=warm-starting_via_jump ><a href="#warm-starting_via_jump" class=header-anchor >Warm-starting via <code>JuMP</code></a></h3> <pre><code class="julia hljs">status_2, x_sol_2, obj_value_2 = solve_bilinear(d; start_value_provided = :on, x_start_value = x_sol, warm_start_type = :JuMP, silent_flag = :off)</code></pre>
 <p>The output is:</p>
 <pre><code class="julia hljs">Continuous model is non-convex -- solving as a MIP.
 
 
-Loaded user MIP start with objective <span class=hljs-number >24</span>
+Loaded user MIP start with objective <span class=hljs-number >23.9994</span>
 
 Presolve time: <span class=hljs-number >0.00</span>s
 Presolved: <span class=hljs-number >61</span> rows, <span class=hljs-number >22</span> columns, <span class=hljs-number >120</span> nonzeros
 Presolved model has <span class=hljs-number >20</span> bilinear constraint(s)
 Variable types: <span class=hljs-number >22</span> continuous, <span class=hljs-number >0</span> integer (<span class=hljs-number >0</span> binary)
+Presolve removed <span class=hljs-number >39</span> rows and <span class=hljs-number >2</span> columns
+Presolved: <span class=hljs-number >22</span> rows, <span class=hljs-number >20</span> columns, <span class=hljs-number >59</span> nonzeros
 
-Root relaxation: objective <span class=hljs-number >4.955556e+01</span>, <span class=hljs-number >22</span> iterations, <span class=hljs-number >0.00</span> seconds
+
+Root relaxation: objective <span class=hljs-number >4.955556e+01</span>, <span class=hljs-number >19</span> iterations, <span class=hljs-number >0.00</span> seconds
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >49.55556</span>    <span class=hljs-number >0</span>   <span class=hljs-number >11</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >49.55556</span>   <span class=hljs-number >106</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.21341</span>    <span class=hljs-number >0</span>    <span class=hljs-number >2</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >25.21341</span>  <span class=hljs-number >5.06</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.09295</span>    <span class=hljs-number >0</span>    <span class=hljs-number >8</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >25.09295</span>  <span class=hljs-number >4.55</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.03730</span>    <span class=hljs-number >0</span>   <span class=hljs-number >10</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >25.03730</span>  <span class=hljs-number >4.32</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.01008</span>    <span class=hljs-number >0</span>   <span class=hljs-number >11</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >25.01008</span>  <span class=hljs-number >4.21</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >24.99757</span>    <span class=hljs-number >0</span>    <span class=hljs-number >6</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >24.99757</span>  <span class=hljs-number >4.16</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >24.99757</span>    <span class=hljs-number >0</span>   <span class=hljs-number >10</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >24.99757</span>  <span class=hljs-number >4.16</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >24.99299</span>    <span class=hljs-number >0</span>    <span class=hljs-number >7</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >24.99299</span>  <span class=hljs-number >4.14</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >2</span>   <span class=hljs-number >24.99299</span>    <span class=hljs-number >0</span>    <span class=hljs-number >7</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >24.99299</span>  <span class=hljs-number >4.14</span>%     -    <span class=hljs-number >0</span>s
-*  <span class=hljs-number >132</span>    <span class=hljs-number >38</span>              <span class=hljs-number >23</span>      <span class=hljs-number >24.0000000</span>   <span class=hljs-number >24.07289</span>  <span class=hljs-number >0.30</span>%   <span class=hljs-number >2.3</span>    <span class=hljs-number >0</span>s
-*  <span class=hljs-number >134</span>    <span class=hljs-number >38</span>              <span class=hljs-number >24</span>      <span class=hljs-number >24.0000001</span>   <span class=hljs-number >24.07289</span>  <span class=hljs-number >0.30</span>%   <span class=hljs-number >2.2</span>    <span class=hljs-number >0</span>s
-*  <span class=hljs-number >136</span>    <span class=hljs-number >38</span>              <span class=hljs-number >25</span>      <span class=hljs-number >24.0000002</span>   <span class=hljs-number >24.07289</span>  <span class=hljs-number >0.30</span>%   <span class=hljs-number >2.2</span>    <span class=hljs-number >0</span>s
-*  <span class=hljs-number >138</span>    <span class=hljs-number >38</span>              <span class=hljs-number >26</span>      <span class=hljs-number >24.0000002</span>   <span class=hljs-number >24.07289</span>  <span class=hljs-number >0.30</span>%   <span class=hljs-number >2.2</span>    <span class=hljs-number >0</span>s
-*  <span class=hljs-number >162</span>    <span class=hljs-number >50</span>              <span class=hljs-number >27</span>      <span class=hljs-number >24.0000002</span>   <span class=hljs-number >24.00709</span>  <span class=hljs-number >0.03</span>%   <span class=hljs-number >1.9</span>    <span class=hljs-number >0</span>s
-*  <span class=hljs-number >201</span>    <span class=hljs-number >60</span>              <span class=hljs-number >33</span>      <span class=hljs-number >24.0000010</span>   <span class=hljs-number >24.00097</span>  <span class=hljs-number >0.00</span>%   <span class=hljs-number >1.5</span>    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >49.55556</span>    <span class=hljs-number >0</span>   <span class=hljs-number >11</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >49.55556</span>   <span class=hljs-number >106</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.21341</span>    <span class=hljs-number >0</span>    <span class=hljs-number >2</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >25.21341</span>  <span class=hljs-number >5.06</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.09295</span>    <span class=hljs-number >0</span>    <span class=hljs-number >8</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >25.09295</span>  <span class=hljs-number >4.56</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.03730</span>    <span class=hljs-number >0</span>   <span class=hljs-number >10</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >25.03730</span>  <span class=hljs-number >4.32</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.01008</span>    <span class=hljs-number >0</span>   <span class=hljs-number >11</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >25.01008</span>  <span class=hljs-number >4.21</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >24.99757</span>    <span class=hljs-number >0</span>    <span class=hljs-number >6</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >24.99757</span>  <span class=hljs-number >4.16</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >24.99757</span>    <span class=hljs-number >0</span>   <span class=hljs-number >10</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >24.99757</span>  <span class=hljs-number >4.16</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >24.99299</span>    <span class=hljs-number >0</span>    <span class=hljs-number >7</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >24.99299</span>  <span class=hljs-number >4.14</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >2</span>   <span class=hljs-number >24.99299</span>    <span class=hljs-number >0</span>    <span class=hljs-number >7</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >24.99299</span>  <span class=hljs-number >4.14</span>%     -    <span class=hljs-number >0</span>s
 
 Cutting planes:
-  RLT: <span class=hljs-number >13</span>
+  RLT: <span class=hljs-number >22</span>
 
-Explored <span class=hljs-number >225</span> nodes (<span class=hljs-number >360</span> simplex iterations) <span class=hljs-keyword >in</span> <span class=hljs-number >0.08</span> seconds
+Explored <span class=hljs-number >81</span> nodes (<span class=hljs-number >440</span> simplex iterations) <span class=hljs-keyword >in</span> <span class=hljs-number >0.08</span> seconds
 Thread count was <span class=hljs-number >8</span> (of <span class=hljs-number >8</span> available processors)
 
-Solution count <span class=hljs-number >7</span>: <span class=hljs-number >24</span> <span class=hljs-number >24</span> <span class=hljs-number >24</span> ... <span class=hljs-number >24</span>
+Solution count <span class=hljs-number >1</span>: <span class=hljs-number >23.9994</span>
 
 Optimal solution found (tolerance <span class=hljs-number >1.00e-04</span>)
-Best objective <span class=hljs-number >2.400000000127e+01</span>, best bound <span class=hljs-number >2.400088240678e+01</span>, gap <span class=hljs-number >0.0037</span>%
+Best objective <span class=hljs-number >2.399937963333e+01</span>, best bound <span class=hljs-number >2.400120366930e+01</span>, gap <span class=hljs-number >0.0076</span>%
 
-User-callback calls <span class=hljs-number >572</span>, time <span class=hljs-keyword >in</span> user-callback <span class=hljs-number >0.00</span> sec</code></pre>
+User-callback calls <span class=hljs-number >274</span>, time <span class=hljs-keyword >in</span> user-callback <span class=hljs-number >0.00</span> sec</code></pre>
 <pre><code class="julia hljs">b2 = <span class=hljs-meta >@benchmark</span> solve_bilinear(d; start_value_provided = :on, x_start_value = x_sol, warm_start_type = :JuMP, silent_flag = :on)
 println(<span class=hljs-string >&quot;benchmark for original code with start value via JuMP&quot;</span>)
 println(<span class=hljs-string >&quot;***************************&quot;</span>)
@@ -176,64 +173,61 @@ s = <span class=hljs-built_in >String</span>(take!(io))
 println(s)</code></pre>
 <p>The benchmarking result is as follows.</p>
 <pre><code class="julia hljs">benchmark <span class=hljs-keyword >for</span> original code with start value via JuMP
-  ***************************
-  BenchmarkTools.Trial:
-    memory estimate:  <span class=hljs-number >59.13</span> KiB
-    allocs estimate:  <span class=hljs-number >1245</span>
-    --------------
-    minimum time:     <span class=hljs-number >39.369</span> ms (<span class=hljs-number >0.00</span>% GC)
-    median time:      <span class=hljs-number >45.292</span> ms (<span class=hljs-number >0.00</span>% GC)
-    mean time:        <span class=hljs-number >45.876</span> ms (<span class=hljs-number >0.00</span>% GC)
-    maximum time:     <span class=hljs-number >94.449</span> ms (<span class=hljs-number >0.00</span>% GC)
-    --------------
-    samples:          <span class=hljs-number >109</span>
-    evals/sample:     <span class=hljs-number >1</span></code></pre>
+***************************
+BenchmarkTools.Trial:
+  memory estimate:  <span class=hljs-number >48.43</span> KiB
+  allocs estimate:  <span class=hljs-number >904</span>
+  --------------
+  minimum time:     <span class=hljs-number >43.148</span> ms (<span class=hljs-number >0.00</span>% GC)
+  median time:      <span class=hljs-number >47.913</span> ms (<span class=hljs-number >0.00</span>% GC)
+  mean time:        <span class=hljs-number >49.426</span> ms (<span class=hljs-number >0.00</span>% GC)
+  maximum time:     <span class=hljs-number >84.259</span> ms (<span class=hljs-number >0.00</span>% GC)
+  --------------
+  samples:          <span class=hljs-number >102</span>
+  evals/sample:     <span class=hljs-number >1</span></code></pre>
 <h3 id=warm-starting_via_gurobijl ><a href="#warm-starting_via_gurobijl" class=header-anchor >Warm-starting via <code>Gurobi.jl</code></a></h3>
 <pre><code class="julia hljs">status_3, x_sol_3, obj_value_3 = solve_bilinear(d; start_value_provided = :on, x_start_value = x_sol, warm_start_type =  :Gurobi_direct, silent_flag = :off)</code></pre>
 <p>The output is:</p>
 <pre><code class="julia hljs">Continuous model is non-convex -- solving as a MIP.
 
 
-Loaded user MIP start with objective <span class=hljs-number >24</span>
+Loaded user MIP start with objective <span class=hljs-number >23.9994</span>
 
 Presolve time: <span class=hljs-number >0.00</span>s
 Presolved: <span class=hljs-number >61</span> rows, <span class=hljs-number >22</span> columns, <span class=hljs-number >120</span> nonzeros
 Presolved model has <span class=hljs-number >20</span> bilinear constraint(s)
 Variable types: <span class=hljs-number >22</span> continuous, <span class=hljs-number >0</span> integer (<span class=hljs-number >0</span> binary)
+Presolve removed <span class=hljs-number >39</span> rows and <span class=hljs-number >2</span> columns
+Presolved: <span class=hljs-number >22</span> rows, <span class=hljs-number >20</span> columns, <span class=hljs-number >59</span> nonzeros
 
-Root relaxation: objective <span class=hljs-number >4.955556e+01</span>, <span class=hljs-number >22</span> iterations, <span class=hljs-number >0.00</span> seconds
+
+Root relaxation: objective <span class=hljs-number >4.955556e+01</span>, <span class=hljs-number >19</span> iterations, <span class=hljs-number >0.00</span> seconds
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >49.55556</span>    <span class=hljs-number >0</span>   <span class=hljs-number >11</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >49.55556</span>   <span class=hljs-number >106</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.21341</span>    <span class=hljs-number >0</span>    <span class=hljs-number >2</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >25.21341</span>  <span class=hljs-number >5.06</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.09295</span>    <span class=hljs-number >0</span>    <span class=hljs-number >8</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >25.09295</span>  <span class=hljs-number >4.55</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.03730</span>    <span class=hljs-number >0</span>   <span class=hljs-number >10</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >25.03730</span>  <span class=hljs-number >4.32</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.01008</span>    <span class=hljs-number >0</span>   <span class=hljs-number >11</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >25.01008</span>  <span class=hljs-number >4.21</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >24.99757</span>    <span class=hljs-number >0</span>    <span class=hljs-number >6</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >24.99757</span>  <span class=hljs-number >4.16</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >24.99757</span>    <span class=hljs-number >0</span>   <span class=hljs-number >10</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >24.99757</span>  <span class=hljs-number >4.16</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >24.99299</span>    <span class=hljs-number >0</span>    <span class=hljs-number >7</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >24.99299</span>  <span class=hljs-number >4.14</span>%     -    <span class=hljs-number >0</span>s
-     <span class=hljs-number >0</span>     <span class=hljs-number >2</span>   <span class=hljs-number >24.99299</span>    <span class=hljs-number >0</span>    <span class=hljs-number >7</span>   <span class=hljs-number >24.00000</span>   <span class=hljs-number >24.99299</span>  <span class=hljs-number >4.14</span>%     -    <span class=hljs-number >0</span>s
-*  <span class=hljs-number >132</span>    <span class=hljs-number >38</span>              <span class=hljs-number >23</span>      <span class=hljs-number >24.0000000</span>   <span class=hljs-number >24.07289</span>  <span class=hljs-number >0.30</span>%   <span class=hljs-number >2.3</span>    <span class=hljs-number >0</span>s
-*  <span class=hljs-number >134</span>    <span class=hljs-number >38</span>              <span class=hljs-number >24</span>      <span class=hljs-number >24.0000001</span>   <span class=hljs-number >24.07289</span>  <span class=hljs-number >0.30</span>%   <span class=hljs-number >2.2</span>    <span class=hljs-number >0</span>s
-*  <span class=hljs-number >136</span>    <span class=hljs-number >38</span>              <span class=hljs-number >25</span>      <span class=hljs-number >24.0000002</span>   <span class=hljs-number >24.07289</span>  <span class=hljs-number >0.30</span>%   <span class=hljs-number >2.2</span>    <span class=hljs-number >0</span>s
-*  <span class=hljs-number >138</span>    <span class=hljs-number >38</span>              <span class=hljs-number >26</span>      <span class=hljs-number >24.0000002</span>   <span class=hljs-number >24.07289</span>  <span class=hljs-number >0.30</span>%   <span class=hljs-number >2.2</span>    <span class=hljs-number >0</span>s
-*  <span class=hljs-number >162</span>    <span class=hljs-number >50</span>              <span class=hljs-number >27</span>      <span class=hljs-number >24.0000002</span>   <span class=hljs-number >24.00709</span>  <span class=hljs-number >0.03</span>%   <span class=hljs-number >1.9</span>    <span class=hljs-number >0</span>s
-*  <span class=hljs-number >201</span>    <span class=hljs-number >60</span>              <span class=hljs-number >33</span>      <span class=hljs-number >24.0000010</span>   <span class=hljs-number >24.00097</span>  <span class=hljs-number >0.00</span>%   <span class=hljs-number >1.5</span>    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >49.55556</span>    <span class=hljs-number >0</span>   <span class=hljs-number >11</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >49.55556</span>   <span class=hljs-number >106</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.21341</span>    <span class=hljs-number >0</span>    <span class=hljs-number >2</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >25.21341</span>  <span class=hljs-number >5.06</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.09295</span>    <span class=hljs-number >0</span>    <span class=hljs-number >8</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >25.09295</span>  <span class=hljs-number >4.56</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.03730</span>    <span class=hljs-number >0</span>   <span class=hljs-number >10</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >25.03730</span>  <span class=hljs-number >4.32</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >25.01008</span>    <span class=hljs-number >0</span>   <span class=hljs-number >11</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >25.01008</span>  <span class=hljs-number >4.21</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >24.99757</span>    <span class=hljs-number >0</span>    <span class=hljs-number >6</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >24.99757</span>  <span class=hljs-number >4.16</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >24.99757</span>    <span class=hljs-number >0</span>   <span class=hljs-number >10</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >24.99757</span>  <span class=hljs-number >4.16</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >0</span>   <span class=hljs-number >24.99299</span>    <span class=hljs-number >0</span>    <span class=hljs-number >7</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >24.99299</span>  <span class=hljs-number >4.14</span>%     -    <span class=hljs-number >0</span>s
+     <span class=hljs-number >0</span>     <span class=hljs-number >2</span>   <span class=hljs-number >24.99299</span>    <span class=hljs-number >0</span>    <span class=hljs-number >7</span>   <span class=hljs-number >23.99938</span>   <span class=hljs-number >24.99299</span>  <span class=hljs-number >4.14</span>%     -    <span class=hljs-number >0</span>s
 
 Cutting planes:
-  RLT: <span class=hljs-number >13</span>
+  RLT: <span class=hljs-number >22</span>
 
-Explored <span class=hljs-number >225</span> nodes (<span class=hljs-number >360</span> simplex iterations) <span class=hljs-keyword >in</span> <span class=hljs-number >0.08</span> seconds
+Explored <span class=hljs-number >81</span> nodes (<span class=hljs-number >440</span> simplex iterations) <span class=hljs-keyword >in</span> <span class=hljs-number >0.09</span> seconds
 Thread count was <span class=hljs-number >8</span> (of <span class=hljs-number >8</span> available processors)
 
-Solution count <span class=hljs-number >7</span>: <span class=hljs-number >24</span> <span class=hljs-number >24</span> <span class=hljs-number >24</span> ... <span class=hljs-number >24</span>
+Solution count <span class=hljs-number >1</span>: <span class=hljs-number >23.9994</span>
 
 Optimal solution found (tolerance <span class=hljs-number >1.00e-04</span>)
-Best objective <span class=hljs-number >2.400000000127e+01</span>, best bound <span class=hljs-number >2.400088240678e+01</span>, gap <span class=hljs-number >0.0037</span>%
+Best objective <span class=hljs-number >2.399937963333e+01</span>, best bound <span class=hljs-number >2.400120366930e+01</span>, gap <span class=hljs-number >0.0076</span>%
 
-User-callback calls <span class=hljs-number >574</span>, time <span class=hljs-keyword >in</span> user-callback <span class=hljs-number >0.00</span> sec</code></pre>
+User-callback calls <span class=hljs-number >267</span>, time <span class=hljs-keyword >in</span> user-callback <span class=hljs-number >0.00</span> sec</code></pre>
 <p>Let&#39;s take a look at the benchmarking output for this case.</p>
 <pre><code class="julia hljs">b3 = <span class=hljs-meta >@benchmark</span> solve_bilinear(d; start_value_provided = :on, x_start_value = x_sol, warm_start_type = :Gurobi_direct, silent_flag = :on)
 println(<span class=hljs-string >&quot;benchmark for original code with start value via Gurobi.jl&quot;</span>)
@@ -246,15 +240,15 @@ println(s)</code></pre>
 <pre><code class="julia hljs">benchmark <span class=hljs-keyword >for</span> original code with start value via Gurobi.jl
 ***************************
 BenchmarkTools.Trial:
-  memory estimate:  <span class=hljs-number >59.29</span> KiB
-  allocs estimate:  <span class=hljs-number >1255</span>
+  memory estimate:  <span class=hljs-number >48.46</span> KiB
+  allocs estimate:  <span class=hljs-number >910</span>
   --------------
-  minimum time:     <span class=hljs-number >40.251</span> ms (<span class=hljs-number >0.00</span>% GC)
-  median time:      <span class=hljs-number >45.390</span> ms (<span class=hljs-number >0.00</span>% GC)
-  mean time:        <span class=hljs-number >46.182</span> ms (<span class=hljs-number >0.00</span>% GC)
-  maximum time:     <span class=hljs-number >60.957</span> ms (<span class=hljs-number >0.00</span>% GC)
+  minimum time:     <span class=hljs-number >31.733</span> ms (<span class=hljs-number >0.00</span>% GC)
+  median time:      <span class=hljs-number >36.254</span> ms (<span class=hljs-number >0.00</span>% GC)
+  mean time:        <span class=hljs-number >37.185</span> ms (<span class=hljs-number >0.00</span>% GC)
+  maximum time:     <span class=hljs-number >73.067</span> ms (<span class=hljs-number >0.00</span>% GC)
   --------------
-  samples:          <span class=hljs-number >109</span>
+  samples:          <span class=hljs-number >135</span>
   evals/sample:     <span class=hljs-number >1</span></code></pre>
 <p>We see that in both warm-starting procedures, <code>Gurobi</code> accepts the provided solution, which makes the branch and bound method work somewhat better &#40;number of explored nodes goes down from 397 to 225 after warm-starting&#41;. Of course, because the problem size is small, it does not impact the runtime significantly.</p>
 <h3 id=some_helpful_online_links_on_speeding_up_the_solution_process ><a href="#some_helpful_online_links_on_speeding_up_the_solution_process" class=header-anchor >Some helpful online links on speeding up the solution process</a></h3>
@@ -268,7 +262,7 @@ BenchmarkTools.Trial:
 </ol>
 <div class=page-foot >
   <div class=copyright >
-    &copy; Shuvomoy Das Gupta. Last modified: June 11, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+    &copy; Shuvomoy Das Gupta. Last modified: June 18, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
   </div>
 </div>
 </div>
