@@ -1,4 +1,4 @@
-@def title = "  Solving mixed-integer quadratic programming (MIQP) using Julia+JuMP"
+@def title = "Solving mixed-integer quadratic programming (MIQP) using Julia+JuMP"
 @def published ="January 20, 2020"
 @def tags =["programming", "Julia", "optimization"]
 
