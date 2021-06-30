@@ -10,19 +10,15 @@ As an illustrative example, we will consider the sparse regression problem. The 
 $$
 \begin{array}{ll} \textrm{minimize} & \|Ax-b\|^{2}\\ \textrm{subject to} & \mathbf{card}(x)\leq k\\ & \|x\|_{\infty}\leq M, \end{array} 
 $$
-
-
 where $x\in\mathbf{R}^{n}$ is the decision variable, and $A\in\mathbf{R}^{m\times n},b\in\mathbf{R}^{m},$ and $M\in\mathbf{R}$ are problem data. Here, $\mathbf{card}(x)$ is the number of nonzero components in $x$.
 
 **Modeling sparse regression problem as a MIQP.** The sparse regression problem can be modeled as the following MIQP: 
 $$
 \begin{array}{ll} \textrm{minimize} & \|Ax-b\|^{2}\\ \textrm{subject to} & |x_{i}|\leq My_{i},\quad i=1,\ldots,n \qquad (1)\\ & \sum_{i=1}^{n}y_{i}\leq k\\ & x\in\mathbf{R}^{n},y\in\{0,1\}^{n}, \end{array}
 $$
- where $x, y$ are decision variables.
+where $x, y$ are decision variables.
 
 We can write our objective function as 
-
-
 $$
 \begin{align*} \|Ax-b\|^{2} & =(Ax-b)^{\intercal}(Ax-b)\\ & =(x^{\intercal}A^{\intercal}-b^{\intercal})(Ax-b)\\ & =x^{\intercal}(A^{\intercal}A)x+(-2A^{\intercal}b)^{\intercal}x+\|b\|^{2}, 
 \end{align*}
