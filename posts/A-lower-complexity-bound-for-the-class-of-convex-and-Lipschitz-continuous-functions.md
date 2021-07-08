@@ -27,6 +27,7 @@ Kluwer Academic Publishers, 2004.
 \toc
 
 ---
+### Background
 
 #### Large-scale convex optimization problem
 
@@ -39,7 +40,7 @@ where $x\in\mathbf{R}^{d}$ is the decision variable and $d$ is a very large numb
 
 #### The concept of oracle
 
-We assume that information on this objective function $f$ is gained through a first-order oracle. Given an input point $x\in\mathbf{R}^{d},$this oracle returns
+We assume that information on this objective function $f$ is gained through a first-order oracle. Given an input point $x\in\mathbf{R}^{d},$ this oracle returns
 
 -   $f(x)$, which is the value of the objective function, and
 
@@ -86,13 +87,20 @@ Define the function:
 
 $$f(x) := \frac{\mu}{2}\|x\|_{2}^{2}+\gamma\max\{x[1],x[2],\ldots x[N+1]\},$$ 
 
-where $x[i]$ denotes the $i$-th component of the vector $x$ and $\gamma$ and $\mu$ are some positive numbers. For now, we do not specify what $\mu$ and $\gamma$ are, we will automatically find their values in terms of $L$ and $R$ down the line. Note that $f$ is convex by definition. Using subdifferential calculus, we can write down the closed-form expression of $f$ at a point $x\in\mathbf{R}^{d}$, given by 
+where $x[i]$ denotes the $i$-th component of the vector $x$, and $\gamma$ and $\mu$ are some positive numbers. For now, we do not specify what $\mu$ and $\gamma$ are, we will automatically find their values in terms of $L$ and $R$ down the line. Note that $f$ is convex by definition. Using subdifferential calculus, we can write down the closed-form expression of $f$ at a point $x\in\mathbf{R}^{d}$, given by 
+~~~
+<label for="mn-demo-s3" class="margin-toggle">&#8853;</label>
+<input type="checkbox" id="mn-demo" class="margin-toggle"/>
+<span class="marginnote">
+For any \(i\in\{1,2,\ldots\}\), \(e_i\in\mathbf{R}^d\) corresponds to the unit vector that has 1 in its \(i\)-th coordinate and 0 everywhere else.
+</span>
+~~~
 
 $$\begin{aligned}
 \partial f(x) & =\mu x+\gamma\mathbf{conv}\{e_{k}\mid k\in I(x)\}\\
  & =\mu x+\gamma\left\{ \sum_{k\in I(x)}\lambda_{k}e_{k}\mid\left(\forall k\in I(x)\right)\;\lambda_{k}\geq0,\sum_{k\in I(x)}\lambda_{k}=1\right\} \end{aligned}$$
 
- where $$I(x)=\{\ell\in[1:N+1]\mid x[\ell]=\max\{x[1],x[2],\ldots x[N+1]\}\},$$ *i.e.*, any element of $I(x)$ corresponds to an index of a maximal component of vector $x=\{x[1],\ldots,x[N+1],\ldots,x[d]\}$ searched over its first $N+1$ components. Also, for any $i\in\{1,2,\ldots\}$, $e_i\in\mathbf{R}^d$ corresponds to the unit vector that has $1$ in its $i$-th coordinate and $0$ everywhere else.
+ where $$I(x)=\{\ell\in[1:N+1]\mid x[\ell]=\max\{x[1],x[2],\ldots x[N+1]\}\},$$ *i.e.*, any element of $I(x)$ corresponds to an index of a maximal component of vector $x=\{x[1],\ldots,x[N+1],\ldots,x[d]\}$ searched over its first $N+1$ components. Also, .
 
 #### A handy inequality to bound the subgradient of $f$
 
