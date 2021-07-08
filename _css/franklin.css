@@ -254,8 +254,9 @@ td {
 /* ==================================================================
     KATEX
 ================================================================== */
-
+/*
 body { counter-reset: eqnum; }
+*/
 
 .katex { font-size: 1em !important; }
 
@@ -267,7 +268,7 @@ body { counter-reset: eqnum; }
   white-space: normal;
 }
 
-/* This prevents equation numbering
+/* This prevents equation numbering 
 .katex-display::after {
   counter-increment: eqnum;
   content: "(" counter(eqnum) ")";
