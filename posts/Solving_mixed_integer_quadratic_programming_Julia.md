@@ -2,6 +2,16 @@
 @def published ="January 20, 2020"
 @def tags =["programming", "Julia", "optimization"]
 
+
+
+# Solving mixed-integer quadratic programming (MIQP) using Julia+JuMP
+
+**Shuvomoy Das Gupta**
+
+*January 20, 2020*
+
+
+
 In this blog, we will discuss how to solve a mixed-integer quadratic programming problem (MIQP) using `Julia` and `JuMP`. My versions of `Julia`, `JuMP`, and `Gurobi` are 1.3.0, 0.20.1, and 0.7.4, respectively.
 
 As an illustrative example, we will consider the sparse regression problem. The sparse regression is a nonconvex optimization problem with applications to gene expression analysis and signal processing etc.

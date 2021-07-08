@@ -267,6 +267,7 @@ body { counter-reset: eqnum; }
   white-space: normal;
 }
 
+/* This prevents equation numbering
 .katex-display::after {
   counter-increment: eqnum;
   content: "(" counter(eqnum) ")";
@@ -279,6 +280,7 @@ body { counter-reset: eqnum; }
   counter-increment: nothing;
   content: "";
 }
+*/
 
 /* ==================================================================
     CODE & HIGHLIGHT.JS
