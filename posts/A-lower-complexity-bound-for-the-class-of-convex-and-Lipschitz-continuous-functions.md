@@ -31,7 +31,7 @@ Kluwer Academic Publishers, 2004.
 
 #### Large-scale convex optimization problem
 
-Consider an large-scale convex optimization problem of the form 
+Consider a large-scale convex optimization problem of the form 
 
 $$\begin{array}{ll}
 \textrm{minimize} & f(x),\quad(P)\end{array}$$ 
@@ -100,7 +100,7 @@ $$\begin{aligned}
 \partial f(x) & =\mu x+\gamma\mathbf{conv}\{e_{k}\mid k\in I(x)\}\\
  & =\mu x+\gamma\left\{ \sum_{k\in I(x)}\lambda_{k}e_{k}\mid\left(\forall k\in I(x)\right)\;\lambda_{k}\geq0,\sum_{k\in I(x)}\lambda_{k}=1\right\} \end{aligned}$$
 
- where $$I(x)=\{\ell\in[1:N+1]\mid x[\ell]=\max\{x[1],x[2],\ldots x[N+1]\}\},$$ *i.e.*, any element of $I(x)$ corresponds to an index of a maximal component of vector $x=\{x[1],\ldots,x[N+1],\ldots,x[d]\}$ searched over its first $N+1$ components. Also, .
+ where $$I(x)=\{\ell\in[1:N+1]\mid x[\ell]=\max\{x[1],x[2],\ldots x[N+1]\}\},$$ *i.e.*, any element of $I(x)$ corresponds to an index of a maximal component of vector $x=\{x[1],\ldots,x[N+1],\ldots,x[d]\}$ searched over its first $N+1$ components. 
 
 #### A handy inequality to bound the subgradient of $f$
 
@@ -114,7 +114,7 @@ $$\begin{aligned}
  & =\mu\|x\|_{2}+\gamma\\
  & \overset{c)}{\leq}\mu\left(R+\|x_{\star}\|_{2}\right)+\gamma\qquad(1)\end{aligned}$$ 
 
-where $a)$ and $b)$ use the triangle inequality and the fact that $\lambda_{k}\geq0$ for all $k\in I(x)$, and $c)$ use the reverse triangle inequality: 
+where $a)$ and $b)$ use the triangle inequality and the fact that $\lambda_{k}\geq0$ for all $k\in I(x)$, and $c)$ uses the reverse triangle inequality: 
 
 $$\begin{aligned}
  & \|x\|_{2}-\|x_{\star}\|_{2}\leq\|x-x_{\star}\|_{2}\leq R\\
@@ -128,12 +128,16 @@ $$\begin{aligned}
 f(y) & \geq f(x)+\left\langle f^{\prime}(x)\mid y-x\right\rangle \\
 \Leftrightarrow f(x)-f(y) & \leq-\left\langle f^{\prime}(x)\mid y-x\right\rangle \\
  & =\left\langle f^{\prime}(x)\mid x-y\right\rangle \\
- & \overset{a)}{\leq}\|f^{\prime}(x)\|x-y\|\\
- & \overset{b)}{\leq}\left(\mu\left(R+\|x_{\star}\|_{2}\right)+\gamma\right)\|x-y\|,\end{aligned}$$ 
+ & \overset{a)}{\leq}\|f^{\prime}(x)\|_2 \|x-y\|_2\\
+ & \overset{b)}{\leq}\left(\mu\left(R+\|x_{\star}\|_{2}\right)+\gamma\right)\|x-y\|_2,\end{aligned}$$ 
 
-where $a)$ uses Cauchy--Schwarz inequality and $b)$ uses (1). The last inequality is symmetric with respect to $x$ and $y$, hence for any $x,y\in B(x_{\star};R)$, we also have: $$f(y)-f(x)\leq\left(\mu\left(R+\|x_{\star}\|_{2}\right)+\gamma\right)\|y-x\|.$$ Thus, combining the last two inequalities, for any $x,y\in B(x_{\star};R)$, we have 
+where $a)$ uses Cauchy--Schwarz inequality and $b)$ uses (1). The last inequality is symmetric with respect to $x$ and $y$, hence for any $x,y\in B(x_{\star};R)$, we also have: 
 
-$$|f(y)-f(x)|=\max\{f(y)-f(x),-\left(f(y)-f(x)\right)\}\leq\left(\mu\left(R+\|x_{\star}\|_{2}\right)+\gamma\right)\|y-x\|,$$ 
+$$f(y)-f(x)\leq\left(\mu\left(R+\|x_{\star}\|_{2}\right)+\gamma\right)\|y-x\|_2.$$ 
+
+Thus, combining the last two inequalities, for any $x,y\in B(x_{\star};R)$, we have 
+
+$$|f(y)-f(x)|=\max\{f(y)-f(x),-\left(f(y)-f(x)\right)\}\leq\left(\mu\left(R+\|x_{\star}\|_{2}\right)+\gamma\right)\|y-x\|_2,$$ 
 
 *i.e.*, $f$ is $\left(\mu\left(R+\|x_{\star}\|_{2}\right)+\gamma\right)$-Lipschitz continuous on $B(x_{\star};R)$. 
 
@@ -145,7 +149,15 @@ which we will do in the end.
 
 #### Defining the oracle
 
-Now let us define the oracle. When asked for first-order information about the function at a point $x$, the oracle returns the function value $f(x)$, and one subgradient of $f$ at $x$ given by $$f^{\prime}(x)=\mu x+\gamma e_{i_{x}}\in\partial f(x),$$ where $i_{x}$ is the *first* coordinate of $x$ that satisfies $x[i_{x}]=\max_{j\in[1:N+1]}x[j],$ *i.e.*, $$i_{x}=\min I(x).$$ We will see soon that this oracle is providing us the worst possible subgradient for reducing function value in $N$ iterates, and this type of oracle is called *resisting oracle.*
+Now let us define the oracle. When asked for first-order information about the function at a point $x$, the oracle returns the function value $f(x)$, and one subgradient of $f$ at $x$ given by 
+
+$$f^{\prime}(x)=\mu x+\gamma e_{i_{x}}\in\partial f(x),$$
+
+ where $i_{x}$ is the *first* coordinate of $x$ that satisfies $x[i_{x}]=\max_{j\in[1:N+1]}x[j],$  *i.e.*, 
+
+$$i_{x}=\min I(x).$$ 
+
+We will see soon that this oracle is providing us the worst possible subgradient for reducing function value in $N$ iterates, and this type of oracle is called *resisting oracle.*
 
 #### Constructing a global minimum of $f$
 
@@ -160,7 +172,11 @@ which has norm
 
 $$\|x_{\star}\|_{2}=\frac{\gamma}{\mu\sqrt{N+1}}.\qquad\textrm{(NrmOptPnt)}$$ 
 
-Keep in mind that, in the end we need to pick the value of $\gamma$ and $\mu$ in such a way so that the condition $$\|x_{0}-x_{\star}\|_{2}\leq R\qquad\textrm{(OptPntDist)}$$ is satisfied. We claim that $x_{\star}$ is a global minimum of $f$. First, observe that: 
+Keep in mind that, in the end we need to pick the value of $\gamma$ and $\mu$ in such a way so that the condition 
+
+$$\|x_{0}-x_{\star}\|_{2}\leq R\qquad\textrm{(OptPntDist)}$$ 
+
+is satisfied. We claim that $x_{\star}$ is a global minimum of $f$. First, observe that: 
 
 $$\begin{aligned}
 I(x_{\star}) & =\{\ell\in[1:N+1]\mid x_{\star}[\ell]=\max\{x_{\star}[1],x_{\star}[2],\ldots x_{\star}[N+1]\}\}\\
@@ -253,7 +269,7 @@ x_{2} & \in x_{0}+\textrm{span}\{f^{\prime}(x_{0}),f^{\prime}(x_{1})\}\\
  & =\textrm{span}\{\gamma e_{1},\mu\xi_{1}\gamma e_{1}+\gamma(e_{1}\textrm{ or }e_{2})\}\\
  & =\textrm{span}\{e_{1},e_{2}\}.\end{aligned}$$
 
- Continuing in this manner, we can show that for any $i\in[1:N],$ we have $$x_{i}\in\textrm{span}\{e_{1},e_{2},\ldots,e_{i}\},$$ and as a result, components of $x_{i}$ corresponding to indices $N+1,\ldots,d$ will be zero for all $i\in[1:N]$, *i.e.*, 
+Continuing in this manner, we can show that for any $i\in[1:N],$ we have $$x_{i}\in\textrm{span}\{e_{1},e_{2},\ldots,e_{i}\},$$ and as a result, components of $x_{i}$ corresponding to indices $N+1,\ldots,d$ will be zero for all $i\in[1:N]$, *i.e.*, 
 
 $$x_{i}[N+1]=\ldots=x_{i}[d]=0.$$
 
@@ -276,13 +292,13 @@ f(x_{N})-f(x_{\star}) & \geq0-f(x_{\star})\\
 
 Now we are left to picking the values of $\gamma$ and $\mu$ in terms of $L$ and $R$. For that we need to be mindful of two constraints that $\gamma$ and $\mu$ need to satisfy:
 
-- (ConstraitntOnL) 
+- From (ConstraitntOnL) :
 
   $$\begin{aligned}
   L & =\mu\left(R+\|x_{\star}\|_{2}\right)+\gamma\\
    & =\mu\left(R+\frac{\gamma}{\mu\sqrt{N+1}}\right)+\gamma,\end{aligned}$$ and
 
-- (OptPntDist) 
+- From (OptPntDist) :
 
   $$\|x_{0}-x_{\star}\|_{2}^{2}=\|0-x_{\star}\|_{2}^{2}=\frac{\gamma^{2}}{\mu^{2}(N+1)}\leq R^{2},$$ 
 
@@ -290,7 +306,7 @@ Now we are left to picking the values of $\gamma$ and $\mu$ in terms of $L$ and 
 
 To make our life easier, we consider equality in the last equation, and solver for $\gamma$ and $\mu$. We can do it by hand, but I am lazy, so I have just used Mathematica.
 
-```mathematica
+```julia
 (*Mathematica code*)
 In[1] := Solve[Reduce[{L == \[Mu] (R + \[Gamma]/(\[Mu] Sqrt[\[CapitalNu] + 
             1])) + \[Gamma], \[Gamma]/(\[Mu] Sqrt[\[CapitalNu] + 1]) == 
@@ -306,7 +322,7 @@ $$\begin{aligned}
 \mu & =\frac{L}{2R+R\sqrt{N+1}}.\end{aligned}$$ 
 
 Putting the values of $\gamma$ and $\mu$ in (ObjGap), 
-```mathematica
+```julia
 (*Mathematica code*)
 In[2] := \[Gamma] = (L Sqrt[1 + \[CapitalNu]])/(2 + Sqrt[1 + \[CapitalNu]]);
 \[Mu] = L/(2 R + R Sqrt[1 + \[CapitalNu]]);
