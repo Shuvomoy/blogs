@@ -1,0 +1,137 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blogs/libs/highlight/github.min.css"> <link rel=stylesheet  href="/blogs/css/franklin.css"> <link rel=stylesheet  href="/blogs/css/tufte.css"> <link rel=stylesheet  href="/blogs/css/latex.css"> <link rel=stylesheet  href="/blogs/css/adjust.css"> <link rel=icon  href="/blogs/assets/favicon.ico"> <title>Running Julia code on MIT Supercloud</title> <script src="/blogs/libs/lunr/lunr.min.js"></script> <script src="/blogs/libs/lunr/lunr_index.js"></script> <script src="/blogs/libs/lunr/lunrclient.min.js"></script> <div id=layout > <div id=menu > <ul> <li><a href="/blogs/">Home</a> <li><a href="/blogs/tags/">Tags</a> <li><form id=lunrSearchForm  name=lunrSearchForm > <input class=search-input  name=q  placeholder=" " type=text > <input type=submit  value=Search  formaction="/blogs/search/index.html"> </form> </ul> </div> <div id=main > <!-- Content appended here .result-title a { text-decoration: none; } .result-title a:hover { text-decoration: underline; } .result-preview { color: #808080; } .resultCount { color: #808080; } .result-query { font-weight: bold; } #lunrSearchForm { margin-top: 1em; } --> <div class=franklin-content ><h1 id=running_julia_code_on_mit_supercloud ><a href="#running_julia_code_on_mit_supercloud" class=header-anchor >Running Julia code on MIT Supercloud</a></h1> <p><strong>Shuvomoy Das Gupta</strong></p> <p><em>January 24, 2020</em></p> <p>In this blog, we are going to discuss how to MIT supercloud to run simple Julia code. </p> <hr /> <div class=franklin-toc ><ol><li><a href="#entering_the_supercloud">Entering the supercloud</a><li><a href="#transferring_files_from_local_computer_to_supercloud">Transferring files from local computer to supercloud</a><li><a href="#julia_code">Julia code</a><li><a href="#shell_script_to_submit_the_job">Shell script to submit the job</a><li><a href="#submitting_the_job">Submitting the job</a><li><a href="#if_we_need_more_memory">If we need more memory</a><li><a href="#observing_the_status_of_the_submitted_job">Observing the status of the submitted job</a><li><a href="#killing_a_job">Killing a job</a></ol></div> <hr /> <p>As an illustrative example, I will use Julia code that uses lasso to approximately solve a sparse regression problem. </p> <p>First, we start with some common code that comes handy while working with the supercloud.</p> <h2 id=entering_the_supercloud ><a href="#entering_the_supercloud" class=header-anchor >Entering the supercloud</a></h2> <p>Assuming that we have setup our supercloud account already by following the instruction <a href="https://supercloud.mit.edu/requesting-account">here</a>, enter the supercloud from <code>bash</code> using the code:</p> <p><code>ssh tim@txe1-login.mit.edu</code> where replace <code>tim</code> with your username. </p> <h2 id=transferring_files_from_local_computer_to_supercloud ><a href="#transferring_files_from_local_computer_to_supercloud" class=header-anchor >Transferring files from local computer to supercloud</a></h2> <p>If we want to transfer all the files in a folder called <code>PC_tests</code> to a folder named <code>supercloud_tests</code> located in the supercloud, we can achieve that by running the following command in <code>bash</code>.</p> <code>scp -r TIMs_Local_Folder_path/PC_tests/* tim@txe1-login.mit.edu:/home/gridsan/tim/supercloud_tests</code> <h2 id=julia_code ><a href="#julia_code" class=header-anchor >Julia code</a></h2> <p>The code for the julia file is given below, please save it in a text file and name it <code>lasso.jl</code>.</p> <pre><code class="julia hljs"><span class=hljs-comment >## Please copy the code in this code block and save it as lasso.jl</span>
+println(<span class=hljs-string >&quot;lasso.jl is running&quot;</span>)
+println(<span class=hljs-string >&quot;********************&quot;</span>)
+
+<span class=hljs-comment >## The following function is used to compute cardinality of a vector.</span>
+<span class=hljs-keyword >function</span> l_0_norm(x,y,n,delta_l0_norm)
+    diffxy = x-y
+    l_0_norm_xy = ones(n)
+    <span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >1</span>:n
+        <span class=hljs-keyword >if</span> abs(diffxy[i]) &lt;= delta_l0_norm
+            l_0_norm_xy[i]=<span class=hljs-number >0</span>
+        <span class=hljs-keyword >end</span>
+    <span class=hljs-keyword >end</span>
+    <span class=hljs-keyword >return</span> sum(l_0_norm_xy)
+<span class=hljs-keyword >end</span>
+
+<span class=hljs-keyword >function</span> card(x, n, delta_l0_norm)
+    <span class=hljs-keyword >return</span> l_0_norm(x,zeros(n),n,delta_l0_norm)
+<span class=hljs-keyword >end</span>
+
+<span class=hljs-comment >## Data</span>
+
+b = randn(<span class=hljs-number >100</span>)
+
+A = randn(<span class=hljs-number >100</span>,<span class=hljs-number >200</span>)
+
+m, n = size(A)
+
+λ_glment_array = <span class=hljs-number >10</span> .^(range(-<span class=hljs-number >4</span>,stop=<span class=hljs-number >4</span>,length=<span class=hljs-number >1000</span>))
+
+k = <span class=hljs-number >20</span>
+
+<span class=hljs-comment >## running lasso using glmnet</span>
+<span class=hljs-keyword >using</span> GLMNet, LinearAlgebra
+
+path = glmnet(A, b, lambda = λ_glment_array)
+
+matrix_x = convert(<span class=hljs-built_in >Matrix</span>, path.betas)
+
+<span class=hljs-comment >## finding glmnet smallest</span>
+
+λ_glmnet_smallest = <span class=hljs-number >0</span>
+
+x_glmnet = zeros(n)
+
+m1, n1 = size(matrix_x)
+
+<span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >1</span>:n1
+    cardinality_present = card(matrix_x[:,i], m1, <span class=hljs-number >1e-5</span>)
+    println(<span class=hljs-string >&quot;cardinality of the &quot;</span>, i , <span class=hljs-string >&quot;-th solution is = &quot;</span>, cardinality_present)
+    <span class=hljs-keyword >if</span> cardinality_present &lt;= k
+        println(<span class=hljs-string >&quot;card(signal) =&quot;</span>, cardinality_present, <span class=hljs-string >&quot; found for λ = &quot;</span>,  λ_glment_array[i])
+        <span class=hljs-keyword >global</span> λ_glmnet_smallest =  λ_glment_array[i]
+        println(<span class=hljs-string >&quot; corresponding solution x is = &quot;</span>, matrix_x[:,i])
+        <span class=hljs-keyword >global</span> x_glmnet = matrix_x[:,i]
+        <span class=hljs-keyword >break</span>
+    <span class=hljs-keyword >end</span>
+<span class=hljs-keyword >end</span>
+
+λ_smallest = <span class=hljs-number >2</span>*m*λ_glmnet_smallest
+
+<span class=hljs-comment >## check objecgive value</span>
+obj_glmnet = (norm(A*x_glmnet - b))^<span class=hljs-number >2</span>
+
+<span class=hljs-comment ># finding the index of nonzero elements</span>
+Z = findall(iszero, x_glmnet)
+k == n - length(Z)
+
+<span class=hljs-comment >##</span>
+<span class=hljs-keyword >using</span> SCS
+solver = SCSSolver()
+<span class=hljs-keyword >using</span> Convex
+
+x = Variable(n)
+objective = sumsquares(A * x - b)
+problem = minimize(objective)
+<span class=hljs-keyword >for</span> j = <span class=hljs-number >1</span>:length(Z)
+    problem.constraints += [x[Z[j]] == <span class=hljs-number >0.0</span>]
+<span class=hljs-keyword >end</span>
+solve!(problem, solver)
+x_convex = x.value
+
+<span class=hljs-keyword >function</span> polish(x)
+    n = length(x)
+    x_polished = x
+    <span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >1</span>:n
+        <span class=hljs-keyword >if</span> abs(x[i]) &lt;= <span class=hljs-number >1e-5</span>
+            x_polished[i] = <span class=hljs-number >0</span>
+        <span class=hljs-keyword >end</span>
+    <span class=hljs-keyword >end</span>
+    <span class=hljs-keyword >return</span> x_polished
+<span class=hljs-keyword >end</span>
+
+x_convex_polished = polish(x_convex)
+
+obj_convex = norm(A*x_convex_polished - b)^<span class=hljs-number >2</span>
+
+<span class=hljs-keyword >using</span> JLD2
+
+println(<span class=hljs-string >&quot;saving the data now...&quot;</span>)
+
+<span class=hljs-meta >@save</span> <span class=hljs-string >&quot;lasso_data.jld2&quot;</span> A b λ_glment_array x_glmnet x_convex_polished obj_glmnet obj_convex
+
+println(<span class=hljs-string >&quot;done running the code :)&quot;</span>)</code></pre> <h2 id=shell_script_to_submit_the_job ><a href="#shell_script_to_submit_the_job" class=header-anchor >Shell script to submit the job</a></h2> <p>Now we are going to create a shell script that will be used to submit the job. The code for the shell script is below. Please save it in a text file, and name it <code>run_lasso.sh</code>.</p> <pre><code class="julia hljs"><span class=hljs-comment >#!/bin/bash</span>
+
+<span class=hljs-comment ># Initialize the module command first source</span>
+source /etc/profile
+
+<span class=hljs-comment ># Load Julia Module</span>
+<span class=hljs-comment ># Find out the list of modules available by running the command</span>
+<span class=hljs-comment >#  module avail</span>
+<span class=hljs-keyword >module</span> load julia/<span class=hljs-number >1.5</span><span class=hljs-number >.2</span>
+
+<span class=hljs-comment ># Call your script as you would from the command line</span>
+julia lasso.jl</code></pre> <h2 id=submitting_the_job ><a href="#submitting_the_job" class=header-anchor >Submitting the job</a></h2> <p>Now log in to MIT supercloud, copy the files created above to your working directory, and run the following command.</p> <pre><code class="julia hljs">LLsub run_lasso.sh</code></pre>
+<h2 id=if_we_need_more_memory ><a href="#if_we_need_more_memory" class=header-anchor >If we need more memory</a></h2>
+<p>Here we should keep in mind that MIT supercloud nodes have 16 cores and 64 GB of RAM in total. As a result, each core has about 4 GB. So if our job requires a certain amount of memory, we need to allocate memory accordingly. For example, if our program needs roughly 32 GB memory, then we need to allocate 8 cores, which can be done by running the following command.</p>
+<pre><code class="julia hljs">LLsub myScript.sh -s <span class=hljs-number >8</span></code></pre>
+<h2 id=observing_the_status_of_the_submitted_job ><a href="#observing_the_status_of_the_submitted_job" class=header-anchor >Observing the status of the submitted job</a></h2>
+<p>After submitting the job, we can check the status of our jobs by running the following command</p>
+<pre><code class="julia hljs">LLstat</code></pre>
+<p>which will have an output like:</p>
+<pre><code class="julia hljs">LLGrid: txe1 (running slurm <span class=hljs-number >19.05</span><span class=hljs-number >.5</span>)
+JOBID     ARRAY_J    NAME         USER     START_TIME          PARTITION  CPUS  FEATURES  MIN_MEMORY  ST  NODELIST(REASON)
+<span class=hljs-number >17019</span>     <span class=hljs-number >40986</span>      run_lasso       Student  <span class=hljs-number >2020</span>-<span class=hljs-number >10</span>-<span class=hljs-number >19</span>T15:<span class=hljs-number >35</span>:<span class=hljs-number >46</span> normal     <span class=hljs-number >1</span>     xeon-e5   <span class=hljs-number >5</span>G          R   gpu-<span class=hljs-number >2</span>
+<span class=hljs-number >17214</span>     <span class=hljs-number >40980</span>      myJob1       Student  <span class=hljs-number >2020</span>-<span class=hljs-number >10</span>-<span class=hljs-number >19</span>T15:<span class=hljs-number >35</span>:<span class=hljs-number >37</span> normal     <span class=hljs-number >1</span>     xeon-e5   <span class=hljs-number >5</span>G          R   gpu-<span class=hljs-number >2</span></code></pre>
+<h2 id=killing_a_job ><a href="#killing_a_job" class=header-anchor >Killing a job</a></h2>
+<p>If we want to kill one of the jobs, e.g., <code>run_lasso</code>, then we can do that by running the following command:</p>
+<pre><code class="julia hljs">LLkill <span class=hljs-number >17019</span></code></pre>
+<div class=page-foot >
+  <div class=copyright >
+    &copy; Shuvomoy Das Gupta. Last modified: July 09, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div>
+        </div> 
+    </div>
