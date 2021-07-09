@@ -85,7 +85,7 @@ The proof proceeds by constructing a "worst-case" function, on which any first-o
 
 Define the function: 
 
-$$f(x) := \frac{\mu}{2}\|x\|_{2}^{2}+\gamma\max\{x[1],x[2],\ldots x[N+1]\},$$ 
+$$f(x) := \frac{\mu}{2}\|x\|_{2}^{2}+\gamma\max\{x[1],x[2],\ldots, x[N+1]\},$$ 
 
 where $x[i]$ denotes the $i$-th component of the vector $x$, and $\gamma$ and $\mu$ are some positive numbers. For now, we do not specify what $\mu$ and $\gamma$ are, we will automatically find their values in terms of $L$ and $R$ down the line. Note that $f$ is convex by definition. Using subdifferential calculus, we can write down the closed-form expression of $f$ at a point $x\in\mathbf{R}^{d}$, given by 
 ~~~
@@ -100,7 +100,7 @@ $$\begin{aligned}
 \partial f(x) & =\mu x+\gamma\mathbf{conv}\{e_{k}\mid k\in I(x)\}\\
  & =\mu x+\gamma\left\{ \sum_{k\in I(x)}\lambda_{k}e_{k}\mid\left(\forall k\in I(x)\right)\;\lambda_{k}\geq0,\sum_{k\in I(x)}\lambda_{k}=1\right\} \end{aligned}$$
 
- where $$I(x)=\{\ell\in[1:N+1]\mid x[\ell]=\max\{x[1],x[2],\ldots x[N+1]\}\},$$ *i.e.*, any element of $I(x)$ corresponds to an index of a maximal component of vector $x=\{x[1],\ldots,x[N+1],\ldots,x[d]\}$ searched over its first $N+1$ components. 
+ where $$I(x)=\{\ell\in[1:N+1]\mid x[\ell]=\max\{x[1],x[2],\ldots ,x[N+1]\}\},$$ *i.e.*, any element of $I(x)$ corresponds to an index of a maximal component of vector $x=\{x[1],\ldots,x[N+1],\ldots,x[d]\}$ searched over its first $N+1$ components. 
 
 #### A handy inequality to bound the subgradient of $f$
 
@@ -179,7 +179,7 @@ $$\|x_{0}-x_{\star}\|_{2}\leq R\qquad\textrm{(OptPntDist)}$$
 is satisfied. We claim that $x_{\star}$ is a global minimum of $f$. First, observe that: 
 
 $$\begin{aligned}
-I(x_{\star}) & =\{\ell\in[1:N+1]\mid x_{\star}[\ell]=\max\{x_{\star}[1],x_{\star}[2],\ldots x_{\star}[N+1]\}\}\\
+I(x_{\star}) & =\{\ell\in[1:N+1]\mid x_{\star}[\ell]=\max\{x_{\star}[1],x_{\star}[2],\ldots, x_{\star}[N+1]\}\}\\
  & =\{1,2,\ldots,N+1\},\end{aligned}$$ 
 
 as all the first $N+1$ components of $N$ are the same. Next note that, at $x_{\star}$, $f$ has the subdifferential 
@@ -214,7 +214,7 @@ i_{x_{0}} & =\min I(x_{0})=1.\end{aligned}$$
 We ask the resisting oracle about first-order information about the function at $x_{0}$. It returns 
 
 $$\begin{aligned}
-f(x_{0}) & =\frac{\mu}{2}\|x_{0}\|_{2}^{2}+\gamma\max\{x_{0}[1],x_{0}[2],\ldots x_{0}[N+1]\}\\
+f(x_{0}) & =\frac{\mu}{2}\|x_{0}\|_{2}^{2}+\gamma\max\{x_{0}[1],x_{0}[2],\ldots, x_{0}[N+1]\}\\
  & =0,\end{aligned}$$ 
 
 and 
