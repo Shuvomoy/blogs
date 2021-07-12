@@ -278,10 +278,10 @@ $$x_{i}[N+1]=\ldots=x_{i}[d]=0.$$
 $$\begin{aligned}
 f(x_{i}) & =\frac{\mu}{2}\|x_{1}\|_{2}^{2}+\gamma\max\{x_{1}[1],x_{1}[2],\ldots,x_{1}[N+1]\}\\
  & \geq\gamma\max\{x_{1}[1],x_{1}[2],\ldots,x_{1}[N+1]\}\\
- & \geq x_{1}[N+1]\\
+ & \geq \gamma x_{1}[N+1]\\
  & =0,\qquad\textrm{(ObjNotImprv)}\end{aligned}$$
 
-where in the last line we have used the simple fact that the maximum element of a list will be greater than any element of the list. This is interesting: because it says that no matter what we do, we cannot improve the initial objective value $f(x_{0})=0$ for the iterates $x_{1},\ldots,x_{N}$! Finally, applying (ObjNotImprv) for the $N$-th iterate, we get 
+where in the second last line we have used the simple fact that the maximum element of a list will be greater than any element of the list. This is interesting: because it says that no matter what we do, we cannot improve the initial objective value $f(x_{0})=0$ for the iterates $x_{1},\ldots,x_{N}$! Finally, applying (ObjNotImprv) for the $N$-th iterate, we get 
 
 $$\begin{aligned}
 f(x_{N})-f(x_{\star}) & \geq0-f(x_{\star})\\
