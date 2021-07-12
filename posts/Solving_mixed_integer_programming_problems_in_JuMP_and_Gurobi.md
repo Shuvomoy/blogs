@@ -23,12 +23,12 @@ In this blog, we will discuss how to solve a mixed integer programming (MIP) pro
 Let us try to write the JuMP code for the following standard form optimization problem:
 
 $$
-\begin{align}
+\begin{aligned}
 & \text{minimize} && c^T x + d^T y\\
 & \text{subject to} && A x + B y= f \\
  &                   && x \succeq 0, y \succeq 0 \\
  &                   && x \in \mathbb{R}^n, y \in \mathbb{\{0,1\}}^p,
-\end{align}
+\end{aligned}
 $$
 
 where $x,y$ are the decision variables, $A \in \mathbb{R}^{m \times n}, B \in \mathbb{R}^{m \times p}, c \in \mathbb{R}^n, d \in \mathbb{R}^p, f \in \mathbb{R}^m$. The data were randomly generated. The symbol $\succeq$ ($\preceq$) stands for element-wise greater (less) than or equal to.
