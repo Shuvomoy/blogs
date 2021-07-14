@@ -215,3 +215,37 @@ If we want to kill one of the jobs, e.g., ``run_lasso``, then we can do that by 
 LLkill 17019
 ```
 
+## Installing updated Julia package
+
+Sometimes due to conflicts, one may have trouble installing an updated version of a Julia package.  In that case run the following code. 
+
+First, on bash:  (if necessary, you can add the following to the `.bashrc` file)
+
+```bash
+export TMPDIR=/home/gridsan/tim/TMPDIR/ 
+# change the default /tmp directory, ensure that the   
+# TMPDIR folder exists in the user folder exists
+# you can check if the folder changed by running 
+# julia>  tempdir()
+
+unset JULIA_LOAD_PATH 
+# remove the shared version of julia load path
+# you check the JULIA_LOAD_PATH by running 
+# julia> LOAD_PATH
+
+export JULIA_DEPOT_PATH=/home/gridsan/tim/.julia/ 
+# remove the shared 
+# version of julia depot path
+# you check the JULIA_LOAD_PATH by running 
+# julia> DEPOT_PATH
+
+julia # start julia
+```
+
+Then in Julia run:
+
+```julia 
+ add JLD2@0.4.11 # or any version that you want
+```
+
+Going forward one need not run these extra steps, just loading the Julia module suffices.
