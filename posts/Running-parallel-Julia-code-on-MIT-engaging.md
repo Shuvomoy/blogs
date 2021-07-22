@@ -143,3 +143,35 @@ BenchmarkTools.Trial:
 ```
 
 where we see that the parallel code is more than 7 times faster than that of the serial code!
+
+## Some handy commands
+
+## 
+
+ The `sbatch` commands are the same as `MIT Supercloud`, so we can use the same command as mentioned in the blogs about the `MIT Sueprcloud`.
+
+To view the running jobs we can type the command:
+
+```
+eo-show-myjobs
+```
+
+Suppose we want to cancel job number 12345. The command is:
+
+```julia 
+scancel 12345
+```
+
+If we want to get a quick view of all the jobs completed within the last 5 days, we use:
+
+```
+eo-show-history 
+```
+
+## Helpful Link
+
+A comprehensive documentation about `Engaging` is available at the link:
+
+https://wikis.mit.edu/confluence/display/sloanrc/Engaging+Platform 
+
+which requires an MIT login. 
