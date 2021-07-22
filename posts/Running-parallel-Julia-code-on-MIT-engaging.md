@@ -146,8 +146,6 @@ where we see that the parallel code is more than 7 times faster than that of the
 
 ## Some handy commands
 
-## 
-
  The `sbatch` commands are the same as `MIT Supercloud`, so we can use the same command as mentioned in the blogs about the `MIT Sueprcloud`.
 
 To view the running jobs we can type the command:
