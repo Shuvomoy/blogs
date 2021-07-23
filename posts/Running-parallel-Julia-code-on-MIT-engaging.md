@@ -77,8 +77,6 @@ This will start a `Julia REPL` in `bash`. Run the following commands:
 ] add ClusterManagers,Distributed, BenchmarkTools
 ```
 
-
-
 ## Shell script to submit the job
 
 Now we are going to create a shell script that will be used to submit the job. The code for the shell script is below. Please save it in a text file, and name it `run_pmap_julia.sh`. In the code, `SBATCH -o pmap_julia.log-%j` indicates the name of the file where the output is written, and `SBATCH -n 14` indicates the number of cores or cpus allocated to the job. 
@@ -148,19 +146,39 @@ where we see that the parallel code is more than 7 times faster than that of the
 
  The `sbatch` commands are the same as `MIT Supercloud`, so we can use the same command as mentioned in the blogs about the `MIT Sueprcloud`.
 
-To view the running jobs we can type the command:
+* To protect the data:
+
+```julia 
+eo-fix-storage
+eo-fix-permissions all
+```
+
+* To see the storage: 
+
+```julia 
+eo-show-quota
+```
+
+* Note that, each user has access to 4 different storage areas:
+
+1. /home/myusername - working space for source code, scripts,hand-edited files etc.  Each user has 100GB by default.
+2. /pool001/myusername - Extra storage space.  Each user has 1 TB by default
+3. /nobackup1/myusername - Very fast lustre parallel file system for parallel I/O, this should not be used for long-term storage.
+4. /nfs/sloanlab001/projects - Requestable shared project space that can be linked to your home folder, eg $HOME/projects/myproject_proj
+
+* To view the running jobs we can type the command:
 
 ```
 eo-show-myjobs
 ```
 
-Suppose we want to cancel job number 12345. The command is:
+* Suppose we want to cancel job number 12345. The command is:
 
 ```julia 
 scancel 12345
 ```
 
-If we want to get a quick view of all the jobs completed within the last 5 days, we use:
+* If we want to get a quick view of all the jobs completed within the last 5 days, we use:
 
 ```
 eo-show-history 
@@ -170,6 +188,6 @@ eo-show-history
 
 A comprehensive documentation about `Engaging` is available at the link:
 
-https://wikis.mit.edu/confluence/display/sloanrc/Engaging+Platform 
+[https://wikis.mit.edu/confluence/display/sloanrc/Engaging+Platform](https://wikis.mit.edu/confluence/display/sloanrc/Engaging+Platform)
 
 which requires an MIT login. 
