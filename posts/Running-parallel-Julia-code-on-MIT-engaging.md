@@ -144,7 +144,7 @@ where we see that the parallel code is more than 7 times faster than that of the
 
 ## Some handy commands
 
- The `sbatch` commands are the same as `MIT Supercloud`, so we can use the same command as mentioned in the blogs about the `MIT Sueprcloud`.
+The `sbatch` commands are the same as `MIT Supercloud`, so we can use the same command as mentioned in the blogs about the `MIT Sueprcloud`.
 
 * To protect the data:
 
@@ -161,10 +161,10 @@ eo-show-quota
 
 * Note that, each user has access to 4 different storage areas:
 
-1. /home/myusername - working space for source code, scripts,hand-edited files etc.  Each user has 100GB by default.
-2. /pool001/myusername - Extra storage space.  Each user has 1 TB by default
-3. /nobackup1/myusername - Very fast lustre parallel file system for parallel I/O, this should not be used for long-term storage.
-4. /nfs/sloanlab001/projects - Requestable shared project space that can be linked to your home folder, eg $HOME/projects/myproject_proj
+1. `/home/myusername` - working space for source code, scripts,hand-edited files etc.  Each user has 100GB by default.
+2. `/pool001/myusername` - Extra storage space.  Each user has 1 TB by default
+3. `/nobackup1/myusername` - Very fast lustre parallel file system for parallel I/O, this should not be used for long-term storage.
+4. `/nfs/sloanlab001/projects` - Requestable shared project space that can be linked to your home folder, eg `HOME/projects/myproject_proj`
 
 * To view the running jobs we can type the command:
 
