@@ -43,7 +43,8 @@ println(s)</code></pre> <p>Note that in the first line, we have loaded the packa
 <p>Now we are going to create a shell script that will be used to submit the job. The code for the shell script is below. Please save it in a text file, and name it <code>run_pmap_julia.sh</code>. In the code, <code>SBATCH -o pmap_julia.log-&#37;j</code> indicates the name of the file where the output is written, and <code>SBATCH -n 14</code> indicates the number of cores or cpus allocated to the job. </p>
 <pre><code class="julia hljs"><span class=hljs-comment >#!/bin/bash</span>
 
-<span class=hljs-comment ># Slurm sbatch options</span>
+<span class=hljs-comment ># Slurm sbatch options: the partition should be set as sloan_batch</span>
+<span class=hljs-comment >#SBATCH --partition=sched_mit_sloan_batch</span>
 <span class=hljs-comment >#SBATCH -o pmap_julia_log-%j.txt</span>
 <span class=hljs-comment >#SBATCH -n 14</span>
 
@@ -137,7 +138,7 @@ eo-fix-permissions all</code></pre>
 <p>which requires an MIT login. </p>
 <div class=page-foot >
   <div class=copyright >
-    &copy; Shuvomoy Das Gupta. Last modified: July 25, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+    &copy; Shuvomoy Das Gupta. Last modified: July 30, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
   </div>
 </div>
 </div>
