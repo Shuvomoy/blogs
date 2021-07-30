@@ -84,7 +84,8 @@ Now we are going to create a shell script that will be used to submit the job. T
 ```julia 
 #!/bin/bash
 
-# Slurm sbatch options
+# Slurm sbatch options: the partition should be set as sloan_batch
+#SBATCH --partition=sched_mit_sloan_batch
 #SBATCH -o pmap_julia_log-%j.txt
 #SBATCH -n 14
 
