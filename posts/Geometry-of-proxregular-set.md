@@ -16,7 +16,7 @@ In this blog, we provide a proof about certain geometric properties of a prox-re
 
 ---
 
-We consider nonempty, closed set $\mathcal{X}$, which is *prox-regular* at a point $\bar{x}\in\mathcal{X}$, *i.e.*, Euclidean projection onto the set from $\bar{x}$ is single-valued in some neighborhood of that point. To state the result and to prove it, we introduce certain notation and notions.
+We consider nonempty, closed set $\mathcal{X}$ in a finite-dimensional vector space, which is *prox-regular* at a point $\bar{x}\in\mathcal{X}$, *i.e.*, Euclidean projection onto the set from $\bar{x}$ is single-valued in some neighborhood of that point. Throughout the blog, the underlying space is a finite-dimensional vector space over the reals. To state the result and to prove it, we introduce certain notation and notions.
 
 ## Notation and notions
 
@@ -69,10 +69,17 @@ which also implies that
 $$
 \forall_{\widetilde{\tau}\in(0,\tau)}\;\Pi(x+\widetilde{\tau}v)=\{x\}.
 $$
-### Frechet subdifferential.
+### Frechet subdifferential and Clarke subdifferential. 
 
 For any function $f$ (not necessarily convex), its Frechet subdifferential $\partial f$ at a point $x$ is defined as follows \citep{Correa92}[Definition 2.5]: 
-$$v\in\partial f(x)\Leftrightarrow\liminf_{y\to0}\frac{f(x+y)-f(x)-\left\langle v\mid y\right\rangle }{\|y\|}\geq0.$$
+$$v\in\partial f(x)\Leftrightarrow\liminf_{y\to0}\frac{f(x+y)-f(x)-\left\langle v\mid y\right\rangle }{\|y\|}\geq0.$$​
+
+On the other hand, The Clarke subdifferential of a locally Lipschitz function $f$​ is defined as follows: 
+$$
+u\in\partial^{\textrm{Clarke}}f(x)\Leftrightarrow\forall_{d}\;\left[\limsup_{y\to x,t\downarrow0}\frac{f(y+td)-f(y)}{t}\right]\geq\left\langle u\mid d\right\rangle .
+$$
+
+For a locally Lipschitz function the Clarke subdifferential is nonempty everywhere \citep{Correa92}[Property 2.2]. 
 
 #### Finding Frechet subgradient of an infimal convolution function.
 
@@ -100,9 +107,11 @@ $$\forall_{x:\partial d^{2}(x)\neq\emptyset}\quad\partial d^{2}(x)=2(x-\pi_{x}).
 
 #### Proving local convexity via Frechet subdifferential.
 
-If a locally Lipschitz function $f$ has its Frechet subdifferential $\partial f$ monotone on $\{(x,u) \in \mathbf{gra}\partial f \mid x\in A\}$, then $f$ is convex on $A$ \citep{Correa92}[Theorem 3.8, Remark after Property 2.7]. In other words, for a locally Lipschitz function $f$
-$$\forall_{(x,u),(y,v)\in\mathbf{gra}\partial f:x,y\in A}\;\left\langle u-v\mid x-y\right\rangle \geq0\Rightarrow f:\textrm{convex on }A\quad(\textrm{LocCvx}),$$
-where $\mathbf{gra}\partial f=\left\{ (x,u)\mid u\in\partial f(x)\right\}.$​
+If a locally Lipschitz function $f$​ has its Frechet subdifferential $\partial f$​ monotone on $\{(x,u) \in \mathbf{gra}\partial f \mid x\in A\}$​, then $f$​ is convex on $A$​ \citep{Correa92}[Theorem 3.8, Remark after Property 2.7]. In other words, for a locally Lipschitz function $f$​
+$$\forall_{(x,u),(y,v)\in\mathbf{gra}\partial f:x,y\in A}\;\left\langle u-v\mid x-y\right\rangle \geq0\Rightarrow f:\textrm{convex on }A\quad(\textrm{LocCvx}),$$​
+where $\mathbf{gra}\partial f=\left\{ (x,u)\mid u\in\partial f(x)\right\}.$
+
+Furthermore, if $f$ is locally Lipschitz, then monotonicity of $\partial f$ is equivalent to the monotonicity of $\partial^{\textrm{Clarke}}f$, so proving either is fine to establish convexity \citep{Correa92}[Remark after Property 2.7]. 
 
 ### Cocoercive operator.
 
@@ -133,7 +142,7 @@ If $\mathcal{X}$ is set that is prox-regular at $\bar{x}\in\mathcal{X}$, then th
 
 \(ii\) the projection operator $\Pi$ is $\frac{2}{2-\lambda}$-Lipschitz continuous on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$,
 
-\(iii\) on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​, the function $\Delta_{\lambda}=d^{2}+\frac{\lambda}{2-\lambda}\|\cdot\|^{2}$: convex and differentiable, with the derivative given by $\nabla\Delta_{\lambda}(x)=2(x-\pi_{x})+2\frac{2}{2-\lambda}x.$​
+\(iii\) on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​, the function $\phi_{\lambda}=d^{2}+\frac{\lambda}{2-\lambda}\|\cdot\|^{2}$ is convex and differentiable, with the derivative given by $\nabla\phi_{\lambda}(x)=2(x-\pi_{x})+2\frac{2}{2-\lambda}x.$​
 
 ## Proof. 
 
@@ -176,17 +185,17 @@ This proves (ii).
 
 Take a point $x\in B\left(\bar{x},\frac{\lambda R}{2\rho}\right).$Due to (ii), the projection operator $\Pi(x)$ is single-valued on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$.
 
-From (DistSqdLcLip) $\Delta_{\lambda}$ is locally Lipschitz, so we will employ (LocCvx) to prove its convexity on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$. First, we will show that on the set 
-$$S=\left\{ (x,u)\mid(x,u)\in\mathbf{gra}\partial\Delta_{\lambda},x\in B\left(\bar{x},\frac{\lambda R}{2\rho}\right)\right\}$$
-the operator $\partial\Delta_{\lambda}$​ is monotone, which will help in proving that $\Delta_{\lambda}$​ is convex and differentiable on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​.
+From (DistSqdLcLip) $\phi_{\lambda}$ is locally Lipschitz, so we will employ (LocCvx) to prove its convexity on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$. First, we will show that on the set 
+$$S=\left\{ (x,u)\mid(x,u)\in\mathbf{gra}\partial\phi_{\lambda},x\in B\left(\bar{x},\frac{\lambda R}{2\rho}\right)\right\}$$
+the operator $\partial\phi_{\lambda}$​ is monotone, which will help in proving that $\phi_{\lambda}$​ is convex and differentiable on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​.
 
 Recall from (FrechSubDistSqd) that 
 $$\forall_{x:\partial d^{2}(x)\neq\emptyset}\quad\partial d^{2}(x)=2(x-\pi_{x}).$$
 Consider two points $(x,u),(y,v)\in S$. Without loss of generality, we can assume that $\partial d^{2}(x),\partial d^{2}(y)$ are nonempty, because for the empty case (iii) is vacuously true. Then from (FrechSubDistSqd) we have $\partial d^{2}(x)=2(x-\pi_{x})$ and $\partial d^{2}(y)=2(y-\pi_{y})$. On these points, 
-$$\partial\Delta_{\lambda}(x)=\partial d^{2}(x)+2\frac{\lambda}{2-\lambda}(x),\textrm{ and}\partial\Delta_{\lambda}(y)=\partial d^{2}(y)+2\frac{\lambda}{2-\lambda}(y).$$
+$$\partial\phi_{\lambda}(x)=\partial d^{2}(x)+2\frac{\lambda}{2-\lambda}(x),\textrm{ and}\partial\phi_{\lambda}(y)=\partial d^{2}(y)+2\frac{\lambda}{2-\lambda}(y).$$
 We want to show that for any such $(x,u),(y,v)\in S$, we have
 $$\begin{aligned}
-0 & \leq\left\langle \partial\Delta_{\lambda}(x)-\partial\Delta_{\lambda}(y)\mid x-y\right\rangle \\
+0 & \leq\left\langle \partial\phi_{\lambda}(x)-\partial\phi_{\lambda}(y)\mid x-y\right\rangle \\
  & =\left\langle \partial d^{2}(x)+2\frac{\lambda}{2-\lambda}(x)-\partial d^{2}(y)-2\frac{\lambda}{2-\lambda}(y)\mid x-y\right\rangle \\
  & =\left\langle \partial d^{2}(x)-\partial d^{2}(y)\mid x-y\right\rangle +2\frac{\lambda}{2-\lambda}\|x-y\|^{2}.\quad(\textrm{GoalA})\end{aligned}$$
 To prove (GoalA), first we note that 
@@ -205,7 +214,7 @@ $$\begin{aligned}
  & \geq\left(2-\frac{4}{2-\lambda}\right)\|x-y\|^{2}\\
  & =\frac{-2\lambda}{2-\lambda}\|x-y\|^{2}\\
 \Rightarrow\left\langle \partial d^{2}(x)-\partial d^{2}(y)\mid x-y\right\rangle +2\frac{\lambda}{2-\lambda}\|x-y\|^{2} & \geq0,\end{aligned}$$
-thus reaching (GoalA). So, we have shown that on $S$, $\partial\Delta_{\lambda}$ is monotone on $S$. As $\Delta_{\lambda}$ is locally Lipschitz, due to (LocCvx), we have $\Delta_{\lambda}$ convex on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$. This further implies that, for any $x$ in $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$, $\partial\Delta_{\lambda}(x)=\partial^{\textrm{Clarke}}\Delta_{\lambda}(x),$ due to the locally Lipschitz nature of $\Delta_{\lambda},$ it has nonempty Clarke subdifferential everywhere \citep{Correa92}[Property 2.2]. Thus, in turn, for any $x$ in $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$, we have $\partial\Delta_{\lambda}(x)=\partial^{\textrm{Clarke}}\Delta_{\lambda}(x)\neq\emptyset$ and as shown before it is infact $\partial\Delta_{\lambda}(x)=\{2(x-\pi_{x})\}$. Thus, on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$, the function $\Delta_{\lambda}$ is convex and differentiable.
+thus reaching (GoalA). So, we have shown that on $S$, $\partial\phi_{\lambda}$ is monotone on $S$. As $\phi_{\lambda}$ is locally Lipschitz, it means that $\partial^{\textrm{Clarke}}f$ is monotone on $S$, and due to (LocCvx), we have $\phi_{\lambda}$ convex on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$. This further implies that, for any $x$ in $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$, $\partial\phi_{\lambda}(x)=\partial^{\textrm{Clarke}}\phi_{\lambda}(x),$ due to the locally Lipschitz nature of $\phi_{\lambda},$ it has nonempty Clarke subdifferential everywhere \citep{Correa92}[Property 2.2]. So, all points in $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$ is Frechet subdifferentiable, *i.e.,* for any $x$​ in $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​, we have $\partial\phi_{\lambda}(x)=\partial^{\textrm{Clarke}}\phi_{\lambda}(x)\neq\emptyset$​ and as shown before it is in fact $\partial\phi_{\lambda}(x)=\{2(x-\pi_{x})\}$​. Thus, on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​, the function $\phi_{\lambda}$​  is convex and differentiable. 
 
 ## References
 
