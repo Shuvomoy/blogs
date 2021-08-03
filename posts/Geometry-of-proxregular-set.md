@@ -107,7 +107,7 @@ $$\forall_{x:\partial d^{2}(x)\neq\emptyset}\quad\partial d^{2}(x)=2(x-\pi_{x}).
 
 #### Proving local convexity via Frechet subdifferential.
 
-If a locally Lipschitz function $f$​ has its Frechet subdifferential $\partial f$​ monotone on $\{(x,u) \in \mathbf{gra}\partial f \mid x\in A\}$​, then $f$​ is convex on $A$​ \citep{Correa92}[Theorem 3.8, Remark after Property 2.7]. In other words, for a locally Lipschitz function $f$​
+If a locally Lipschitz function $f$​ has its Frechet subdifferential $\partial f$​ monotone on $\{(x,u) \in \mathbf{gra}\partial f \mid x\in A\}$​, where $A$ is a convex set, then $f$ is convex on $A$ \citep{Correa92}[Theorem 3.8, Remark after Property 2.7]. In other words, for a locally Lipschitz function $f$
 $$\forall_{(x,u),(y,v)\in\mathbf{gra}\partial f:x,y\in A}\;\left\langle u-v\mid x-y\right\rangle \geq0\Rightarrow f:\textrm{convex on }A\quad(\textrm{LocCvx}),$$​
 where $\mathbf{gra}\partial f=\left\{ (x,u)\mid u\in\partial f(x)\right\}.$
 
@@ -115,13 +115,13 @@ Furthermore, if $f$ is locally Lipschitz, then monotonicity of $\partial f$ is e
 
 ### Cocoercive operator.
 
-An operator $A$ is $\beta$-cocoercive on $S$ if
+An operator $A$ is $\beta$-cocoercive on some convex set $S$ if
 $$\forall_{(x,u),(y,v)\in S\cap\mathbf{gra}A}\quad\left\langle x-y\mid u-v\right\rangle \geq\beta\|u-v\|^{2}.\quad(\textrm{CocrcvOpt})$$
 A $\beta$-cocoercive operator on $S$ is also $\frac{1}{\beta}$-Lipschitz on $S$.
 
 ### Locally hypomonotone operator.
 
-An operator $A$ is $\rho$-hypomonotone on a set $S$ if
+An operator $A$ is $\rho$-hypomonotone on a convex set $S$ if
 $$\forall_{(x,u),(u,v)\in S\cap\mathbf{gra}A}\quad\left\langle u-v\mid x-y\right\rangle +\rho\|x-y\|^{2}\geq0.$$
 
 #### Proximal normal cone of a prox-regular set is locally hypomonotone.
@@ -158,11 +158,11 @@ $$\begin{aligned}
 \leq & R,\end{aligned}$$
 where in the last line we have used $\lambda\leq\rho$.
 
-Set $\tau\coloneqq\frac{\lambda}{2\rho}>0$, then
-$$\Pi\left(\pi_{x}+\tau\left\{ \frac{2\rho}{\lambda}(x-\pi_{x})\right\} \right)=\Pi\left(x\right)\ni\pi_{x},$$
-where the last inclusion follows from (Projx). Thus $\frac{2\rho}{\lambda}(x-\pi_{x})\in N(\pi_{x})$ by (PrxNrmlCn). Also, from (DistEq1), 
+Set $\tau\coloneqq\frac{\lambda}{2\rho}>0$​, then
+$$\Pi\left(\pi_{x}+\tau\left\{ \frac{2\rho}{\lambda}(x-\pi_{x})\right\} \right)=\Pi\left(x\right)\ni\pi_{x},$$​
+where the last inclusion follows from definition of projection. Thus $\frac{2\rho}{\lambda}(x-\pi_{x})\in N(\pi_{x})$​ by (PrxNrmlCn). Also, from $d(x)\leq\|\bar{x}-x\|<(\lambda R/2\rho)$​, we have 
 $$\begin{aligned}
-\|\frac{2\rho}{\lambda}(x-\pi_{x})\|< & R,\end{aligned}$$
+\|\frac{2\rho}{\lambda}(x-\pi_{x})\|< & R,\end{aligned}$$​​
 
 thus completing proof to (i).
 
@@ -190,31 +190,31 @@ $$S=\left\{ (x,u)\mid(x,u)\in\mathbf{gra}\partial\phi_{\lambda},x\in B\left(\bar
 the operator $\partial\phi_{\lambda}$​ is monotone, which will help in proving that $\phi_{\lambda}$​ is convex and differentiable on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​.
 
 Recall from (FrechSubDistSqd) that 
-$$\forall_{x:\partial d^{2}(x)\neq\emptyset}\quad\partial d^{2}(x)=2(x-\pi_{x}).$$​
-Consider two points $(x,u),(y,v)\in S$​. Without loss of generality, we can assume that $\partial d^{2}(x),\partial d^{2}(y)$​ are nonempty, because for the empty case (iii) is vacuously true. Then from (FrechSubDistSqd) we have $\partial d^{2}(x)=2(x-\pi_{x})$​ and $\partial d^{2}(y)=2(y-\pi_{y})$​. On these points, 
-$$\partial\phi_{\lambda}(x)=\partial d^{2}(x)+2\frac{\lambda}{2-\lambda}(x),\textrm{ and }\partial\phi_{\lambda}(y)=\partial d^{2}(y)+2\frac{\lambda}{2-\lambda}(y).$$​
-We want to show that for any such $(x,u),(y,v)\in S$​, we have
+$$\forall_{x:\partial d^{2}(x)\neq\emptyset}\quad\partial d^{2}(x)=2(x-\pi_{x}).$$​​
+Consider two points $(x,u),(y,v)\in S$​​. Without loss of generality, we can assume that $\partial d^{2}(x),\partial d^{2}(y)$​​ are nonempty, because for the empty case (iii) is vacuously true. Then from (FrechSubDistSqd) we have $\partial d^{2}(x)=2(x-\pi_{x})$​​ and $\partial d^{2}(y)=2(y-\pi_{y})$​​. On these points, 
+$$\partial\phi_{\lambda}(x)=\partial d^{2}(x)+2\frac{\lambda}{2-\lambda}(x),\textrm{ and }\partial\phi_{\lambda}(y)=\partial d^{2}(y)+2\frac{\lambda}{2-\lambda}(y).$$​​
+We want to show that for any such $(x,u),(y,v)\in S$​​, we have
 $$\begin{aligned}
 0 & \leq\left\langle \partial\phi_{\lambda}(x)-\partial\phi_{\lambda}(y)\mid x-y\right\rangle \\
  & =\left\langle \partial d^{2}(x)+2\frac{\lambda}{2-\lambda}(x)-\partial d^{2}(y)-2\frac{\lambda}{2-\lambda}(y)\mid x-y\right\rangle \\
- & =\left\langle \partial d^{2}(x)-\partial d^{2}(y)\mid x-y\right\rangle +2\frac{\lambda}{2-\lambda}\|x-y\|^{2}.\quad(\textrm{GoalA})\end{aligned}$$​
+ & =\left\langle \partial d^{2}(x)-\partial d^{2}(y)\mid x-y\right\rangle +2\frac{\lambda}{2-\lambda}\|x-y\|^{2}.\quad(\textrm{GoalA})\end{aligned}$$​​
 To prove (GoalA), first we note that 
 $$\begin{aligned}
 \left\langle \partial d^{2}(x)-\partial d^{2}(y)\mid x-y\right\rangle  & =\left\langle 2(x-\pi_{x})-2(y-\pi_{y})\mid x-y\right\rangle \\
  & =2\left\langle (x-y)-(\pi_{x}-\pi_{y})\mid x-y\right\rangle \\
- & =2\|x-y\|^{2}-2\left\langle \pi_{x}-\pi_{y}\mid x-y\right\rangle .\quad(\textrm{EqPart1})\end{aligned}$$​
+ & =2\|x-y\|^{2}-2\left\langle \pi_{x}-\pi_{y}\mid x-y\right\rangle .\quad(\textrm{EqPart1})\end{aligned}$$​​
 Now, using Cauchy--Schwarz inequality, we have 
 $$\begin{aligned}
 \left\langle \pi_{x}-\pi_{y}\mid x-y\right\rangle  & \leq\underbrace{\|\pi_{x}-\pi_{y}\|}_{\leq\frac{2}{2-\lambda}\|x-y\|}\|x-y\|\\
  & \leq\frac{2}{2-\lambda}\|x-y\|^{2}\\
-\Rightarrow-2\left\langle \pi_{x}-\pi_{y}\mid x-y\right\rangle  & \geq-\frac{4}{2-\lambda}\|x-y\|^{2},\end{aligned}$$​ 
+\Rightarrow-2\left\langle \pi_{x}-\pi_{y}\mid x-y\right\rangle  & \geq-\frac{4}{2-\lambda}\|x-y\|^{2},\end{aligned}$$​​ 
 and putting this in (EqPart1), we have 
 $$\begin{aligned}
 \left\langle \partial d^{2}(x)-\partial d^{2}(y)\mid x-y\right\rangle  & \geq2\|x-y\|^{2}-\frac{4}{2-\lambda}\|x-y\|^{2}\\
  & \geq\left(2-\frac{4}{2-\lambda}\right)\|x-y\|^{2}\\
  & =\frac{-2\lambda}{2-\lambda}\|x-y\|^{2}\\
-\Rightarrow\left\langle \partial d^{2}(x)-\partial d^{2}(y)\mid x-y\right\rangle +2\frac{\lambda}{2-\lambda}\|x-y\|^{2} & \geq0,\end{aligned}$$​
-thus reaching (GoalA). So, we have shown that on $S$​, $\partial\phi_{\lambda}$​ is monotone on $S$​. As $\phi_{\lambda}$​ is locally Lipschitz, it means that $\partial^{\textrm{Clarke}}f$​ is monotone on $S$​, and due to (LocCvx), we have $\phi_{\lambda}$​ convex on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​. This further implies that, for any $x$​ in $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​, $\partial\phi_{\lambda}(x)=\partial^{\textrm{Clarke}}\phi_{\lambda}(x),$​ due to the locally Lipschitz nature of $\phi_{\lambda},$​ it has nonempty Clarke subdifferential everywhere \citep{Correa92}[Property 2.2]. So, all points in $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​ is Frechet subdifferentiable, *i.e.,* for any $x$​ in $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​, we have $\partial\phi_{\lambda}(x)=\partial^{\textrm{Clarke}}\phi_{\lambda}(x)\neq\emptyset$​, and as we have shown before, on those  it is in fact differentiable with the gradient 
+\Rightarrow\left\langle \partial d^{2}(x)-\partial d^{2}(y)\mid x-y\right\rangle +2\frac{\lambda}{2-\lambda}\|x-y\|^{2} & \geq0,\end{aligned}$$​​
+thus reaching (GoalA). So, we have shown that on $S$​​, $\partial\phi_{\lambda}$​​ is monotone on $S$​​. As $\phi_{\lambda}$​​ is locally Lipschitz, it means that $\partial^{\textrm{Clarke}}f$​​ is monotone on $S$​​, and due to (LocCvx), we have $\phi_{\lambda}$​​ convex on $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​​. This further implies that, for any $x$​​ in $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​​, $\partial\phi_{\lambda}(x)=\partial^{\textrm{Clarke}}\phi_{\lambda}(x),$​​ and due to the locally Lipschitz nature of $\phi_{\lambda},$​​ it has nonempty Clarke subdifferential everywhere \citep{Correa92}[Property 2.2]. So, all points in $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​​ is Frechet subdifferentiable, *i.e.,* for any $x$​​ in $B\left(\bar{x},\frac{\lambda R}{2\rho}\right)$​​, we have $\partial\phi_{\lambda}(x)=\partial^{\textrm{Clarke}}\phi_{\lambda}(x)\neq\emptyset$​​, and as we have shown before, on those  it is in fact differentiable with the gradient 
 
 $$\partial\phi_{\lambda}(x)=2(x-\pi_{x})+2\frac{2}{2-\lambda}x.$$​ 
 
