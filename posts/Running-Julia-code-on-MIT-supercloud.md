@@ -155,6 +155,12 @@ Now we are going to create a shell script that will be used to submit the job. T
 ```julia
 #!/bin/bash
 
+#SBATCH -o lasso_results.txt
+#SBATCH --nodes=1 # Number of node
+#SBATCH --ntasks=1 # Number of tasks
+#SBATCH --cpus-per-task=32 # How many threads to assign
+#SBATCH --mem=32G # Hom much memory 
+
 # Initialize the module command first source
 source /etc/profile
 
@@ -249,3 +255,10 @@ Then in Julia run:
 ```
 
 Going forward one need not run these extra steps, just loading the Julia module suffices.
+
+## Useful link
+
+A very good link for understanding slurm scripts (how to write the .sh file) is:
+
+[https://researchcomputing.princeton.edu/support/knowledge-base/slurm](https://researchcomputing.princeton.edu/support/knowledge-base/slurm)
+

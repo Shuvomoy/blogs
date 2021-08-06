@@ -50,7 +50,7 @@ gAineq = ComplexExpand[Re[z] - \[Beta]*Abs[z]^2 /. z -> x + I*y]
 srgA = RegionPlot[gAineq >= 0, {x, -2, 2}, {y, -2, 2}]
 ```
 
-![image-20201118084023741](https://raw.githubusercontent.com/Shuvomoy/blog/gh-pages/_assets/image-20201118084023741.png)
+![image-20201118084023741](https://github.com/Shuvomoy/blogs/gh-pages/_assets/image-20201118084023741.png)
 
 We see that 
 $$
