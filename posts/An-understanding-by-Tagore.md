@@ -24,6 +24,8 @@ Tell thyself today,\
 Whether the truth be stormy or breezy\
 Let it on your mind sit easy.\
 
+
+
 Some do love you\
 While others can’t bring themselves to,\
 Some are sold already, while the other\
@@ -43,6 +45,8 @@ From all the hurts and all the smirks.\
 Tell thyself today,\
 Whether the truth be stormy or breezy\
 Let it on your mind sit easy.\
+
+
 
 Having crossed hurricanes of pain\
 You draw nearer to the port of pleasure,\
@@ -64,6 +68,8 @@ Tell thyself today,\
 Whether the truth be stormy or breezy\
 Let it on your mind sit easy.\
 
+
+
 Not all were made to your size\
 Nor were you made to fit all,\
 Some push you to the edge\
@@ -84,6 +90,8 @@ Tell thyself today,\
 Whether the truth be stormy or breezy\
 Let it on your mind sit easy.\
 
+
+
 Sitting in the shade\
 Of your own growing shadow\
 If you make your life dark\
@@ -102,15 +110,15 @@ Whatever your differences with others\
 Sweep off your mind with a broom.\
 Tell thyself today,\
 Whether the truth be stormy or breezy\
-Let it on your mind sit easy.\
-
----
+Let it on your mind sit easy.
 
 ## Original Bengali Poem
 
 মনেরে আজ কহ যে ,\
 ভালো মন্দ যাহাই আসুক\
 সত্যেরে লও সহজে ।\
+
+
 
 কেউ বা তোমায় ভালোবাসে\
 কেউ বা বাসতে পারে না যে ,\
@@ -132,6 +140,8 @@ Let it on your mind sit easy.\
 ভালো মন্দ যাহাই আসুক\
 সত্যেরে লও সহজে ।\
 
+
+
 অনেক ঝঞ্ঝা কাটিয়ে বুঝি\
 এলে সুখের বন্দরেতে ,\
 জলের তলে পাহাড় ছিল\
@@ -151,6 +161,8 @@ Let it on your mind sit easy.\
 মনেরে তাই কহ যে ,\
 ভালো মন্দ যাহাই আসুক\
 সত্যেরে লও সহজে ।\
+
+
 
 তোমার মাপে হয় নি সবাই\
 তুমিও হও নি সবার মাপে ,\
@@ -172,6 +184,8 @@ Let it on your mind sit easy.\
 ভালো মন্দ যাহাই আসুক\
 সত্যেরে লও সহজে ।\
 
+
+
 নিজের ছায়া মস্ত করে\
 অস্তাচলে বসে বসে\
 আঁধার করে তোল যদি\
@@ -190,4 +204,4 @@ Let it on your mind sit easy.\
 কতটুকুন তফাত হল ।\
 মনেরে তাই কহ যে ,\
 ভালো মন্দ যাহাই আসুক\
-সত্যেরে লও সহজে ।\
+সত্যেরে লও সহজে ।
