@@ -1,8 +1,8 @@
-@def title = "My most favorite poem: “An Understanding” by Tagore"   
+@def title = "“An Understanding” by Rabindranath Tagore"   
 @def published = "August 24, 2021"   
 @def tags =["non-technical", "Tagore", "poetry"]
 
-# “An Understanding” by Tagore
+# “An Understanding” by Rabindranath Tagore
 
 **Shuvomoy Das Gupta**
 
