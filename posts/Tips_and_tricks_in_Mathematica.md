@@ -204,7 +204,7 @@ a = Table[{x, N[x Sin[x]]}, {x, 0, 4, .3}];
 FindFormula[a, x]
 ```
 
-We run this Julia by putting the expression above in `weval(W``)` block as follows.
+We run this Julia by putting the expression above in weval() block as follows.
 
 ```julia 
 weval(W`
