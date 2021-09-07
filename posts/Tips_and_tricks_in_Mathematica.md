@@ -185,3 +185,89 @@ fun2[x, y]
 (*Output = c1^2 Norm[x]^2 + c2 (2 c1 x . y + c2 Norm[y]^2) *)
 ```
 
+## Running `Mathematica` from `Julia`
+
+We can run Mathematica from Julia using `MathLink.jl`. We can install `MathLink.jl` in Julia using the following command
+
+```julia 
+ENV["JULIA_MATHKERNEL"]="C:\\Program Files\\Wolfram Research\\Mathematica\\12.3\\MathKernel.exe" # path to MathKernel.exe
+ENV["JULIA_MATHLINK"]="C:\\Program Files\\Wolfram Research\\Mathematica\\12.3\\SystemFiles\\Links\\MathLink\\DeveloperKit\\Windows-x86-64\\SystemAdditions\\ml64i4.dll" # path to MathLink
+import Pkg
+Pkg.add("MathLink")
+Pkg.build("MathLink")
+```
+
+Now suppose we want to run the following Mathematica command in Julia.
+
+```mathematica
+a = Table[{x, N[x Sin[x]]}, {x, 0, 4, .3}];
+FindFormula[a, x]
+```
+
+We run this Julia by putting the expression above in `weval(W``)` block as follows.
+
+```julia 
+weval(W`
+    a = Table[{x, N[x Sin[x]]}, {x, 0, 4, .3}];
+    FindFormula[a, x]
+    `)
+
+# output
+# ------
+# W"Times"(W"x", W"Sin"(W"x"))
+# In Mathematica it will correspond to
+# Times[x,Sin[x]] = x Sin[x]
+```
+
+## Copy Mathematic code as Unicode characters
+
+This solution is from the [link](https://mathematica.stackexchange.com/questions/1137/how-to-copy-as-unicode-from-a-notebook). Suppose we want to copy the following text from Mathematica into some other editor while preserving the Unicode characters:
+
+```mathematica
+(*Code to copy from Mathematica preserving Unicdoe*)
+u1 = -((b + β + a1)/((b + β) rμ));
+u2 = -((μ a2)/((1 + b μ + β μ) rμ)); 
+Reduce[
+ Abs[1 + rμ u1] > Abs[rμ u2] && 
+  b > 0 && β > 0 && μ > 0 && 0 < rμ <= 1 && 
+  Abs[u1] >= 1 && a1 > 0, {a1, a2}, Reals]
+```
+
+We define the following function.
+
+```mathematica
+SetAttributes[copyUnicode, HoldFirst]
+
+copyUnicode[expr_, form_: InputForm] := 
+  Run["clip <", 
+   Export["$Clipboard.temp", ToString[Unevaluated@expr, form], "Text", 
+    CharacterEncoding -> "Unicode"]];
+```
+
+And then run the following from Mathematica.
+
+```mathematica
+(*Put the entire Mathematica code in the function copyUnicode, i.e., (code_to_copy)//copyUnicode or copyUnicode[code_to_copy]*)
+(u1 = -((b + β + a1)/((b + β) rμ));
+u2 = -((μ a2)/((1 + b μ + β μ) rμ)); 
+Reduce[
+ Abs[1 + rμ u1] > Abs[rμ u2] && 
+  b > 0 && β > 0 && μ > 0 && 0 < rμ <= 1 && 
+  Abs[u1] >= 1 && a1 > 0, {a1, a2}, Reals])//copyUnicode    
+  
+(*output:
+﻿Hold[u1 = -((b + β + a1)/((b + β)*rμ)); u2 = -((μ*a2)/((1 + b*μ + β*μ)*rμ)); 1*Reduce[Abs[1 + rμ*u1] > Abs[rμ*u2] && b > 0 && β > 0 && μ > 0 && Inequality[0, Less, rμ, LessEqual, 1] && Abs[u1] >= 1 && a1 > 0, {a1, a2}, Reals]]
+*)  
+
+```
+
+## Parametric optimization problem
+
+```julia 
+Minimize[{-a x + (b + \[Beta])/2 (x^2 + y^2), 
+  a > (b + \[Beta]) && \[Beta] > 0 && b > 0 && 0 <= x <= 1 && 
+   0 <= y <= 1 }, {x, y}]
+```
+
+
+

@@ -26,6 +26,12 @@ The soil of a man’s heart is stonier: a man grows what he can and tends it.
 
 ---
 
+ Sometimes you fall in and out of love with stuff. If you set something free and it comes back to you, it's true love.
+
+-- **C M Punk [after his return](https://www.youtube.com/watch?v=ByAXCjqBzLg&ab_channel=AllEliteWrestling)**
+
+---
+
 You gotta work hard. And at the end of the day you have to look at everything you have, and you have to really enjoy it.
 
 -- **Donald Kennedy**
