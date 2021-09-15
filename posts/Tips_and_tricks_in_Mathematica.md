@@ -219,7 +219,7 @@ weval(W`
 # Times[x,Sin[x]] = x Sin[x]
 ```
 
-## Copy Mathematic code as Unicode characters
+## Copy Mathematics code as Unicode characters
 
 This solution is from the [link](https://mathematica.stackexchange.com/questions/1137/how-to-copy-as-unicode-from-a-notebook). Suppose we want to copy the following text from Mathematica into some other editor while preserving the Unicode characters:
 
@@ -269,5 +269,63 @@ Minimize[{-a x + (b + \[Beta])/2 (x^2 + y^2),
    0 <= y <= 1 }, {x, y}]
 ```
 
+## Matrix manipulation
 
+```mathematica
+(**Extracting column of a matrix**)
+col[X_, i_] := Transpose[{X[[All, i]]}];
+row[X_, i_] := {X[[i]]};
+(*Example*)
+mat = Table[Subscript[m, i, j], {i, 5}, {j, 5}];
+col[mat, 1]
+row[mat, 2]
+```
+
+```mathematica
+(**Concatenating matrices**)
+
+(*Concatenating matrices horizontally [A1 A2]*)
+HCat[A1_, A2_] := ArrayFlatten[{{A1, A2}}];
+
+(*Concatenating matrices vertically 
+[A1
+A2
+]*)
+VCat[A1_, A2_] := ArrayFlatten[{{A1}, {A2}}];
+
+(*Concatenating horizontally and vertically [A11	A12
+                                             A21	A22
+]*)
+
+PartCat[A11_, A12_, A21_, A22_] := 
+  ArrayFlatten[{{A11, A12}, {A21, A22}}];
+  
+(*Examples*)
+(**********)
+
+(*HCat Example*)
+n = 3; m = 2;
+A1 = Table[Subscript[a1, i, j], {i, n}, {j, n}];
+A2 = Table[Subscript[a2, i, j], {i, n}, {j, m}];
+HCat[A1, A2]  
+
+(*VCat Example*)
+A1 = Table[Subscript[a1, i, j], {i, n}, {j, n}];
+A2 = Table[Subscript[a2, i, j], {i, m}, {j, n}];
+VCat[A1, A2]
+
+(*PartCat Example*)
+A11 = Table[Subscript[a11, i, j], {i, n}, {j, n}];
+A12 = Table[Subscript[a12, i, j], {i, n}, {j, m}];
+A21 = Table[Subscript[a21, i, j], {i, m}, {j, n}];
+A22 = Table[Subscript[a22, i, j], {i, m}, {j, m}];
+PartCat[A11, A12, A21, A22]
+```
+
+```mathematica
+(*Define an unit column vector*)
+eiVec[n_, i_] := Module[{t1}, t1 = ConstantArray[0, {n, 1}];
+  t1[[i]] = {1}; t1]
+eiVec[7, 3] // MatrixForm
+```
 
