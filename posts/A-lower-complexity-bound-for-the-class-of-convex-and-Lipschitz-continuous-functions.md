@@ -68,7 +68,7 @@ We next present the main lower bound result, and then we prove it.
 ---
 ### A lower bound result
 
-For any $L,R>0$, $d\in\mathbf{N}$ with $N\leq d-1$, and any starting point $x_{0}\in\mathbf{R}^{d}$, there exists a function $f:\mathbf{R}^{d}\to\mathbf{R}$, which is convex and $L$-Lipschitz continuous on the ball $B(x_{\star};R)=\{x\in\mathbf{R}^{d}\mid\|x-x_{\star}\|_{2}^{2}\leq R^{2}\}$ and a first order oracle providing subgradient and function value information such that we have the lower bound on the objective inaccuracy
+For any $L,R>0$​, $d\in\mathbf{N}$​ with $N\leq d-1$​, and any starting point $x_{0}\in\mathbf{R}^{d}$​, there exist (i) a function $f:\mathbf{R}^{d}\to\mathbf{R}$​, which is convex and $L$​-Lipschitz continuous on the ball $B(x_{\star};R)=\{x\in\mathbf{R}^{d}\mid\|x-x_{\star}\|_{2}^{2}\leq R^{2}\}$​ and (ii) a first order oracle providing subgradient and function value information such that we have the lower bound on the objective inaccuracy
 
  $$f(x_{N})-f(x_{\star})\geq\frac{LR}{2(2+\sqrt{N+1})},$$ 
 
