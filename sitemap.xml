@@ -44,6 +44,12 @@
     <priority>0.5</priority>
 </url>
 <url>
+    <loc>shuvomoy.github.io/blogs/404/index.html</loc>
+    <lastmod>2021-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
     <loc>shuvomoy.github.io/blogs/posts/Running-Julia-code-on-MIT-supercloud/index.html</loc>
     <lastmod>2021-11-11</lastmod>
     <changefreq>monthly</changefreq>
@@ -123,6 +129,12 @@
 </url>
 <url>
     <loc>shuvomoy.github.io/blogs/posts/Implementing-simple-gradient-descent-Julia/index.html</loc>
+    <lastmod>2021-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>shuvomoy.github.io/blogs/index.html</loc>
     <lastmod>2021-11-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
