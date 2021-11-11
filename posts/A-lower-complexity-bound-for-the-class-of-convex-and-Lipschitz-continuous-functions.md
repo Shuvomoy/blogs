@@ -1,5 +1,5 @@
 @def title = "A lower-complexity bound for the class of convex and Lipschitz continuous functions"
-@def published ="July 8, 2021"
+@def published ="November, 2021"
 @def tags =["optimization"]
 
 
@@ -8,7 +8,7 @@
 
 **Shuvomoy Das Gupta**
 
-*July 8, 2021*
+*November 8, 2021*
 
 In this blog, we discuss how to derive a lower-complexity bound for the class of convex and Lipschitz continuous functions. This blog is based on [1, Section 3.2.1].
 ~~~
