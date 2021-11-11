@@ -87,7 +87,7 @@ Define the function:
 
 $$f(x) := \frac{\mu}{2}\|x\|_{2}^{2}+\gamma\max\{x[1],x[2],\ldots, x[N+1]\},$$ 
 
-where $x[i]$ denotes the $i$-th component of the vector $x$, and $\gamma$ and $\mu$ are some positive numbers. For now, we do not specify what $\mu$ and $\gamma$ are, we will automatically find their values in terms of $L$ and $R$ down the line. Note that $f$ is convex by definition. Using subdifferential calculus, we can write down the closed-form expression of $f$ at a point $x\in\mathbf{R}^{d}$, given by 
+where $x[i]$ denotes the $i$-th component of the vector $x$, and $\gamma$ and $\mu$ are some positive numbers. For now, we do not specify what $\mu$ and $\gamma$ are, we will automatically find their values in terms of $L$ and $R$ down the line. Note that $f$ is convex by definition. Using subdifferential calculus, we can write down the closed-form expression of $f$'s subdifferential at a point $x\in\mathbf{R}^{d}$, given by 
 ~~~
 <label for="mn-demo-s3" class="margin-toggle">&#8853;</label>
 <input type="checkbox" id="mn-demo" class="margin-toggle"/>
