@@ -1,5 +1,5 @@
 @def title = "A lower-complexity bound for the class of convex and Lipschitz continuous functions"
-@def published ="November, 2021"
+@def published ="November 8, 2021"
 @def tags =["optimization"]
 
 
