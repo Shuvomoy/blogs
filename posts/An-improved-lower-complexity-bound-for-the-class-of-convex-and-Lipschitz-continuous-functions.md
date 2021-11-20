@@ -15,7 +15,7 @@ $$x = \{x[1],x[2],\ldots,x[d]\} \in \mathbf{R}^d,$$
 define the index set (elements are sorted from smallest to largest):
 $$I_{[1:N+1]}(x)=\{\ell\in[1:N+1]\mid x[\ell]=\max\{x[1],x[2],\ldots x[N+1]\}\},$$ *i.e.*, any element of $I_{[1:N+1]}(x)$ corresponds to an index of a maximal component of vector $x$ searched over its first $N+1$ components. The first element in $I_{[1:N+1]}(x)$ is defined by 
 $$i_{x}=\min I_{[1:N+1]}(x).$$ 
-Finally, For any $i\in [1:d]$, $e_i \in \mathbf{R}^d$ corresponds to the unit vector that has 1 in its $i$-th coordinate and 0 everywhere else.
+Finally, for any $i\in [1:d]$, $e_i \in \mathbf{R}^d$ corresponds to the unit vector that has 1 in its $i$-th coordinate and 0 everywhere else.
 
 
 ---
@@ -47,9 +47,9 @@ To solve this optimization problem, we consider algorithm that satisfies the con
 
 #### A lower bound result. 
 
-For any $L,R>0$, $d\in\mathbf{N}$ with $N\leq d-1$, and any starting point $x_{0}\in\mathbf{R}^{d}$, there exist (i) a function $f:\mathbf{R}^{d}\to\mathbf{R}$, which is convex and $L$-Lipschitz continuous, and (ii) a first order oracle providing subgradient and function value information such that we have the lower bound on the objective inaccuracy
+For any $L,R>0$, $d\in\mathbf{N}$ with $N\leq d-1$, and any starting point $x_{0}\in\mathbf{R}^{d}$, there exist (i) a function $f:\mathbf{R}^{d}\to\mathbf{R}$, which is convex and $L$-Lipschitz continuous, and (ii) a first order oracle providing subgradient and function value information such that we have the lower bound on the objective inaccuracy:
+    $$f(x_{N})-f(x_{\star})\geq\frac{LR}{\sqrt{N+1}},$$ for any first-order method satisfying (Span-Cond).
 
-$$f(x_{N})-f(x_{\star})\geq\frac{LR}{\sqrt{N+1}},$$ for any first-order method satisfying (Span-Cond).
 
 #### Proof of the lower bound result.
 
@@ -228,3 +228,4 @@ thus completing our proof.
 [1] Drori, Yoel, and Teboulle, Marc. An optimal variant of Kelley's cutting-plane method. Mathematical Programming 160.1 (2016): 321-351.
 
 [2] Beck, Amir. First-order methods in optimization. Society for Industrial and Applied Mathematics, 2017.
+
