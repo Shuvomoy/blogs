@@ -1,3 +1,7 @@
+\enabletheorems
+
+
+
 @def title = "An improved lower-complexity bound for the class of convex and Lipschitz continuous functions"
 @def published ="November 11, 2021"
 @def tags =["optimization"]
@@ -45,10 +49,14 @@ Suppose we want to find a solution to $(P),$ so we have to run some iterative al
 
 To solve this optimization problem, we consider algorithm that satisfies the condition $$\left(\forall i\in[1:N]\right)\quad x_{i}\in x_{0}+\textrm{span}\left\{ f^{\prime}(x_{0}),\ldots,f^{\prime}(x_{i-1})\right\} ,\quad\textrm{(Span-Cond)}$$ where $g_{i}\in\partial f(x_{i})$. This condition holds for majority of practical methods.
 
-#### A lower bound result. 
+#### A lower bound result.
+
+\begin{theorem}{}{label-name}
 
 For any $L,R>0$, $d\in\mathbf{N}$ with $N\leq d-1$, and any starting point $x_{0}\in\mathbf{R}^{d}$, there exist (i) a function $f:\mathbf{R}^{d}\to\mathbf{R}$, which is convex and $L$-Lipschitz continuous, and (ii) a first order oracle providing subgradient and function value information such that we have the lower bound on the objective inaccuracy:
-    $$f(x_{N})-f(x_{\star})\geq\frac{LR}{\sqrt{N+1}},$$ for any first-order method satisfying (Span-Cond).
+    $$f(x_{N})-f(x_{\star})\geq\frac{LR}{\sqrt{N+1}},$$​ for any first-order method satisfying (Span-Cond).
+
+\end{theorem}
 
 
 #### Proof of the lower bound result.
@@ -228,4 +236,8 @@ thus completing our proof.
 [1] Drori, Yoel, and Teboulle, Marc. An optimal variant of Kelley's cutting-plane method. Mathematical Programming 160.1 (2016): 321-351.
 
 [2] Beck, Amir. First-order methods in optimization. Society for Industrial and Applied Mathematics, 2017.
+
+
+
+\theoremscripts
 
