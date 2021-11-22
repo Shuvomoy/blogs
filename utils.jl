@@ -42,18 +42,19 @@ function hfun_blogposts()
     list = readdir("posts")
     filter!(f -> endswith(f, ".md"), list)
     sorter(p) = begin
-	    # @show "calling sorter"
+	    @show "calling sorter"
         ps  = splitext(p)[1]
         url = "/posts/$ps/"
         surl = strip(url, '/')
-		# println("surl = ", surl)
+		println("surl = ", surl)
         pubdate = pagevar(surl, :published)
-		# @show pubdate
+		@show pubdate
         if isnothing(pubdate)
-		    # @show "nopubdate"
+		    @show "💀 something is not right"
+		    @show "nopubdate"
             return Date(Dates.unix2datetime(stat(surl * ".md").ctime))
         end
-		# @show Date(pubdate, DateFormat("U d, Y"))
+		@show Date(pubdate, DateFormat("U d, Y"))
         return Date(pubdate, DateFormat("U d, Y"))
     end
     sort!(list, by=sorter, rev=true)
@@ -65,7 +66,7 @@ function hfun_blogposts()
             continue
         end
         ps  = splitext(post)[1]
-		# @show "ps = $ps"
+		@show "ps = $ps"
         write(io, "<li><span><i>")
         url = "/posts/$ps/"
         surl = strip(url, '/')
@@ -118,3 +119,5 @@ function hfun_custom_taglist()::String
     write(io, "</ul>")
     return String(take!(io))
 end
+
+
