@@ -1,4 +1,3 @@
-
 @def title = "How to create a simple package in Julia"
 @def published ="March 22, 2020"
 @def tags =["programming", "Julia"]
@@ -9,7 +8,7 @@
 
 *March 22, 2020*
 
-> Thomson's Rule for First-Time Telescope Makers: *"It is faster to make a four-inch mirror then a six-inch mirror than to make a six-inch mirror."*
+Thomson's Rule for First-Time Telescope Makers: *"It is faster to make a four-inch mirror then a six-inch mirror than to make a six-inch mirror."*
 
 In this blog, we discuss how to create a simple package in `Julia` that computes the proximal operator of a convex quadratic function. The goal is just to illustrate how to create a structured solver package, the code underlying the solver is very inefficient. Let us call our package `TestPackage`. 
 
