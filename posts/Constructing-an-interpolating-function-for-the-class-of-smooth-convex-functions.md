@@ -29,11 +29,9 @@ where $f^{\prime}(\cdot)$​​ denotes a subgradient of $f$​​ at $(\cdot)$�
 
 ---
 
-
-
 ### Sion's minimax theorem
 
-We are going to use the famous result due to Maurice Sion.
+We are going to use the famous result due to [Maurice Sion](https://en.wikipedia.org/wiki/Maurice_Sion).
 
 \begin{theorem}{Sion's minimax theorem}{sion-mini-max}
 Let $X$ be a compact convex set (over which minimization will be performed) and $Y$ be a convex set in $\mathbf{R}^{d}$ (over which supremum will be computed). Suppose $g:X\times Y\to\mathbf{R}$ satisfies the following properties: (i) $g(x,\cdot)$ is upper-semicontinuous and quasi-concave on $Y$ for all $x\in X$, and (ii) $g(\cdot,y)$ is lower-semicontinuous and quasi-convex on $X$ for all $y\in Y$. Then we have 
@@ -76,14 +74,16 @@ But, we are looking for an interpolation function that is in $\mathcal{F}_{0,L}(
 
 Due to (i) and (ii), to find the interpolation function in $\mathcal{F}_{0,L}(\mathbf{R}^{d}),$​​ all we have to do is to compute the conjugate function of $h$​​. In other words, the desired interpolation function in $\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​ would be 
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 f(x) & =h^{*}(x)\\
  & =\sup_{y\in\mathbf{R}^{d}}\left[-h(y)+\left\langle x\mid y\right\rangle \right]\\
  & \overset{(1)}{=}\sup_{y\in\mathbf{R}^{d}}\left[-\left[-\min_{i\in I}\left\{ f_{i}-\left\langle x_{i}\mid y\right\rangle -\frac{1}{2L}\|y-g_{i}\|^{2}\right\} \right]+\left\langle x\mid y\right\rangle \right]\\
  & =\sup_{y\in\mathbf{R}^{d}}\left[\min_{i\in I}\left\{ f_{i}-\left\langle x_{i}\mid y\right\rangle -\frac{1}{2L}\|y-g_{i}\|^{2}+\left\langle x\mid y\right\rangle \right\} \right]\\
  & =\sup_{y\in\mathbf{R}^{d}}\left[\min_{i\in I}\left\{ f_{i}-\frac{1}{2L}\|y-g_{i}\|^{2}+\left\langle x-x_{i}\mid y\right\rangle \right\} \right]\\
- & =\sup_{y\in\mathbf{R}^{d}}\left[\min_{\alpha\in\Delta}\sum_{i\in I}\alpha_{i}\left\{ f_{i}-\frac{1}{2L}\|y-g_{i}\|^{2}+\left\langle x-x_{i}\mid y\right\rangle \right\} \right],\quad\quad\quad(2)\end{aligned}$$​​ 
-where in the last line we have used the fact that $\min_{i\in I}a_{i}=\min_{\alpha\in\Delta}\sum_{i\in I}\alpha_{i}a_{i}$​​​. Now, in (2), denote the inner function by $$p(y,\alpha)=\sum_{i\in I}\alpha_{i}\left\{ f_{i}-\frac{1}{2L}\|y-g_{i}\|^{2}+\left\langle x-x_{i}\mid y\right\rangle \right\} ,$$​​​ which is continuous and concave with respect to the maximizing variable $y$​​​ and continuous and convex (in fact linear) with respect to the minimizing variable $\alpha$​​​. Finally, $\Delta$​​​ the minimizing set is compact and convex, and the $\mathbf{R}^{d}$​​​ the maximizing set is convex. Hence, applying Sion's minimax theorem we have: 
+ & =\sup_{y\in\mathbf{R}^{d}}\left[\min_{\alpha\in\Delta}\sum_{i\in I}\alpha_{i}\left\{ f_{i}-\frac{1}{2L}\|y-g_{i}\|^{2}+\left\langle x-x_{i}\mid y\right\rangle \right\} \right],\quad\quad\quad(2)\end{aligned}
+$$
+where in the last line we have used the fact that $\min_{i\in I}a_{i}=\min_{\alpha\in\Delta}\sum_{i\in I}\alpha_{i}a_{i}$. Now, in (2), denote the inner function by $$p(y,\alpha)=\sum_{i\in I}\alpha_{i}\left\{ f_{i}-\frac{1}{2L}\|y-g_{i}\|^{2}+\left\langle x-x_{i}\mid y\right\rangle \right\} ,$$ which is continuous and concave with respect to the maximizing variable $y$ and continuous and convex (in fact linear) with respect to the minimizing variable $\alpha$. Finally, $\Delta$---the minimizing set---is compact and convex, and  $\mathbf{R}^{d}$​---​​the maximizing set---is convex. Hence, applying Sion's minimax theorem we have: 
 
 $$\begin{aligned}
  & f(x)\\
@@ -110,8 +110,8 @@ $$
 \begin{aligned}
  & \sup_{y\in\mathbf{R}^{d}}\sum_{i\in I}\alpha_{i}\Big(f_{i}-\frac{1}{2L}\underbrace{\|y-g_{i}\|^{2}}_{=\|y\|^{2}+\|g_{i}\|^{2}-2\langle y\mid g_{i}\rangle}+\left\langle x-x_{i}\mid y\right\rangle \Big)\\
  & =\sup_{y\in\mathbf{R}^{d}}\sum_{i\in I}\alpha_{i}\Big(f_{i}-\frac{1}{2L}\{\|y\|^{2}+\|g_{i}\|^{2}-2\langle y\mid g_{i}\rangle\}+\left\langle x-x_{i}\mid y\right\rangle \Big)\\
- & =\sum_{i\in I}\alpha_{i}\Big(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\Big)+\sup_{y\in\mathbf{R}^{d}}\sum_{i\in I}\alpha_{i}\Big(-\frac{1}{2L}\|y\|^{2}+\langle y\mid\frac{1}{L}g_{i}\rangle+\left\langle x-x_{i}\mid y\right\rangle \Big)\\
- & =\sum_{i\in I}\alpha_{i}\Big(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\Big)+\sup_{y\in\mathbf{R}^{d}}\sum_{i\in I}\alpha_{i}\Big(-\frac{1}{2L}\|y\|^{2}+\left\langle x-x_{i}+\frac{1}{L}g_{i}\mid y\right\rangle \Big)\\
+ & =\sum_{i\in I}\alpha_{i}\Big(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\Big)+\sup_{y\in\mathbf{R}^{d}}\sum_{i\in I}\alpha_{i}\Big(-\frac{1}{2L}\|y^{\star}\|^{2}+\langle y^{\star}\mid\frac{1}{L}g_{i}\rangle+\left\langle x-x_{i}\mid y^{\star}\right\rangle \Big)\\
+ & =\sum_{i\in I}\alpha_{i}\Big(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\Big)+\sup_{y\in\mathbf{R}^{d}}\sum_{i\in I}\alpha_{i}\Big(-\frac{1}{2L}\|y^{\star}\|^{2}+\left\langle x-x_{i}+\frac{1}{L}g_{i}\mid y^{\star}\right\rangle \Big)\\
  & =\sum_{i\in I}\alpha_{i}\Big(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\Big)+\sum_{i\in I}\alpha_{i}\Big(-\frac{1}{2L}\|y^{\star}\|^{2}+\left\langle x-x_{i}+\frac{1}{L}g_{i}\mid y^{\star}\right\rangle \Big)\\
  & =\sum_{i\in I}\alpha_{i}\Big(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\Big)-\frac{1}{2L}\|y^{\star}\|^{2}+\sum_{i\in I}\alpha_{i}\left\langle x-x_{i}+\frac{1}{L}g_{i}\mid y^{\star}\right\rangle \\
  & =\sum_{i\in I}\alpha_{i}\Big(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\Big)-\frac{1}{2L}\|L\Big(x-\sum_{i\in I}\alpha_{i}\big(x_{i}-\frac{1}{L}g_{i}\big)\Big)\|^{2}\\
@@ -121,7 +121,7 @@ $$
  & =\frac{L}{2}\|x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{L}g_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\right).\quad\quad\quad(5)
 \end{aligned}
 $$
-Using $(5)$​​​​​ in (3), we arrive at the desired interpolating function $f\in\mathcal{F}_{0,L}(\mathbf{R}^{d}):$​​​​​ $$f(x)=\min_{\alpha\in\Delta}\left[\frac{L}{2}\|x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{L}g_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\right)\right],$$​​​​​ thus completing the proof.
+Using (5) in (3), we arrive at the desired interpolating function $f\in\mathcal{F}_{0,L}(\mathbf{R}^{d}):$ $$f(x)=\min_{\alpha\in\Delta}\left[\frac{L}{2}\|x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{L}g_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\right)\right],$$​​​​​​ thus completing the proof.
 
 ### References.
 
