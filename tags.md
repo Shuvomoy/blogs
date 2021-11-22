@@ -7,4 +7,5 @@
 * [#Julia programming language](/tag/julia)
 * [#Non-technical](/tag/non-technical)
 * [#Optimization](/tag/optimization)
+* [#Lower bounds in optimization](/tag/lower-bounds-in-optimization)
 

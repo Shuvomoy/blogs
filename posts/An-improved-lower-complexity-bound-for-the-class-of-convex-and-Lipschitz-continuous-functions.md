@@ -4,7 +4,7 @@
 
 @def title = "An improved lower-complexity bound for the class of convex and Lipschitz continuous functions"
 @def published ="November 11, 2021"
-@def tags =["optimization"]
+@def tags =["optimization",  "lower-bounds-in-optimization"]
 
 # An improved lower-complexity bound for the class of convex and Lipschitz continuous functions
 
