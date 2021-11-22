@@ -127,6 +127,6 @@ Using (5) in (3), we arrive at the desired interpolating function $f\in\mathcal{
 
 `[1]` Taylor, Adrien B. Convex interpolation and performance estimation of first-order methods for convex optimization. Diss. Catholic University of Louvain, Louvain-la-Neuve, Belgium, 2017.
 
-`[2]` R Tyrell Rockafellar. Convex Analysis. Princeton University Press, 1996.
+`[2]` Rockafellar, Tyrell. Convex Analysis. Princeton University Press, 1996.
 
 `[3]` Drori, Yoel. The exact information-based complexity of smooth convex minimization. Journal of Complexity 39 (2017): 1-16.
