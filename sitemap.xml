@@ -38,12 +38,6 @@
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>shuvomoy.github.io/blogs/posts/An-improved-lower-complexity-bound-for-the-class-of-convex-and-Lipschitz-continuous-functions/index.html</loc>
-    <lastmod>2021-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
     <loc>shuvomoy.github.io/blogs/404/index.html</loc>
     <lastmod>2021-11-22</lastmod>
     <changefreq>monthly</changefreq>
@@ -92,12 +86,6 @@
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>shuvomoy.github.io/blogs/posts/Constructing-an-interpolating-function-for-the-class-of-smooth-convex-functions/index.html</loc>
-    <lastmod>2021-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
     <loc>shuvomoy.github.io/blogs/posts/Running-parallel-Julia-code-on-MIT-supercloud/index.html</loc>
     <lastmod>2021-11-22</lastmod>
     <changefreq>monthly</changefreq>
@@ -110,12 +98,6 @@
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>shuvomoy.github.io/blogs/posts/How-to-create-a_simple-package-in-julia/index.html</loc>
-    <lastmod>2021-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
     <loc>shuvomoy.github.io/blogs/posts/Why-do-you-want-to-go-back-Lord-of-Mathura/index.html</loc>
     <lastmod>2021-11-22</lastmod>
     <changefreq>monthly</changefreq>
@@ -123,6 +105,12 @@
 </url>
 <url>
     <loc>shuvomoy.github.io/blogs/tags/index.html</loc>
+    <lastmod>2021-11-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>shuvomoy.github.io/blogs/posts/How-to-create-a-simple-package-in-julia/index.html</loc>
     <lastmod>2021-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
