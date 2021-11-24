@@ -4,17 +4,11 @@
 
 Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Research Center](https://orc.mit.edu/). This blog is an attempt to improve my English. Here is my [academic website](https://shuvomoy.github.io/site/).
 
-## Tags
-
-* [#Julia programming language](/tag/julia)
-* [#Non-technical](/tag/non-technical)
-* [#Optimization](/tag/optimization)
-* [#Lower bounds in optimization](/tag/lower-bounds-in-optimization)
-
-
 ## [Posts]( #posts)
 
-- *(2021-11-22)* [Constructing an interpolating function for the class of smooth convex functions](posts/Constructing-an-interpolating-function-for-the-class-of-smooth-convex-functions)
+* (2021-11-24) [Properties of smooth nonconvex interpolated functions](posts/Properties_of_rho_smooth_nonconvex_interpolation_functions)
+
+- *(2021-11-22)* [Constructing an interpolated function for the class of smooth convex functions](posts/Constructing-an-interpolated-function-for-the-class-of-smooth-convex-functions)
 - *(2021-11-11)* [An improved lower-complexity bound for the class of convex and Lipschitz continuous functions](posts/An-improved-lower-complexity-bound-for-the-class-of-convex-and-Lipschitz-continuous-functions)
 - *(2021-11-08)* [A lower-complexity bound for the class of convex and Lipschitz continuous functions](posts/A-lower-complexity-bound-for-the-class-of-convex-and-Lipschitz-continuous-functions/)
 - *(2021-08-26)* [Tips and tricks in Mathematica](posts/Tips_and_tricks_in_Mathematica/)
@@ -43,4 +37,13 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 - *(2020-01-24)* [Running Julia code on MIT Supercloud](posts/Running-Julia-code-on-MIT-supercloud/)
 - *(2020-01-20)* [Solving mixed-integer quadratic programming (MIQP) using Julia+JuMP](posts/Solving_mixed_integer_quadratic_programming_Julia/)
 - *(2018-03-15)* [Favorite Quotes and Excerpts](posts/Quotes-and-excerpts/)
+
+## Tags
+
+* [#Julia programming language](/tag/julia)
+* [#Non-technical](/tag/non-technical)
+* [#Optimization](/tag/optimization)
+* [#Lower bounds in optimization](/tag/lower-bounds-in-optimization)
+
+
 

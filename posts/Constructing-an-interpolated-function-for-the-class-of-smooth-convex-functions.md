@@ -1,16 +1,16 @@
 \enabletheorems
 
-@def title = "Constructing an interpolating function for the class of smooth convex functions"
+@def title = "Constructing an interpolated function for the class of smooth convex functions"
 @def published ="November 22, 2021"
 @def tags =["optimization", "lower-bounds-in-optimization"]
 
-# Constructing an interpolating function for the class of smooth convex functions
+# Constructing an interpolated function for the class of smooth convex functions
 
 **Shuvomoy Das Gupta**
 
 *November 22, 2021*
 
-In this blog, we study constructing interpolating function for $L$​​-smooth convex function due to Yoel Drori from `[3]`.
+In this blog, we study constructing interpolated function for $L$​​-smooth convex function due to Yoel Drori from `[3]`.
 
 **Notation and notions.** All norms are 2-norm in this blog. A function is $L$-smooth convex if and only 
 $$\left(\forall x,y\in\mathbf{R}^{d}\right)\quad f(y)\geq f(x)+\langle\nabla f(x)\mid y-x\rangle+\frac{1}{2L}\|\nabla f(x)-\nabla f(y)\|^{2}.$$
@@ -51,28 +51,28 @@ Suppose we are given the set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​�
 Next, we prove the following result due to Yoel Drori from `[3]`.
 
 \begin{theorem}{Interpolation of smooth convex functions.}{intpl-smth-convex-func}
-If $\{(x_{i},g_{i},f_{i})\}_{i\in I}\subseteq\mathbf{R}^{d}\times\mathbf{R}^{d}\times\mathbf{R}$​​​ is $\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​-interpolable, then one interpolation function $f\in\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​ that can be constructed from $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​​ is: $$f(x)=\min_{\alpha\in\Delta}\left[\frac{L}{2}\|x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{L}g_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\right)\right],$$​​​ where $\Delta=\{\bar{\alpha}\in\mathbf{R}^{\vert I\vert}\mid\bar{\alpha}\geq0,\sum_{i\in I}\bar{\alpha}_{i}=1\}.$​​​
+If $\{(x_{i},g_{i},f_{i})\}_{i\in I}\subseteq\mathbf{R}^{d}\times\mathbf{R}^{d}\times\mathbf{R}$​​​ is $\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​-interpolable, then one interpolated function $f\in\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​ that can be constructed from $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​​ is: $$f(x)=\min_{\alpha\in\Delta}\left[\frac{L}{2}\|x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{L}g_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\right)\right],$$​​​ where $\Delta=\{\bar{\alpha}\in\mathbf{R}^{\vert I\vert}\mid\bar{\alpha}\geq0,\sum_{i\in I}\bar{\alpha}_{i}=1\}.$​​​
 \end{theorem}
 
 ### Proof
 
-The set $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​​ is $\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​-interpolable if and only if $\{(\bar{x}_{i},\bar{g}_{i},\bar{f}_{i})\}_{i\in I}\coloneqq\{(g_{i},x_{i},\left\langle x_{i}\mid g_{i}\right\rangle -f_{i})\}_{i\in I}$​​​ is $\mathcal{F}_{1/L,\infty}(\mathbf{R}^{d})$​​​, which is from `[1, Lemma 3.7]`. Also, if $\{(\bar{x}_{i},\bar{g}_{i},\bar{f}_{i})\}_{i\in I}$​​​ is $\mathcal{F}_{\mu,\infty}(\mathbf{R}^{d})$​​​-interpolable then one such interpolation function $h\in\mathcal{F}_{\mu,\infty}(\mathbf{R}^{d})$​​​ would be: $$\begin{aligned}
+The set $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​​ is $\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​-interpolable if and only if $\{(\bar{x}_{i},\bar{g}_{i},\bar{f}_{i})\}_{i\in I}\coloneqq\{(g_{i},x_{i},\left\langle x_{i}\mid g_{i}\right\rangle -f_{i})\}_{i\in I}$​​​ is $\mathcal{F}_{1/L,\infty}(\mathbf{R}^{d})$​​​, which is from `[1, Lemma 3.7]`. Also, if $\{(\bar{x}_{i},\bar{g}_{i},\bar{f}_{i})\}_{i\in I}$​​​ is $\mathcal{F}_{\mu,\infty}(\mathbf{R}^{d})$​​​-interpolable then one such interpolated function $h\in\mathcal{F}_{\mu,\infty}(\mathbf{R}^{d})$​​​ would be: $$\begin{aligned}
 h(\bar{x}) & =\max_{i\in I}\{\bar{f}_{i}+\left\langle \bar{g}_{i}\mid\bar{x}-\bar{x}_{i}\right\rangle +\frac{\mu}{2}\|\bar{x}-\bar{x}_{i}\|^{2}\}\end{aligned}$$​​​ where we have used the fact that $\max_{i\in I}a_{i}=\max_{\alpha\in\Delta}\sum_{i\in I}\alpha_{i}a_{i}.$​​​
 
-So, if $\{(\bar{x}_{i},\bar{g}_{i},\bar{f}_{i})\}_{i\in I}\coloneqq\{(g_{i},x_{i},\left\langle x_{i}\mid g_{i}\right\rangle -f_{i})\}_{i\in I}$​ is $\mathcal{F}_{1/L,\infty}(\mathbf{R}^{d})$​-interpolable, then one such interpolation function $h\in\mathcal{F}_{1/L,\infty}(\mathbf{R}^{d})$​ would be $$\begin{aligned}
+So, if $\{(\bar{x}_{i},\bar{g}_{i},\bar{f}_{i})\}_{i\in I}\coloneqq\{(g_{i},x_{i},\left\langle x_{i}\mid g_{i}\right\rangle -f_{i})\}_{i\in I}$​ is $\mathcal{F}_{1/L,\infty}(\mathbf{R}^{d})$​-interpolable, then one such interpolated function $h\in\mathcal{F}_{1/L,\infty}(\mathbf{R}^{d})$​ would be $$\begin{aligned}
 h(\bar{x}) & =\max_{i\in I}\left\{ \bar{f}_{i}+\left\langle \bar{g}_{i}\mid\bar{x}-\bar{x}_{i}\right\rangle +\frac{1}{2L}\|\bar{x}-\bar{x}_{i}\|^{2}\right\} \\
  & =\max_{i\in I}\left\{ \left\langle x_{i}\mid g_{i}\right\rangle -f_{i}+\left\langle x_{i}\mid\bar{x}-g_{i}\right\rangle +\frac{1}{2L}\|\bar{x}-g_{i}\|^{2}\right\} \\
  & =\max_{i\in I}\left\{ \cancel{\left\langle x_{i}\mid g_{i}\right\rangle }-f_{i}+\left\langle x_{i}\mid\bar{x}\right\rangle -\cancel{\left\langle x_{i}\mid g_{i}\right\rangle }+\frac{1}{2L}\|\bar{x}-g_{i}\|^{2}\right\} \\
  & =\max_{i\in I}\left\{ -f_{i}+\left\langle x_{i}\mid\bar{x}\right\rangle +\frac{1}{2L}\|\bar{x}-g_{i}\|^{2}\right\} \\
  & =-\min_{i\in I}\left\{ f_{i}-\left\langle x_{i}\mid\bar{x}\right\rangle -\frac{1}{2L}\|\bar{x}-g_{i}\|^{2}\right\} ,\quad\quad\quad(1)\end{aligned}$$​ where in the last line we have used $\max(\cdot)=-\min(-\cdot).$​
 
-But, we are looking for an interpolation function that is in $\mathcal{F}_{0,L}(\mathbf{R}^{d}),$ not $\mathcal{F}_{1/L,\infty}(\mathbf{R}^{d})$. How to go from $\mathcal{F}_{1/L,\infty}(\mathbf{R}^{d})$ to $\mathcal{F}_{0,L}(\mathbf{R}^{d})$? To that goal, we use the following results:
+But, we are looking for an interpolated function that is in $\mathcal{F}_{0,L}(\mathbf{R}^{d}),$ not $\mathcal{F}_{1/L,\infty}(\mathbf{R}^{d})$. How to go from $\mathcal{F}_{1/L,\infty}(\mathbf{R}^{d})$ to $\mathcal{F}_{0,L}(\mathbf{R}^{d})$? To that goal, we use the following results:
 
 \(i\) $f\in\mathcal{F}_{0,L}(\mathbf{R}^{d})$​ if and only if $f$​'s conjugate function $f^{*}(\cdot)=\sup_{y\in\mathbf{R}^{d}}\left[-f(y)+\left\langle \cdot\mid y\right\rangle \right]\in\mathcal{F}_{1/L,\infty}(\mathbf{R}^{d})$​ `[1, Theorem 2.34]`.
 
 \(ii\) for any lower-semicontinuous, proper, and convex function $f$, we have $f=f^{**}$ `[2, Theorem 12.2]`.
 
-Due to (i) and (ii), to find the interpolation function in $\mathcal{F}_{0,L}(\mathbf{R}^{d}),$​​ all we have to do is to compute the conjugate function of $h$​​. In other words, the desired interpolation function in $\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​ would be 
+Due to (i) and (ii), to find the interpolated function in $\mathcal{F}_{0,L}(\mathbf{R}^{d}),$​​ all we have to do is to compute the conjugate function of $h$​​. In other words, the desired interpolated function in $\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​ would be 
 
 $$
 \begin{aligned}
@@ -121,7 +121,7 @@ $$
  & =\frac{L}{2}\|x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{L}g_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\right).\quad\quad\quad(5)
 \end{aligned}
 $$
-Using (5) in (3), we arrive at the desired interpolating function $f\in\mathcal{F}_{0,L}(\mathbf{R}^{d}):$ $$f(x)=\min_{\alpha\in\Delta}\left[\frac{L}{2}\|x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{L}g_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\right)\right],$$​​​​​​ thus completing the proof.
+Using (5) in (3), we arrive at the desired interpolated function $f\in\mathcal{F}_{0,L}(\mathbf{R}^{d}):$ $$f(x)=\min_{\alpha\in\Delta}\left[\frac{L}{2}\|x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{L}g_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\right)\right],$$​​​​​​ thus completing the proof.
 
 ### References.
 
@@ -130,3 +130,5 @@ Using (5) in (3), we arrive at the desired interpolating function $f\in\mathcal{
 `[2]` Rockafellar, Tyrell. Convex Analysis. Princeton University Press, 1996.
 
 `[3]` Drori, Yoel. The exact information-based complexity of smooth convex minimization. Journal of Complexity 39 (2017): 1-16.
+
+\theoremscripts
