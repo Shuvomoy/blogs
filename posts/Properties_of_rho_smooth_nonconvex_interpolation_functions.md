@@ -82,8 +82,10 @@ Using this along with (1) completes the proof. ■
 Next, we have the following equivalence in interpolation conditions between functions in $\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$ and $\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$ via adding minimal curvature addition to the later function class.
 
 \begin{theorem}{Minimal curvature addition and interpolation.}{thm-minimal-curvature-addition}
-Consider a set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}\subseteq\mathbf{R}^{d}\times\mathbf{R}^{d}\times\mathbf{R}$ and let $\rho>0$. Then the following are equivalent:
+Consider a set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}\subseteq\mathbf{R}^{d}\times\mathbf{R}^{d}\times\mathbf{R}$ and let $\rho>0$. Then the following are equivalent.
+
 (i) $\{(x_{i},g_{i},f_{i})\}_{i\in I}$ is $\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$-interpolable.
+
 (ii) $\{(x_{i},g_{i}+\rho x_{i},f_{i}+\frac{\rho}{2}\|x_{i}\|^{2})\}_{i\in I}$ is $\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$-interpolable.
 \end{theorem}
 
@@ -155,7 +157,7 @@ f(x) & =g(x)-(\rho/2)\|x\|^{2}\\
 where the last line follows from the following algebraic simplification (click to expand)
 
 \begin{dropdown}{Click to expand}
-![image-20211124085922308](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Properties_of_rho_smooth_nonconvex_interpolation_functions.assets/image-20211124085922308.png)
+![image-20211124085922308](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Properties_of_rho_smooth_nonconvex_interpolation_functions.assets/image-20211124100555089.png)
 \end{dropdown}
 
 Hence, we have the interpolated function $f$ satisfying:
@@ -180,7 +182,7 @@ $$\begin{aligned}
 = & \cancel{-\frac{\rho}{4}\|(x_{i^{\star}}-\frac{1}{\rho}g_{i^{\star}})\|^{2}}+(f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2})+\cancel{\frac{\rho}{4}\|x_{i}-\frac{1}{\rho}g_{i}\|^{2}}\\
 = & f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2}\quad\quad\quad(6).\end{aligned}$$
 
-So the lower bound on $f$ in (5) is achieved by $x_{i^{\star}}-(1/\rho)g_{i^{\star}}$. Hence, $$\min_{x\in\mathbf{R}^{d}}f(x)=f(x_{i^{\star}}-\frac{1}{L}g_{i^{\star}})=f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2},$$ which completes the proof. ■
+So the lower bound on $f$ in $(5)$ is achieved by $x_{i^{\star}}-(1/\rho)g_{i^{\star}}$. Hence, $$\min_{x\in\mathbf{R}^{d}}f(x)=f(x_{i^{\star}}-\frac{1}{L}g_{i^{\star}})=f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2},$$ which completes the proof. ■
 
 ## References.
 
