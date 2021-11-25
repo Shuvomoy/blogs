@@ -6,7 +6,7 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 
 ## [Posts]( #posts)
 
-* (2021-11-24) [Properties of smooth nonconvex interpolated functions](posts/Properties_of_rho_smooth_nonconvex_interpolation_functions)
+* *(2021-11-24)* [Properties of smooth nonconvex interpolated functions](posts/Properties_of_rho_smooth_nonconvex_interpolation_functions)
 
 - *(2021-11-22)* [Constructing an interpolated function for the class of smooth convex functions](posts/Constructing-an-interpolated-function-for-the-class-of-smooth-convex-functions)
 - *(2021-11-11)* [An improved lower-complexity bound for the class of convex and Lipschitz continuous functions](posts/An-improved-lower-complexity-bound-for-the-class-of-convex-and-Lipschitz-continuous-functions)

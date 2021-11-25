@@ -140,7 +140,7 @@ Then the following are equivalent.
 
 (i) The set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}$ is $\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$-interpolable.
 
-(ii) There exists a $f\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​​​ that interpolates $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​​ and any global minimizer $x^\star$​​​ of $f$​​​ (*i.e.,* $x^\star \in \textrm{argmin}_{x \in \mathbf{R}^d} f(x)$​​​) is characterized by $$f(x^\star) = f(x_{i^{\star}}-\frac{1}{L}g_{i^{\star}}) \leq f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2}.\quad\quad\quad(3)$$​​​
+(ii) There exists a $f\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​​​ that interpolates $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​​ and any global minimizer $x^\star$​​​ of $f$​​​ (*i.e.,* $x^\star \in \textrm{argmin}_{x \in \mathbf{R}^d} f(x)$​​​) is characterized by $$f(x^\star) = f(x_{i^{\star}}-\frac{1}{L}g_{i^{\star}}) \leq f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2}.\quad\quad\quad(3)$$​​​​
 \end{theorem}
 
 **Proof to \theoremref{thm-main-result}.** 
