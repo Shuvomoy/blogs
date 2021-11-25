@@ -123,7 +123,7 @@ $$
 $$
 Using (5) in (3), we arrive at the desired interpolated function $f\in\mathcal{F}_{0,L}(\mathbf{R}^{d}):$ $$f(x)=\min_{\alpha\in\Delta}\left[\frac{L}{2}\|x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{L}g_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\right)\right],$$​​​​​​ thus completing the proof.
 
-### References.
+### References
 
 `[1]` Taylor, Adrien B. Convex interpolation and performance estimation of first-order methods for convex optimization. Diss. Catholic University of Louvain, Louvain-la-Neuve, Belgium, 2017.
 

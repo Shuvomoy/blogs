@@ -62,7 +62,11 @@ Let $\rho>0$​, and consider the set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in
 $$f_{i}\geq f_{j}+\left\langle g_{j}\mid x_{i}-x_{j}\right\rangle +\frac{1}{2\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\left\Vert (x_{i}-x_{j})-\frac{1}{\rho}(g_{i}-g_{j})\right\Vert ^{2}.$$
 \end{theorem}
 
-**Proof.** Suppose, for all $i,j\in I$​ we have 
+**Proof.** 
+
+\begin{dropdown}{Click to show proof}
+
+Suppose, for all $i,j\in I$​​ we have 
 $$\begin{aligned}
  & f_{i}\geq f_{j}+\left\langle g_{j}\mid x_{i}-x_{j}\right\rangle +\frac{1}{2\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\left\Vert (x_{i}-x_{j})-\frac{1}{\rho}(g_{i}-g_{j})\right\Vert ^{2}\\
 \Leftrightarrow & f_{i}\geq f_{j}+\left\langle g_{j}\mid x_{i}-x_{j}\right\rangle +\frac{1}{2\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\left(\|x_{i}-x_{j}\|^{2}+\frac{1}{\rho^{2}}\|g_{i}-g_{j}\|^{2}-2\frac{1}{\rho}\left\langle x_{i}-x_{j}\mid g_{i}-g_{j}\right\rangle \right)\\
@@ -70,9 +74,13 @@ $$\begin{aligned}
 \Leftrightarrow & f_{i}\geq f_{j}+\left\langle g_{j}\mid x_{i}-x_{j}\right\rangle +\frac{1}{2\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\|x_{i}-x_{j}\|^{2}-\frac{1}{4\rho}\|g_{i}-g_{j}\|^{2}+\frac{1}{2}\left\langle g_{i}-g_{j}\mid x_{i}-x_{j}\right\rangle \\
 \Leftrightarrow & f_{i}\geq f_{j}+\left\langle g_{j}+\frac{1}{2}g_{i}-\frac{1}{2}g_{j}\mid x_{i}-x_{j}\right\rangle +\frac{1}{4\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\|x_{i}-x_{j}\|^{2}\\
 \Leftrightarrow & f_{i}\geq f_{j}+\left\langle \frac{1}{2}g_{j}+\frac{1}{2}g_{i}\mid x_{i}-x_{j}\right\rangle +\frac{1}{4\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\|x_{i}-x_{j}\|^{2}\\
-\Leftrightarrow & f_{i}\geq f_{j}+\frac{1}{2}\left\langle g_{i}+g_{j}\mid x_{i}-x_{j}\right\rangle +\frac{1}{4\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\|x_{i}-x_{j}\|^{2}.\quad\quad\quad(1)\end{aligned}$$​But from `[1, Theorem 3.10]`, we have: $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​ is $\mathcal{F}_{-\rho,\rho}$​​ interpolable if and only if for all $i,j\in I$​​ we have 
+\Leftrightarrow & f_{i}\geq f_{j}+\frac{1}{2}\left\langle g_{i}+g_{j}\mid x_{i}-x_{j}\right\rangle +\frac{1}{4\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\|x_{i}-x_{j}\|^{2}.\quad\quad\quad(1)\end{aligned}$$​​But from `[1, Theorem 3.10]`, we have: $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​​ is $\mathcal{F}_{-\rho,\rho}$​​​ interpolable if and only if for all $i,j\in I$​​​ we have 
 
-$$f_{i}\geq f_{j}+\frac{1}{2}\left\langle g_{i}+g_{j}\mid x_{i}-x_{j}\right\rangle +\frac{1}{4\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\|x_{i}-x_{j}\|^{2}.$$​​ Using this along with (1) completes the proof. ■
+$$f_{i}\geq f_{j}+\frac{1}{2}\left\langle g_{i}+g_{j}\mid x_{i}-x_{j}\right\rangle +\frac{1}{4\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\|x_{i}-x_{j}\|^{2}.$$​​​ Using this along with (1) completes the proof. 
+
+\end{dropdown}
+
+■
 
 ### Minimal curvature addition and interpolation
 
@@ -87,15 +95,23 @@ Consider a set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}\subseteq\mathbf{R}^
 (ii) $\{(x_{i},g_{i}+\rho x_{i},f_{i}+\frac{\rho}{2}\|x_{i}\|^{2})\}_{i\in I}$ is $\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$-interpolable.
 \end{theorem}
 
-**Proof.** The proof to $(i)\Rightarrow(ii)$: It follows from \lemmaref{lem-smth-cvx-ncvx} that if there exists a function $f\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​ interpolating the set $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​, then $h\coloneqq f+(\rho/2)\|\cdot\|^{2}$​ would satisfy $h\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​ and for all $i\in I$​ we would have $$h(x_{i})=f(x_{i})+\frac{\rho}{2}\|x_{i}\|^{2}=f_{i}+\frac{\rho}{2}\|x_{i}\|^{2},$$​ and $$\nabla h(x_{i})=\nabla f(x_{i})+\rho x_{i}=g_{i}+\rho x_{i}.$$​ Hence, the set $\{(x_{i},g_{i}+\rho x_{i},f_{i}+(\rho/2)\|x_{i}\|^{2})\}_{i\in I}$​ is interpolated by the function $h\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​.
+**Proof.** 
 
-The proof to $(ii)\Rightarrow(i)$: If $\{(x_{i},g_{i}+\rho x_{i},f_{i}+\frac{\rho}{2}\|x_{i}\|^{2})\}_{i\in I}$​ is $\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​-interpolable, then there exists a $h\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​, such that for all $i\in I$​ we would have 
+\begin{dropdown}{Click to show proof}
+
+The proof to $(i)\Rightarrow(ii)$: It follows from \lemmaref{lem-smth-cvx-ncvx} that if there exists a function $f\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​​ interpolating the set $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​, then $h\coloneqq f+(\rho/2)\|\cdot\|^{2}$​​ would satisfy $h\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​​ and for all $i\in I$​​ we would have $$h(x_{i})=f(x_{i})+\frac{\rho}{2}\|x_{i}\|^{2}=f_{i}+\frac{\rho}{2}\|x_{i}\|^{2},$$​​ and $$\nabla h(x_{i})=\nabla f(x_{i})+\rho x_{i}=g_{i}+\rho x_{i}.$$​​ Hence, the set $\{(x_{i},g_{i}+\rho x_{i},f_{i}+(\rho/2)\|x_{i}\|^{2})\}_{i\in I}$​​ is interpolated by the function $h\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​​.
+
+The proof to $(ii)\Rightarrow(i)$: If $\{(x_{i},g_{i}+\rho x_{i},f_{i}+\frac{\rho}{2}\|x_{i}\|^{2})\}_{i\in I}$​​ is $\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​​-interpolable, then there exists a $h\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​​, such that for all $i\in I$​​ we would have 
 $$\begin{aligned}
 h(x_{i}) & =f_{i}+\frac{\rho}{2}\|x_{i}\|^{2}\\
-\Leftrightarrow & f_{i}=h(x_{i})-\frac{\rho}{2}\|x_{i}\|^{2}\end{aligned}$$​and 
+\Leftrightarrow & f_{i}=h(x_{i})-\frac{\rho}{2}\|x_{i}\|^{2}\end{aligned}$$​​and 
 $$\begin{aligned}
 \nabla h(x_{i}) & =\nabla f(x_{i})+\rho x_{i}=g_{i}+\rho x_{i}\\
-\Leftrightarrow & g_{i}=\nabla h(x_{i})-\rho x_{i}.\end{aligned}$$​ So, from the last two equations, we see that $f\coloneqq h-(\rho/2)\|\cdot\|^{2}\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​ interpolates $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​. So, $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​ is $\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​-interpolable.  ■
+\Leftrightarrow & g_{i}=\nabla h(x_{i})-\rho x_{i}.\end{aligned}$$​​ So, from the last two equations, we see that $f\coloneqq h-(\rho/2)\|\cdot\|^{2}\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​​ interpolates $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​. So, $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​ is $\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​​-interpolable.  
+
+\end{dropdown}
+
+■
 
 ### Interpolation of smooth convex functions due to Yoel Drori
 
@@ -183,7 +199,7 @@ $$\begin{aligned}
 
 So the lower bound on $f$​ in $(5)$​ is achieved by $x_{i^{\star}}-(1/\rho)g_{i^{\star}}$​. Hence, any global minimizer $x^\star$​ of $f$​ (*i.e.,* $x^\star \in \textrm{argmin}_{x \in \mathbf{R}^d} f(x)$​) is characterized by $$f(x^\star) = f(x_{i^{\star}}-\frac{1}{L}g_{i^{\star}}) \leq f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2},$$ and this completes the proof​ ■
 
-## References.
+## References
 
 `[1]` Drori, Y., & Shamir, O. (2020, November). The complexity of finding stationary points with stochastic gradient descent. In International Conference on Machine Learning (pp. 2658-2667). PMLR. [Link](https://arxiv.org/pdf/1910.01845.pdf)
 
