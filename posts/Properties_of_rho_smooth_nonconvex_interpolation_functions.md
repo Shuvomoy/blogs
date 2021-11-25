@@ -49,7 +49,7 @@ $$f\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})\Leftrightarrow f+\frac{\rho}{2}\|
 Next, we present the definition of an interpolable function.
 
 \begin{definition}{Interpolable function.}{def-intp-fun}
-Suppose we are given the set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}$ where $I$ is a finite index set and $x_{i}\in\mathbf{R}^{d},g_{i}\in\mathbf{R}^{d},$ and $f_{i}\in\mathbf{R}.$ Let $\mathcal{F}(\mathbf{R}^{d})$ be a set of functions on $\mathbf{R}^{d}$. Then the set $\{(x_{i},g_{i},f_{i})\}_{i\in I}$ is $\mathcal{F}(\mathbf{R}^{d})$-interpolable if and only if there exists a function $f\in\mathcal{F}(\mathbf{R}^{d})$ such that for all $i\in I$ we have $f_{i}=f(x_{i})$ and $g_{i}=\nabla f(x_{i})$. We say that $f\in\mathcal{F}(\mathbf{R}^{d})$ is an interpolated function that interpolates the set $(x_{i},g_{i},f_{i})\}_{i\in I}$.
+Suppose we are given the set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​ where $I$​ is a finite index set and $x_{i}\in\mathbf{R}^{d},g_{i}\in\mathbf{R}^{d},$​ and $f_{i}\in\mathbf{R}.$​ Let $\mathcal{F}(\mathbf{R}^{d})$​ be a set of functions on $\mathbf{R}^{d}$​. Then the set $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​ is $\mathcal{F}(\mathbf{R}^{d})$​-interpolable if and only if there exists a function $f\in\mathcal{F}(\mathbf{R}^{d})$​ such that for all $i\in I$​ we have $f_{i}=f(x_{i})$​ and $g_{i}=\nabla f(x_{i})$​. We say that $f\in\mathcal{F}(\mathbf{R}^{d})$​ is an interpolated function that interpolates the set $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​.
 \end{definition}
 
 ### Interpolation condition for smooth nonconvex functions
@@ -140,7 +140,7 @@ Then the following are equivalent.
 
 (i) The set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}$ is $\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$-interpolable.
 
-(ii) There exists a $f\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​​ such that, besides interpolating $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​, any global minimizer $x^\star$​​ of $f$​​ (*i.e.,* $x^\star \in \textrm{argmin}_{x \in \mathbf{R}^d} f(x)$​​) is characterized by $$f(x^\star) = f(x_{i^{\star}}-\frac{1}{L}g_{i^{\star}}) \leq f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2}.\quad\quad\quad(3)$$​​
+(ii) There exists a $f\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​​​ that interpolates $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​​ and any global minimizer $x^\star$​​​ of $f$​​​ (*i.e.,* $x^\star \in \textrm{argmin}_{x \in \mathbf{R}^d} f(x)$​​​) is characterized by $$f(x^\star) = f(x_{i^{\star}}-\frac{1}{L}g_{i^{\star}}) \leq f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2}.\quad\quad\quad(3)$$​​​
 \end{theorem}
 
 **Proof to \theoremref{thm-main-result}.** 
