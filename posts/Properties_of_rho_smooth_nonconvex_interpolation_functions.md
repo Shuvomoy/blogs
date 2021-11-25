@@ -72,9 +72,7 @@ $$\begin{aligned}
 \Leftrightarrow & f_{i}\geq f_{j}+\left\langle \frac{1}{2}g_{j}+\frac{1}{2}g_{i}\mid x_{i}-x_{j}\right\rangle +\frac{1}{4\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\|x_{i}-x_{j}\|^{2}\\
 \Leftrightarrow & f_{i}\geq f_{j}+\frac{1}{2}\left\langle g_{i}+g_{j}\mid x_{i}-x_{j}\right\rangle +\frac{1}{4\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\|x_{i}-x_{j}\|^{2}.\quad\quad\quad(1)\end{aligned}$$​But from `[1, Theorem 3.10]`, we have: $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​ is $\mathcal{F}_{-\rho,\rho}$​​ interpolable if and only if for all $i,j\in I$​​ we have 
 
-$$f_{i}\geq f_{j}+\frac{1}{2}\left\langle g_{i}+g_{j}\mid x_{i}-x_{j}\right\rangle +\frac{1}{4\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\|x_{i}-x_{j}\|^{2}.$$​​
-
-Using this along with (1) completes the proof. ■
+$$f_{i}\geq f_{j}+\frac{1}{2}\left\langle g_{i}+g_{j}\mid x_{i}-x_{j}\right\rangle +\frac{1}{4\rho}\|g_{i}-g_{j}\|^{2}-\frac{\rho}{4}\|x_{i}-x_{j}\|^{2}.$$​​ Using this along with (1) completes the proof. ■
 
 ### Minimal curvature addition and interpolation
 
@@ -89,23 +87,24 @@ Consider a set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}\subseteq\mathbf{R}^
 (ii) $\{(x_{i},g_{i}+\rho x_{i},f_{i}+\frac{\rho}{2}\|x_{i}\|^{2})\}_{i\in I}$ is $\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$-interpolable.
 \end{theorem}
 
-**Proof.** The proof to $(i)\Rightarrow(ii)$: It follows from \lemmaref{lem-smth-cvx-ncvx} that if there exists a function $f\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$ interpolating the set $\{(x_{i},g_{i},f_{i})\}_{i\in I}$, then $h\coloneqq f+(\rho/2)\|\cdot\|^{2}$ would satisfy $h\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$ and for all $i\in I$ we would have $$h(x_{i})=f(x_{i})+\frac{\rho}{2}\|x_{i}\|^{2}=f_{i}+\frac{\rho}{2}\|x_{i}\|^{2},$$ and $$\nabla h(x_{i})=\nabla f(x_{i})+\rho x_{i}=g_{i}+\rho x_{i}.$$ Hence, the set $\{(x_{i},g_{i}+\rho x_{i},f_{i}+(\rho/2)\|x_{i}\|^{2})\}_{i\in I}$ is interpolated by the function $h\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$.
-The proof to $(ii)\Rightarrow(i)$: If $\{(x_{i},g_{i}+\rho x_{i},f_{i}+\frac{\rho}{2}\|x_{i}\|^{2})\}_{i\in I}$ is $\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$-interpolable, then there exists a $h\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$, such that for all $i\in I$ we would have 
+**Proof.** The proof to $(i)\Rightarrow(ii)$: It follows from \lemmaref{lem-smth-cvx-ncvx} that if there exists a function $f\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​ interpolating the set $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​, then $h\coloneqq f+(\rho/2)\|\cdot\|^{2}$​ would satisfy $h\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​ and for all $i\in I$​ we would have $$h(x_{i})=f(x_{i})+\frac{\rho}{2}\|x_{i}\|^{2}=f_{i}+\frac{\rho}{2}\|x_{i}\|^{2},$$​ and $$\nabla h(x_{i})=\nabla f(x_{i})+\rho x_{i}=g_{i}+\rho x_{i}.$$​ Hence, the set $\{(x_{i},g_{i}+\rho x_{i},f_{i}+(\rho/2)\|x_{i}\|^{2})\}_{i\in I}$​ is interpolated by the function $h\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​.
+
+The proof to $(ii)\Rightarrow(i)$: If $\{(x_{i},g_{i}+\rho x_{i},f_{i}+\frac{\rho}{2}\|x_{i}\|^{2})\}_{i\in I}$​ is $\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​-interpolable, then there exists a $h\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​, such that for all $i\in I$​ we would have 
 $$\begin{aligned}
 h(x_{i}) & =f_{i}+\frac{\rho}{2}\|x_{i}\|^{2}\\
-\Leftrightarrow & f_{i}=h(x_{i})-\frac{\rho}{2}\|x_{i}\|^{2}\end{aligned}$$and 
+\Leftrightarrow & f_{i}=h(x_{i})-\frac{\rho}{2}\|x_{i}\|^{2}\end{aligned}$$​and 
 $$\begin{aligned}
 \nabla h(x_{i}) & =\nabla f(x_{i})+\rho x_{i}=g_{i}+\rho x_{i}\\
-\Leftrightarrow & g_{i}=\nabla h(x_{i})-\rho x_{i}.\end{aligned}$$ So, from the last two equations, we see that $f\coloneqq h-(\rho/2)\|\cdot\|^{2}\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$ interpolates $\{(x_{i},g_{i},f_{i})\}_{i\in I}$. So, $\{(x_{i},g_{i},f_{i})\}_{i\in I}$ is $\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$-interpolable.  ■
+\Leftrightarrow & g_{i}=\nabla h(x_{i})-\rho x_{i}.\end{aligned}$$​ So, from the last two equations, we see that $f\coloneqq h-(\rho/2)\|\cdot\|^{2}\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​ interpolates $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​. So, $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​ is $\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​-interpolable.  ■
 
 ### Interpolation of smooth convex functions due to Yoel Drori
 
-Finally, we present the following interpolation result due to Yoel Drori from `[4]`. I showed a detailed proof of this result in the previous blog post: [here](posts/Constructing-an-interpolated-function-for-the-class-of-smooth-convex-functions).
+Finally, we present the following interpolation result due to Yoel Drori from `[4]`. I showed a detailed proof of this result in the previous blog post: [here](https://shuvomoy.github.io/blogs/posts/Constructing-an-interpolated-function-for-the-class-of-smooth-convex-functions/).
 
 \begin{theorem}{Interpolation of smooth convex functions.}{Lemma-Interpolation-of-smooth}
-If $\{(\widetilde{x}_{i},\widetilde{g}_{i},\widetilde{f}_{i})\}_{i\in I}\subseteq\mathbf{R}^{d}\times\mathbf{R}^{d}\times\mathbf{R}$​ is $\mathcal{F}_{0,L}(\mathbf{R}^{d})$​-interpolable with $L>0$​, then one interpolated function $g\in\mathcal{F}_{0,L}(\mathbf{R}^{d})$​ that interpolates $\{(\widetilde{x}_{i},\widetilde{g}_{i},\widetilde{f}_{i})\}_{i\in I}$​ is: 
-$$g(y)=\min_{\alpha\in\Delta}\left[\frac{L}{2}\|y-\sum_{i\in I}\alpha_{i}\left(\widetilde{x}_{i}-\frac{1}{L}\widetilde{g}_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(\widetilde{f}_{i}-\frac{1}{2L}\|\widetilde{g}_{i}\|^{2}\right)\right],$$​ 
-where $\Delta=\{\beta\in\mathbf{R}^{\vert I\vert}\mid\beta\geq0,\sum_{i\in I}\beta_{i}=1\}.$​
+If $\{(\widetilde{x}_{i},\widetilde{g}_{i},\widetilde{f}_{i})\}_{i\in I}\subseteq\mathbf{R}^{d}\times\mathbf{R}^{d}\times\mathbf{R}$​​​​​ is $\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​​​-interpolable with $L>0$​​​​​, then one interpolated function $\widetilde{f}\in\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​​​ that interpolates $\{(\widetilde{x}_{i},\widetilde{g}_{i},\widetilde{f}_{i})\}_{i\in I}$​​​​​ is: 
+$$\widetilde{f}(y)=\min_{\alpha\in\Delta}\left[\frac{L}{2}\|y-\sum_{i\in I}\alpha_{i}\left(\widetilde{x}_{i}-\frac{1}{L}\widetilde{g}_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(\widetilde{f}_{i}-\frac{1}{2L}\|\widetilde{g}_{i}\|^{2}\right)\right],$$​​​​​ 
+where $\Delta=\{\beta\in\mathbf{R}^{\vert I\vert}\mid\beta\geq0,\sum_{i\in I}\beta_{i}=1\}.$​​​​​
 \end{theorem}
 
 ## Main result 
@@ -113,11 +112,11 @@ where $\Delta=\{\beta\in\mathbf{R}^{\vert I\vert}\mid\beta\geq0,\sum_{i\in I}\be
 Now we are in a position to state our main result due to Yoel Drori and Ohad Shamir from `[1, Theorem 7]` followed by its proof.
 
 \begin{theorem}{Properties of interpolated function for smooth nonconvex function class}{thm-main-result}
-Let the set $\{(x_{i},g_{i},f_{i})\}_{i\in I}\subseteq\mathbf{R}^{d}\times\mathbf{R}^{d}\times\mathbf{R}$​​​ be $\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​​​-interpolable, where $L>0$​​​ and $I$​​​ is a finite index set. Define: Define: 
+Let the set $\{(x_{i},g_{i},f_{i})\}_{i\in I}\subseteq\mathbf{R}^{d}\times\mathbf{R}^{d}\times\mathbf{R}$​​​ be $\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​​​-interpolable, where $L>0$​​​ and $I$​​​ is a finite index set. Define: 
 $$
 i^{\star}\in\underset{i\in I}{\textrm{argmin}}\{f_{i}-\frac{1}{2\rho}\|g_{i}\|^{2}\},
 $$
- and 
+ hence,
 $$
 f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2}=\min_{i\in I}\{f_{i}-\frac{1}{2\rho}\|g_{i}\|^{2}\}.
 $$
@@ -125,7 +124,7 @@ Then the following are equivalent.
 
 (i) The set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}$ is $\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$-interpolable.
 
-(ii) There exists a $f\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$ such that, besides interpolating $\{(x_{i},g_{i},f_{i})\}_{i\in I}$, it also satisfies $$\min_{x\in\mathbf{R}^{d}}f(x)=f(x_{i^{\star}}-\frac{1}{L}g_{i^{\star}})=f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2}.\quad\quad\quad(3)$$
+(ii) There exists a $f\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​​ such that, besides interpolating $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​, any global minimizer $x^\star$​​ of $f$​​ (*i.e.,* $x^\star \in \textrm{argmin}_{x \in \mathbf{R}^d} f(x)$​​) is characterized by $$f(x^\star) = f(x_{i^{\star}}-\frac{1}{L}g_{i^{\star}}) \leq f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2}.\quad\quad\quad(3)$$​​
 \end{theorem}
 
 **Proof to \theoremref{thm-main-result}.** 
@@ -138,26 +137,26 @@ $$\begin{aligned}
 \{(\widetilde{x}_{i},\widetilde{g}_{i},\widetilde{f}_{i})\}_{i\in I} & \coloneqq\{(x_{i},g_{i}+\rho x_{i},f_{i}+\frac{\rho}{2}\|x_{i}\|^{2})\}_{i\in I},\textrm{ and }\\
 L & \coloneqq2\rho,\end{aligned}$$
 
-we have the function $g\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​​ interpolating $\{(\widetilde{x}_{i},\widetilde{g}_{i},\widetilde{f}_{i})\}_{i\in I}$​​ defined by: 
+we have the function $\widetilde{f}\in\mathcal{F}_{0,2\rho}(\mathbf{R}^{d})$​​​ interpolating $\{(\widetilde{x}_{i},\widetilde{g}_{i},\widetilde{f}_{i})\}_{i\in I}$​​​ defined by: 
 
 $$\begin{aligned}
-g(y) & =\min_{\alpha\in\Delta}\left[\frac{L}{2}\|y-\sum_{i\in I}\alpha_{i}\left(\widetilde{x}_{i}-\frac{1}{L}\widetilde{g}_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(\widetilde{f}_{i}-\frac{1}{2L}\|\widetilde{g}_{i}\|^{2}\right)\right]\\
- & =\min_{\alpha\in\Delta}\left[\rho\left\Vert y-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{2\rho}(g_{i}+\rho x_{i})\right)\right\Vert ^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}+\frac{\rho}{2}\|x_{i}\|^{2}-\frac{1}{4\rho}\|g_{i}+\rho x_{i}\|^{2}\right)\right],\end{aligned}$$
+\widetilde{f}(y) & =\min_{\alpha\in\Delta}\left[\frac{L}{2}\|y-\sum_{i\in I}\alpha_{i}\left(\widetilde{x}_{i}-\frac{1}{L}\widetilde{g}_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(\widetilde{f}_{i}-\frac{1}{2L}\|\widetilde{g}_{i}\|^{2}\right)\right]\\
+ & =\min_{\alpha\in\Delta}\left[\rho\left\Vert y-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{2\rho}(g_{i}+\rho x_{i})\right)\right\Vert ^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}+\frac{\rho}{2}\|x_{i}\|^{2}-\frac{1}{4\rho}\|g_{i}+\rho x_{i}\|^{2}\right)\right],\end{aligned}$$​
 
 where $\Delta=\{\beta\in\mathbf{R}^{\vert I\vert}\mid\beta\geq0,\sum_{i\in I}\beta_{i}=1\}.$​​ 
 
-Now, due to the proof $(ii)\Rightarrow(i)$​​ of \theoremref{thm-minimal-curvature-addition}, the function $f\coloneqq g-(\rho/2)\|\cdot\|^{2}\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​​ will interpolate $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​. Hence, we have: 
+Now, due to the proof $(ii)\Rightarrow(i)$​​​ of \theoremref{thm-minimal-curvature-addition}, the function $f\coloneqq \widetilde{f}-(\rho/2)\|\cdot\|^{2}\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})$​​​ will interpolate $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​​. Hence, we have: 
 
  $$\begin{aligned}
-f(x) & =g(x)-(\rho/2)\|x\|^{2}\\
+f(x) & =\widetilde{f}(x)-(\rho/2)\|x\|^{2}\\
  & =\min_{\alpha\in\Delta}\left[\rho\left\Vert x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{2\rho}(g_{i}+\rho x_{i})\right)\right\Vert ^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}+\frac{\rho}{2}\|x_{i}\|^{2}-\frac{1}{4\rho}\|g_{i}+\rho x_{i}\|^{2}\right)\right]-\frac{\rho}{2}\|x\|^{2}\\
  & =\min_{\alpha\in\Delta}\left[-\frac{\rho}{2}\|x\|^{2}+\rho\left\Vert x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{2\rho}(g_{i}+\rho x_{i})\right)\right\Vert ^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}+\frac{\rho}{2}\|x_{i}\|^{2}-\frac{1}{4\rho}\|g_{i}+\rho x_{i}\|^{2}\right)\right]\\
- & =\min_{\alpha\in\Delta}\left[\frac{\rho}{2}\left\Vert x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{\rho}g_{i}\right)\right\Vert ^{2}-\frac{\rho}{4}\left\Vert \sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{\rho}g_{i}\right)\right\Vert ^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}-\frac{1}{2\rho}\|g_{i}\|^{2}+\frac{\rho}{4}\left\Vert x_{i}-\frac{1}{\rho}g_{i}\right\Vert ^{2}\right)\right],\end{aligned}$$
+ & =\min_{\alpha\in\Delta}\left[\frac{\rho}{2}\left\Vert x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{\rho}g_{i}\right)\right\Vert ^{2}-\frac{\rho}{4}\left\Vert \sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{\rho}g_{i}\right)\right\Vert ^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}-\frac{1}{2\rho}\|g_{i}\|^{2}+\frac{\rho}{4}\left\Vert x_{i}-\frac{1}{\rho}g_{i}\right\Vert ^{2}\right)\right],\end{aligned}$$​
 
 where the last line follows from the following algebraic simplification (click to expand)
 
 \begin{dropdown}{Click to expand}
-![image-20211124085922308](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Properties_of_rho_smooth_nonconvex_interpolation_functions.assets/image-20211124100555089.png)
+![image-20211124085922308](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Properties_of_rho_smooth_nonconvex_interpolation_functions.assets/image-20211124100555089.png) 
 \end{dropdown}
 
 Hence, we have the interpolated function $f$ satisfying:
@@ -182,7 +181,7 @@ $$\begin{aligned}
 = & \cancel{-\frac{\rho}{4}\|(x_{i^{\star}}-\frac{1}{\rho}g_{i^{\star}})\|^{2}}+(f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2})+\cancel{\frac{\rho}{4}\|x_{i}-\frac{1}{\rho}g_{i}\|^{2}}\\
 = & f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2}\quad\quad\quad(6).\end{aligned}$$
 
-So the lower bound on $f$ in $(5)$ is achieved by $x_{i^{\star}}-(1/\rho)g_{i^{\star}}$. Hence, $$\min_{x\in\mathbf{R}^{d}}f(x)=f(x_{i^{\star}}-\frac{1}{L}g_{i^{\star}})=f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2},$$ which completes the proof. ■
+So the lower bound on $f$​ in $(5)$​ is achieved by $x_{i^{\star}}-(1/\rho)g_{i^{\star}}$​. Hence, any global minimizer $x^\star$​ of $f$​ (*i.e.,* $x^\star \in \textrm{argmin}_{x \in \mathbf{R}^d} f(x)$​) is characterized by $$f(x^\star) = f(x_{i^{\star}}-\frac{1}{L}g_{i^{\star}}) \leq f_{i^{\star}}-\frac{1}{2\rho}\|g_{i^{\star}}\|^{2},$$ and this completes the proof​ ■
 
 ## References.
 
