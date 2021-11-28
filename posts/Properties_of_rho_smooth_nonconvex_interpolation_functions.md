@@ -10,7 +10,7 @@
 
 *November 24, 2021*
 
-In this blog, we study properties of $\rho$-smooth nonconvex function that is interpolated from a set of points. Ths result is due to Yoel Drori and Ohad Shamir from `[1, Theorem 7]`.
+In this blog, we study properties of $\rho$-smooth nonconvex function that is interpolated from a set of points. This result is due to Yoel Drori and Ohad Shamir from `[1, Theorem 7]`.
 
 ---
 \toc
