@@ -51,8 +51,26 @@ Suppose we are given the set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​�
 Next, we prove the following result due to Yoel Drori from `[3]`.
 
 \begin{theorem}{Interpolation of smooth convex functions.}{intpl-smth-convex-func}
-If $\{(x_{i},g_{i},f_{i})\}_{i\in I}\subseteq\mathbf{R}^{d}\times\mathbf{R}^{d}\times\mathbf{R}$​​​ is $\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​-interpolable, then one interpolated function $f\in\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​ that can be constructed from $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​​ is: $$f(x)=\min_{\alpha\in\Delta}\left[\frac{L}{2}\|x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{L}g_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\right)\right],$$​​​ where $\Delta=\{\bar{\alpha}\in\mathbf{R}^{\vert I\vert}\mid\bar{\alpha}\geq0,\sum_{i\in I}\bar{\alpha}_{i}=1\}.$​​​
+If $\{(x_{i},g_{i},f_{i})\}_{i\in I}\subseteq\mathbf{R}^{d}\times\mathbf{R}^{d}\times\mathbf{R}$​​​​ is $\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​​-interpolable, then one interpolated function $f\in\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​​ that can be constructed from $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​​​ is: $$f(x)=\min_{\alpha\in\Delta}\left[\frac{L}{2}\|x-\sum_{i\in I}\alpha_{i}\left(x_{i}-\frac{1}{L}g_{i}\right)\|^{2}+\sum_{i\in I}\alpha_{i}\left(f_{i}-\frac{1}{2L}\|g_{i}\|^{2}\right)\right],$$​​​​ where $\Delta=\{\bar{\alpha}\in\mathbf{R}^{\vert I\vert}\mid\bar{\alpha}\geq0,\sum_{i\in I}\bar{\alpha}_{i}=1\}.$​​​​​
 \end{theorem}
+
+---
+
+**Proof sketch.** We use the following chain of logic:
+
+(a) $\{(x_{i},g_{i},f_{i})\}_{i\in I}$ interpolated by $f\in\mathcal{F}_{0,L}(\mathbf{R}^{d})$
+
+$\Leftrightarrow$
+
+(b) $\{(\bar{x}_{i},\bar{g}_{i},\bar{f}_{i})\}_{i\in I}\coloneqq\{(g_{i},x_{i},\left\langle x_{i}\mid g_{i}\right\rangle -f_{i})\}_{i\in I}$​
+interpolated by $h=f^{*}\in\mathcal{F}_{1/L,\infty}$​, where $f^*$ denotes conjugate function of $f$.
+
+So, we start backwards from (b). First construct $h$ that interpolates
+$\{(\bar{x}_{i},\bar{g}_{i},\bar{f}_{i})\}_{i\in I}$. Then construct $f=h^{*},$ which will be interpolate $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​. 
+
+---
+
+Now we start the proof.
 
 ### Proof
 
