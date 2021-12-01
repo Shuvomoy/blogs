@@ -185,6 +185,45 @@ fun2[x, y]
 (*Output = c1^2 Norm[x]^2 + c2 (2 c1 x . y + c2 Norm[y]^2) *)
 ```
 
+## Running `Julia` from `Mathematica`
+
+```mathematica
+(*Working with Julia*)
+(*----------------*)
+
+RegisterExternalEvaluator["Julia", 
+  "C:\\Users\\shuvo\\AppData\\Local\\Programs\\Julia \
+1.5.0\\bin\\julia.exe"];
+FindExternalEvaluators["Julia"];
+(*Start Julia from Mathematica*)
+session = StartExternalSession["Julia"]
+
+(*CD into the directory that contains the data*)
+(*Export data from Julia*)
+dataFromJulia = ExternalEvaluate[session, "using JLD2;
+cd(\"c:\\\\Users\\\\shuvo\\\\Google Drive\\\\GitHub\\\\Learning_PEP\\\
+\\2_Gradient_Descent_Potential_Computation_using_PEP\");
+pwd()
+"]
+
+(*Load the data in Julia*)
+ExternalEvaluate[session, 
+  "@load \"POTENTIAL_PEP_OUTPUT.jld2\" p_star \[Lambda]_optimal  \
+a_optimal b_optimal c_optimal d_optimal N_array;
+"];
+
+(*Load the data in Mathematica, so that the Julia variables get \
+converted into Mathematica variables *)
+pStar = ExternalEvaluate[session, "p_star"];
+aOptimal = ExternalEvaluate[session, "a_optimal"];
+bOptimal = ExternalEvaluate[session, "b_optimal"];
+cOptimal = ExternalEvaluate[session, "c_optimal"];
+dOptimal = ExternalEvaluate[session, "d_optimal"];
+Narray = ExternalEvaluate[session, "N_array"];
+```
+
+
+
 ## Running `Mathematica` from `Julia`
 
 We can run Mathematica from Julia using `MathLink.jl`. We can install `MathLink.jl` in Julia using the following command

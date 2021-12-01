@@ -43,7 +43,7 @@ $$\sup_{y\in Y}\min_{x\in X}g(x,y)=\min_{x\in X}\sup_{y\in Y}g(x,y).$$
 First, we start with the definition of an interpolable function.
 
 \begin{definition}{Interpolable function.}{interpol-fun}
-Suppose we are given the set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​​ where $I$​​​ is a finite index set and $x_{i}\in\mathbf{R}^{d},g_{i}\in\mathbf{R}^{d},$​​​ and $f_{i}\in\mathbf{R}.$​​​ Then the set $\{(x_{i},g_{i},f_{i} ) \}_{i\in I}$​​​ is $\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​-interpolable if and only if there exists a function $f\in\mathcal{F}_{0,L}(\mathbf{R}^{d})$​​​ such that for all $i\in I$​​​ we have $f_{i}=f(x_{i})$​​​ and $g_{i}=\nabla f(x_{i})$​​​​.
+Suppose we are given the set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}\subseteq\mathbf{R}^{d}\times\mathbf{R}^{d}\times\mathbf{R}$​ where $I$​ is a finite index set. Let $\mathcal{F}(\mathbf{R}^d)$​ be some class of functions. Then the set $\{(x_{i},g_{i},f_{i} ) \}_{i\in I}$​ is $\mathcal{F}(\mathbf{R}^{d})$​-interpolable if and only if there exists a function $f\in\mathcal{F}(\mathbf{R}^{d})$​ such that for all $i\in I$​ we have $f_{i}=f(x_{i})$​ and $g_{i} \in \partial f(x_{i})$​.
 \end{definition}
 
 ### Main result (due to Yoel Drori)

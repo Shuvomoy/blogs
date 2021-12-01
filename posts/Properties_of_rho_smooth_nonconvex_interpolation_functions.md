@@ -13,6 +13,8 @@
 In this blog, we study properties of $\rho$-smooth nonconvex function that is interpolated from a set of points. This result is due to Yoel Drori and Ohad Shamir from `[1, Theorem 7]`.
 
 ---
+**Table of contents**
+
 \toc
 
 ---
@@ -49,7 +51,7 @@ $$f\in\mathcal{F}_{-\rho,\rho}(\mathbf{R}^{d})\Leftrightarrow f+\frac{\rho}{2}\|
 Next, we present the definition of an interpolable function.
 
 \begin{definition}{Interpolable function.}{def-intp-fun}
-Suppose we are given the set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​ where $I$​ is a finite index set and $x_{i}\in\mathbf{R}^{d},g_{i}\in\mathbf{R}^{d},$​ and $f_{i}\in\mathbf{R}.$​ Let $\mathcal{F}(\mathbf{R}^{d})$​ be a set of functions on $\mathbf{R}^{d}$​. Then the set $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​ is $\mathcal{F}(\mathbf{R}^{d})$​-interpolable if and only if there exists a function $f\in\mathcal{F}(\mathbf{R}^{d})$​ such that for all $i\in I$​ we have $f_{i}=f(x_{i})$​ and $g_{i}=\nabla f(x_{i})$​. We say that $f\in\mathcal{F}(\mathbf{R}^{d})$​ is an interpolated function that interpolates the set $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​.
+Suppose we are given the set of triplets $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​ where $I$​​ is a finite index set and $x_{i}\in\mathbf{R}^{d},g_{i}\in\mathbf{R}^{d},$​​ and $f_{i}\in\mathbf{R}.$​​ Let $\mathcal{F}(\mathbf{R}^{d})$​​ be a set of functions on $\mathbf{R}^{d}$​​. Then the set $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​ is $\mathcal{F}(\mathbf{R}^{d})$​​-interpolable if and only if there exists a function $f\in\mathcal{F}(\mathbf{R}^{d})$​​ such that for all $i\in I$​​ we have $f_{i}=f(x_{i})$​​ and $g_{i} \in \partial f(x_{i})$​​. We say that $f\in\mathcal{F}(\mathbf{R}^{d})$​​ is an interpolated function that interpolates the set $\{(x_{i},g_{i},f_{i})\}_{i\in I}$​​.
 \end{definition}
 
 ### Interpolation condition for smooth nonconvex functions

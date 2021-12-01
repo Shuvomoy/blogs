@@ -5,9 +5,9 @@
 Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Research Center](https://orc.mit.edu/). This blog is an attempt to improve my English. Here is my [academic website](https://shuvomoy.github.io/site/).
 
 ## [Posts]( #posts)
-
-* *(2021-11-24)* [Properties of smooth nonconvex interpolated functions](posts/Properties_of_rho_smooth_nonconvex_interpolation_functions)
-
+- *(2021-12-01)* [Constructing an interpolated function for the class of smooth strongly convex functions](posts/Constructing-an-interpolated-function-for-the-class-of-smooth-strongly-convex-functions)
+- *(2021-11-30)* [Publication-quality plots in Julia using PGFPlotsX](posts/Publication-quality-plots-in-Julia-using-PGFPlotsX)
+- *(2021-11-24)* [Properties of smooth nonconvex interpolated functions](posts/Properties_of_rho_smooth_nonconvex_interpolation_functions)
 - *(2021-11-22)* [Constructing an interpolated function for the class of smooth convex functions](posts/Constructing-an-interpolated-function-for-the-class-of-smooth-convex-functions)
 - *(2021-11-11)* [An improved lower-complexity bound for the class of convex and Lipschitz continuous functions](posts/An-improved-lower-complexity-bound-for-the-class-of-convex-and-Lipschitz-continuous-functions)
 - *(2021-11-08)* [A lower-complexity bound for the class of convex and Lipschitz continuous functions](posts/A-lower-complexity-bound-for-the-class-of-convex-and-Lipschitz-continuous-functions/)
