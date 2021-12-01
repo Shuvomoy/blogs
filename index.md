@@ -44,6 +44,7 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 * [#Non-technical](/tag/non-technical)
 * [#Optimization](/tag/optimization)
 * [#Lower bounds in optimization](/tag/lower-bounds-in-optimization)
+* [#Performance estimation problem](/tag/performance-estimation-problem)
 
 
 

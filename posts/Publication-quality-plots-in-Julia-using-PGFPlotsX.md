@@ -10,6 +10,16 @@
 
 In this blog, we discuss how to draw publication quality blogs in `Julia`. We will use the package `PGFPlotsX`.
 
+---
+
+**Table of contents**
+
+\toc
+
+---
+
+
+
 First, we install the package, of course.
 
 In [1]:

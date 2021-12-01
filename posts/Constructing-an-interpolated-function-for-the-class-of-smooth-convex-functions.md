@@ -2,7 +2,7 @@
 
 @def title = "Constructing an interpolated function for the class of smooth convex functions"
 @def published ="November 22, 2021"
-@def tags =["optimization", "lower-bounds-in-optimization"]
+@def tags =["optimization", "lower-bounds-in-optimization", "performance-estimation-problem"]
 
 # Constructing an interpolated function for the class of smooth convex functions
 

@@ -2,7 +2,7 @@
 
 @def title = "Properties of smooth nonconvex interpolated functions"
 @def published ="November 24, 2021"
-@def tags =["optimization", "lower-bounds-in-optimization"]
+@def tags =["optimization", "lower-bounds-in-optimization", "performance-estimation-problem"]
 
 # Properties of smooth nonconvex interpolated functions
 

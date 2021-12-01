@@ -2,7 +2,7 @@
 
 @def title = "Constructing an interpolated function for the class of smooth strongly convex functions"
 @def published ="December 1, 2021"
-@def tags =["optimization", "lower-bounds-in-optimization"]
+@def tags =["optimization", "lower-bounds-in-optimization", "performance-estimation-problem"]
 
 # Constructing an interpolated function for the class of smooth strongly convex functions
 
@@ -189,3 +189,7 @@ where $a)$​​​ uses $\min(\cdot)=-\max(-\cdot)$​​​. This completes th
 `[3]` Drori, Yoel. The exact information-based complexity of smooth convex minimization. Journal of Complexity 39 (2017): 1-16.
 
 `[4]` Drori, Yoel and Taylor, Adrien, 2021. On the oracle complexity of smooth strongly convex minimization. arXiv preprint arXiv:2101.09740.
+
+
+
+\theoremscripts
