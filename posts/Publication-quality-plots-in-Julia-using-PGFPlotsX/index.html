@@ -1,0 +1,245 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blogs/libs/katex/katex.min.css"> <link rel=stylesheet  href="/blogs/libs/highlight/github.min.css"> <link rel=stylesheet  href="/blogs/css/franklin.css"> <link rel=stylesheet  href="/blogs/css/tufte.css"> <link rel=stylesheet  href="/blogs/css/latex.css"> <link rel=stylesheet  href="/blogs/css/adjust.css"> <link rel=stylesheet  href="/blogs/css/FranklinTheorems.css"> <link rel=icon  href="/blogs/assets/favicon.png"> <title>Publication-quality plots in Julia using PGFPlotsX</title> <script src="/blogs/libs/lunr/lunr.min.js"></script> <script src="/blogs/libs/lunr/lunr_index.js"></script> <script src="/blogs/libs/lunr/lunrclient.min.js"></script> <div id=layout > <div id=menu > <ul> <li><a href="/blogs/">Blogs</a> <li><a href="/blogs/index.html#tags">Tags</a> <li><a href="https://shuvomoy.github.io/site/">Website</a> <li><form id=lunrSearchForm  name=lunrSearchForm > <input class=search-input  name=q  placeholder=" " type=text > <input type=submit  value=Search  formaction="/blogs/search/index.html"> </form> </ul> </div> <div id=main > <!-- Content appended here .result-title a { text-decoration: none; } .result-title a:hover { text-decoration: underline; } .result-preview { color: #808080; } .resultCount { color: #808080; } .result-query { font-weight: bold; } #lunrSearchForm { margin-top: 1em; } --> <div class=franklin-content ><h1 id=publication-quality_plots_in_julia_using_pgfplotsx ><a href="#publication-quality_plots_in_julia_using_pgfplotsx" class=header-anchor >Publication-quality plots in Julia using PGFPlotsX</a></h1> <p><strong>Shuvomoy Das Gupta</strong></p> <p><em>November 30, 2021</em></p> <p>In this blog, we discuss how to draw publication quality blogs in <code>Julia</code>. We will use the package <code>PGFPlotsX</code>.</p> <p>First, we install the package, of course.</p> <p>In &#91;1&#93;:</p> <pre><code class="julia hljs"><span class=hljs-comment ># using Pkg</span>
+<span class=hljs-comment ># Pkg.add(&quot;PGFPlotsX&quot;)</span>
+<span class=hljs-keyword >using</span> PGFPlotsX</code></pre> <h3 id=first_examplea_hrefhttpscodebeautifyorghtmlviewerfirst-example ><a href="#first_examplea_hrefhttpscodebeautifyorghtmlviewerfirst-example" class=header-anchor >First Example<a href="https://codebeautify.org/htmlviewer#First-Example">¶</a></a></h3> <p>We start with a very easy example. We plot <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">x^2</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.8141079999999999em;vertical-align:0em;"></span><span class=mord ><span class="mord mathnormal">x</span><span class=msupsub ><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span> vs <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>. To insert Latex compatible code we use the package <code>using LaTeXStrings</code>.</p> <p>In &#91;2&#93;:</p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> LaTeXStrings</code></pre>
+<p>In &#91;3&#93;:</p>
+<pre><code class="julia hljs">x = range(<span class=hljs-number >0.1</span>,stop=<span class=hljs-number >5</span>, length = <span class=hljs-number >50</span>);
+y = x.^<span class=hljs-number >2</span>;</code></pre>
+<p>In &#91;4&#93;:</p>
+<pre><code class="julia hljs">plot1 = <span class=hljs-meta >@pgf</span> Axis(
+    {
+        xmajorgrids, <span class=hljs-comment ># show grids along x axis</span>
+        ymajorgrids, <span class=hljs-comment ># show grids along y axis</span>
+        xlabel = <span class=hljs-string >L&quot;x&quot;</span>,  <span class=hljs-comment ># L&quot;()&quot; shows $()$ in latex math</span>
+        ylabel = <span class=hljs-string >L&quot;f(x)=x^2&quot;</span> 
+    },
+    Plot(
+        {
+            <span class=hljs-string >&quot;no marks&quot;</span>,
+            style = <span class=hljs-string >&quot;{ultra thick}&quot;</span>,
+            <span class=hljs-comment ># style determines the linewidth: ultra thin, very thin, semithick, thick, very thick, ultra thick </span>
+            color = <span class=hljs-string >&quot;blue&quot;</span> 
+            <span class=hljs-comment ># other possible colors are red, green, blue, cyan, magenta, yellow, black, gray, darkgray, lightgray, brown, lime, olive, orange, pink, purple, teal, violet and white</span>
+        },
+        Coordinates(x, y)
+    )
+)</code></pre>
+<p>Out&#91;4&#93;:</p>
+<h3 id=saving_a_plota_hrefhttpscodebeautifyorghtmlviewersaving-a-plot ><a href="#saving_a_plota_hrefhttpscodebeautifyorghtmlviewersaving-a-plot" class=header-anchor >Saving a plot<a href="https://codebeautify.org/htmlviewer#Saving-a-plot">¶</a></a></h3>
+<p>We can save the plot above by running the following command.</p>
+<p>In &#91;5&#93;:</p>
+<pre><code class="julia hljs">pgfsave(<span class=hljs-string >&quot;first_plot.tex&quot;</span>, plot1) <span class=hljs-comment ># will save a tex file</span>
+pgfsave(<span class=hljs-string >&quot;firt_plot.pdf&quot;</span>, plot1) <span class=hljs-comment ># will save a pdf file</span>
+pgfsave(<span class=hljs-string >&quot;first_plot.svg&quot;</span>, plot1) <span class=hljs-comment ># will save a svg file</span></code></pre>
+<h3 id=drawing_multiple_functions_on_the_same_plota_hrefhttpscodebeautifyorghtmlviewerdrawing-multiple-functions-on-the-same-plot ><a href="#drawing_multiple_functions_on_the_same_plota_hrefhttpscodebeautifyorghtmlviewerdrawing-multiple-functions-on-the-same-plot" class=header-anchor >Drawing multiple functions on the same plot<a href="https://codebeautify.org/htmlviewer#Drawing-multiple-functions-on-the-same-plot">¶</a></a></h3>
+<p>As our second example, let us plot both <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">x^2</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.8141079999999999em;vertical-align:0em;"></span><span class=mord ><span class="mord mathnormal">x</span><span class=msupsub ><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span> and <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo><mo stretchy=false >(</mo><mi>x</mi><mo stretchy=false >)</mo></mrow><annotation encoding="application/x-tex">\log(x)</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:1em;vertical-align:-0.25em;"></span><span class=mop >lo<span style="margin-right:0.01389em;">g</span></span><span class=mopen >(</span><span class="mord mathnormal">x</span><span class=mclose >)</span></span></span></span> over <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant=bold >R</mi><mrow><mo>+</mo><mo>+</mo></mrow></msub></mrow><annotation encoding="application/x-tex">\mathbf{R}_{++}</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.894441em;vertical-align:-0.208331em;"></span><span class=mord ><span class="mord mathbf">R</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.25833100000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">++</span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span> on the same plot.</p>
+<p>In &#91;6&#93;:</p>
+<pre><code class="julia hljs">x = range(<span class=hljs-number >.1</span>,stop=<span class=hljs-number >10</span>, length = <span class=hljs-number >100</span>);
+y = x.^<span class=hljs-number >2</span>;
+z = log.(x);</code></pre>
+<p>In &#91;7&#93;:</p>
+<pre><code class="julia hljs"><span class=hljs-meta >@pgf</span> Axis(
+    {
+        xmajorgrids, <span class=hljs-comment ># show grids along x axis</span>
+        ymajorgrids, <span class=hljs-comment ># show grids along y axis</span>
+        xlabel = <span class=hljs-string >L&quot;x&quot;</span>,  <span class=hljs-comment ># L&quot;()&quot; shows $()$ in latex math</span>
+        ylabel = <span class=hljs-string >L&quot;Comparison between <span class=hljs-variable >$x</span>^2$ and $\log(x)$&quot;</span>
+    },
+    PlotInc(
+        {
+            <span class=hljs-string >&quot;no marks&quot;</span>,
+            style = <span class=hljs-string >&quot;{ultra thick}&quot;</span>,
+            <span class=hljs-comment ># style determines the linewidth: ultra thin, very thin, semithick, thick, very thick, ultra thick </span>
+            color = <span class=hljs-string >&quot;blue&quot;</span> 
+            <span class=hljs-comment ># other possible colors are red, green, blue, cyan, magenta, yellow, black, gray, darkgray, lightgray, brown, lime, olive, orange, pink, purple, teal, violet and white</span>
+        },
+        Coordinates(x, y)
+    ), 
+   LegendEntry(<span class=hljs-string >L&quot;x^2&quot;</span>),
+    PlotInc(
+        {
+            <span class=hljs-string >&quot;no marks&quot;</span>,
+            style = <span class=hljs-string >&quot;{ultra thick}&quot;</span>,
+            <span class=hljs-comment ># style determines the linewidth: ultra thin, very thin, semithick, thick, very thick, ultra thick </span>
+            color = <span class=hljs-string >&quot;red&quot;</span> 
+            <span class=hljs-comment ># other possible colors are red, green, blue, cyan, magenta, yellow, black, gray, darkgray, lightgray, brown, lime, olive, orange, pink, purple, teal, violet and white</span>
+        },
+        Coordinates(x, z)
+    ),
+  LegendEntry(<span class=hljs-string >L&quot;\log(x)&quot;</span>)
+)</code></pre>
+<p>Out&#91;7&#93;:</p>
+<h3 id=plotting_error_barsa_hrefhttpscodebeautifyorghtmlviewerplotting-error-bars ><a href="#plotting_error_barsa_hrefhttpscodebeautifyorghtmlviewerplotting-error-bars" class=header-anchor >Plotting error bars<a href="https://codebeautify.org/htmlviewer#Plotting-error-bars">¶</a></a></h3>
+<p>An error bar shows the reliability of a data point.</p>
+<p>Consider the hypothetical scenario. Suppose, there are <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span> different scenarios for a potential experiment, and for each value of <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span> we want to measure some entity <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>x</mi><mi>m</mi><mrow><mi mathvariant=normal >t</mi><mi mathvariant=normal >r</mi><mi mathvariant=normal >u</mi><mi mathvariant=normal >e</mi></mrow></msubsup></mrow><annotation encoding="application/x-tex">x^{\rm{true}}_{m}</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:1.040556em;vertical-align:-0.247em;"></span><span class=mord ><span class="mord mathnormal">x</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.7935559999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">true</span></span></span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span>. Unfortunately, our measuring instrument has some error, so we need to take multiple measurements for each <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span>. For each value of <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span>, we can have <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> different measurements of <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>x</mi><mi>m</mi><mrow><mi mathvariant=normal >t</mi><mi mathvariant=normal >r</mi><mi mathvariant=normal >u</mi><mi mathvariant=normal >e</mi></mrow></msubsup></mrow><annotation encoding="application/x-tex">x^{\rm{true}}_{m}</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:1.040556em;vertical-align:-0.247em;"></span><span class=mord ><span class="mord mathnormal">x</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.7935559999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">true</span></span></span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span>. Suppose, for each value of <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span>, we have the measured data points <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>x</mi><mi>m</mi><mrow><mo stretchy=false >(</mo><mn>1</mn><mo stretchy=false >)</mo></mrow></msubsup><mo separator=true >,</mo><msubsup><mi>x</mi><mi>m</mi><mrow><mo stretchy=false >(</mo><mn>2</mn><mo stretchy=false >)</mo></mrow></msubsup><mo separator=true >,</mo><mo>…</mo><mo separator=true >,</mo><msubsup><mi>x</mi><mi>m</mi><mrow><mo stretchy=false >(</mo><mi>n</mi><mo stretchy=false >)</mo></mrow></msubsup></mrow><annotation encoding="application/x-tex">{x^{(1)}_m, x^{(2)}_m, \ldots, x^{(n)}_m}</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:1.23924em;vertical-align:-0.19444em;"></span><span class=mord ><span class=mord ><span class="mord mathnormal">x</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:1.0448em;"><span style="top:-2.5834080000000004em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span><span style="top:-3.2198em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">1</span><span class="mclose mtight">)</span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.11659199999999997em;"><span></span></span></span></span></span></span><span class=mpunct >,</span><span class=mspace  style="margin-right:0.16666666666666666em;"></span><span class=mord ><span class="mord mathnormal">x</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:1.0448em;"><span style="top:-2.5834080000000004em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span><span style="top:-3.2198em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">2</span><span class="mclose mtight">)</span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.11659199999999997em;"><span></span></span></span></span></span></span><span class=mpunct >,</span><span class=mspace  style="margin-right:0.16666666666666666em;"></span><span class=minner >…</span><span class=mspace  style="margin-right:0.16666666666666666em;"></span><span class=mpunct >,</span><span class=mspace  style="margin-right:0.16666666666666666em;"></span><span class=mord ><span class="mord mathnormal">x</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:1.0448em;"><span style="top:-2.5834080000000004em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span><span style="top:-3.2198em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">n</span><span class="mclose mtight">)</span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.11659199999999997em;"><span></span></span></span></span></span></span></span></span></span></span>. We can compute the mean for each value of <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span>, which we denote by <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover accent=true ><mi>x</mi><mo>ˉ</mo></mover><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">\bar{x}_m</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.71778em;vertical-align:-0.15em;"></span><span class=mord ><span class="mord accent"><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.56778em;"><span style="top:-3em;"><span class=pstrut  style="height:3em;"></span><span class="mord mathnormal">x</span></span><span style="top:-3em;"><span class=pstrut  style="height:3em;"></span><span class=accent-body  style="left:-0.22222em;"><span class=mord >ˉ</span></span></span></span></span></span></span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, however it is likely to have some error from the real <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>x</mi><mi>m</mi><mrow><mi mathvariant=normal >t</mi><mi mathvariant=normal >r</mi><mi mathvariant=normal >u</mi><mi mathvariant=normal >e</mi></mrow></msubsup></mrow><annotation encoding="application/x-tex">x^{\rm{true}}_{m}</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:1.040556em;vertical-align:-0.247em;"></span><span class=mord ><span class="mord mathnormal">x</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.7935559999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">true</span></span></span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span>, which we can quantify via computing the reliability. For each value of <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span>, compute the standard deviation <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">\sigma_m</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.58056em;vertical-align:-0.15em;"></span><span class=mord ><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> of the observed data points, and then create the confidence interval: </p>
+<span class=katex-display ><span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML" display=block ><semantics><mrow><mo stretchy=false >[</mo><msub><mover accent=true ><mi>x</mi><mo>ˉ</mo></mover><mi>m</mi></msub><mo>−</mo><mfrac><msub><mi>σ</mi><mi>m</mi></msub><msqrt><mi>n</mi></msqrt></mfrac><mo separator=true >,</mo><msub><mover accent=true ><mi>x</mi><mo>ˉ</mo></mover><mi>m</mi></msub><mo>+</mo><mfrac><msub><mi>σ</mi><mi>m</mi></msub><msqrt><mi>n</mi></msqrt></mfrac><mo stretchy=false >]</mo><mo separator=true >,</mo></mrow><annotation encoding="application/x-tex"> [\bar{x}_m - \frac{\sigma_m}{\sqrt{n}}, \bar{x}_m + \frac{\sigma_m}{\sqrt{n}}], </annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:1em;vertical-align:-0.25em;"></span><span class=mopen >[</span><span class=mord ><span class="mord accent"><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.56778em;"><span style="top:-3em;"><span class=pstrut  style="height:3em;"></span><span class="mord mathnormal">x</span></span><span style="top:-3em;"><span class=pstrut  style="height:3em;"></span><span class=accent-body  style="left:-0.22222em;"><span class=mord >ˉ</span></span></span></span></span></span></span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span><span class=mspace  style="margin-right:0.2222222222222222em;"></span><span class=mbin >−</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span></span><span class=base ><span class=strut  style="height:2.03756em;vertical-align:-0.9300000000000002em;"></span><span class=mord ><span class="mopen nulldelimiter"></span><span class=mfrac ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:1.1075599999999999em;"><span style="top:-2.30972em;"><span class=pstrut  style="height:3em;"></span><span class=mord ><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.8002800000000001em;"><span class=svg-align  style="top:-3em;"><span class=pstrut  style="height:3em;"></span><span class=mord  style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.76028em;"><span class=pstrut  style="height:3em;"></span><span class=hide-tail  style="min-width:0.853em;height:1.08em;"><svg width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z'/></svg></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.23972em;"><span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class=pstrut  style="height:3em;"></span><span class=frac-line  style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class=pstrut  style="height:3em;"></span><span class=mord ><span class=mord ><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.9300000000000002em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class=mpunct >,</span><span class=mspace  style="margin-right:0.16666666666666666em;"></span><span class=mord ><span class="mord accent"><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.56778em;"><span style="top:-3em;"><span class=pstrut  style="height:3em;"></span><span class="mord mathnormal">x</span></span><span style="top:-3em;"><span class=pstrut  style="height:3em;"></span><span class=accent-body  style="left:-0.22222em;"><span class=mord >ˉ</span></span></span></span></span></span></span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span><span class=mspace  style="margin-right:0.2222222222222222em;"></span><span class=mbin >+</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span></span><span class=base ><span class=strut  style="height:2.03756em;vertical-align:-0.9300000000000002em;"></span><span class=mord ><span class="mopen nulldelimiter"></span><span class=mfrac ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:1.1075599999999999em;"><span style="top:-2.30972em;"><span class=pstrut  style="height:3em;"></span><span class=mord ><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.8002800000000001em;"><span class=svg-align  style="top:-3em;"><span class=pstrut  style="height:3em;"></span><span class=mord  style="padding-left:0.833em;"><span class="mord mathnormal">n</span></span></span><span style="top:-2.76028em;"><span class=pstrut  style="height:3em;"></span><span class=hide-tail  style="min-width:0.853em;height:1.08em;"><svg width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z'/></svg></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.23972em;"><span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class=pstrut  style="height:3em;"></span><span class=frac-line  style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class=pstrut  style="height:3em;"></span><span class=mord ><span class=mord ><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.9300000000000002em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class=mclose >]</span><span class=mpunct >,</span></span></span></span></span>
+<p>which is also called one standard error band around the mean. To change the width of this confidence interval, we can also use some mulitple of the estimate of the standard deviation of the mean.</p>
+<p>In &#91;8&#93;:</p>
+<pre><code class="julia hljs">m_array = <span class=hljs-number >1</span>:<span class=hljs-number >10</span>
+measurements = <span class=hljs-number >1</span>:<span class=hljs-number >50</span>
+x_matrix_true = <span class=hljs-number >0.5</span>*m_array
+x_matrix_noise = randn(length(m_array),length(measurements)) <span class=hljs-comment ># made up data for this plot</span>
+x_matrix = x_matrix_true .+ x_matrix_noise
+<span class=hljs-comment ># so x_array[m, :] will give us the array of all measurements for scenario m; we are interested in computing the following arrays</span>
+<span class=hljs-keyword >using</span> Statistics
+x_mean = vec(mean(x_matrix, dims = <span class=hljs-number >2</span>)) <span class=hljs-comment ># mean(matrix, dims = 2)computes the row-wise mean of a matrix</span>
+x_std = vec(std(x_matrix, dims = <span class=hljs-number >2</span>))  
+x_sem = vec(x_std./sqrt(length(measurements))) <span class=hljs-comment ># sem = standard error of the mean</span></code></pre>
+<p>Out&#91;8&#93;:</p>
+<pre><code class="julia hljs"><span class=hljs-number >10</span>-element <span class=hljs-built_in >Array</span>{<span class=hljs-built_in >Float64</span>,<span class=hljs-number >1</span>}:
+ <span class=hljs-number >0.1604034132861103</span> 
+ <span class=hljs-number >0.1460304429550008</span> 
+ <span class=hljs-number >0.1365847039486609</span> 
+ <span class=hljs-number >0.13948683707167778</span>
+ <span class=hljs-number >0.1319594461585211</span> 
+ <span class=hljs-number >0.14365778090865236</span>
+ <span class=hljs-number >0.1406170456066185</span> 
+ <span class=hljs-number >0.1418559017096794</span> 
+ <span class=hljs-number >0.15048702832975708</span>
+ <span class=hljs-number >0.13851376073434124</span></code></pre>
+<p>In &#91;9&#93;:</p>
+<pre><code class="julia hljs"><span class=hljs-meta >@pgf</span> Axis(
+    {
+        xmajorgrids, <span class=hljs-comment ># show grids along x axis</span>
+        ymajorgrids, <span class=hljs-comment ># show grids along y axis</span>
+        <span class=hljs-string >&quot;error bars/y dir=both&quot;</span>,
+        <span class=hljs-string >&quot;error bars/y explicit&quot;</span>,
+        xlabel = <span class=hljs-string >L&quot;<span class=hljs-variable >$m</span>$ (scenarios)&quot;</span>,  <span class=hljs-comment ># L&quot;()&quot; shows $()$ in latex math</span>
+        ylabel = <span class=hljs-string >L&quot;<span class=hljs-variable >$x</span>$ (measurement)&quot;</span> 
+    },
+    Plot(
+        {
+            <span class=hljs-string >&quot;no marks&quot;</span>,
+            style = <span class=hljs-string >&quot;{very thick}&quot;</span>,
+            <span class=hljs-comment ># style determines the linewidth: ultra thin, very thin, semithick, thick, very thick, ultra thick </span>
+            color = <span class=hljs-string >&quot;blue&quot;</span> 
+            <span class=hljs-comment ># other possible colors are red, green, blue, cyan, magenta, yellow, black, gray, darkgray, lightgray, brown, lime, olive, orange, pink, purple, teal, violet and white</span>
+        },
+        Coordinates(m_array, x_mean; yerror = x_sem)
+    )
+)</code></pre>
+<p>Out&#91;9&#93;:</p>
+<h3 id=the_same_error_bar_but_fanciera_hrefhttpscodebeautifyorghtmlviewerthe-same-error-bar-but-fancier ><a href="#the_same_error_bar_but_fanciera_hrefhttpscodebeautifyorghtmlviewerthe-same-error-bar-but-fancier" class=header-anchor >The same error bar, but fancier<a href="https://codebeautify.org/htmlviewer#The-same-error-bar,-but-fancier">¶</a></a></h3>
+<p>The same plot, but with fancier options is below.</p>
+<p>In &#91;10&#93;:</p>
+<pre><code class="julia hljs"><span class=hljs-meta >@pgf</span> Axis(
+    {
+        xmajorgrids, <span class=hljs-comment ># show grids along x axis</span>
+        ymajorgrids, <span class=hljs-comment ># show grids along y axis</span>
+        <span class=hljs-string >&quot;error bars/y dir=both&quot;</span>,
+        <span class=hljs-string >&quot;error bars/error mark=diamond*&quot;</span>,
+        <span class=hljs-string >&quot;error bars/y explicit&quot;</span>,
+        <span class=hljs-string >&quot;error bars/error bar style={line width=1pt, dashed}&quot;</span>,
+        <span class=hljs-string >&quot;error bars/error bar style={blue}&quot;</span>,
+        xlabel = <span class=hljs-string >L&quot;<span class=hljs-variable >$m</span>$ (scenarios)&quot;</span>,  <span class=hljs-comment ># L&quot;()&quot; shows $()$ in latex math</span>
+        ylabel = <span class=hljs-string >L&quot;<span class=hljs-variable >$x</span>$ (measurement)&quot;</span> 
+    },
+    Plot(
+        {
+            <span class=hljs-string >&quot;no marks&quot;</span>,
+            style = <span class=hljs-string >&quot;{ultra thick}&quot;</span>,
+            <span class=hljs-comment ># style determines the linewidth: ultra thin, very thin, semithick, thick, very thick, ultra thick </span>
+            color = <span class=hljs-string >&quot;red&quot;</span> 
+            <span class=hljs-comment ># other possible colors are red, green, blue, cyan, magenta, yellow, black, gray, darkgray, lightgray, brown, lime, olive, orange, pink, purple, teal, violet and white</span>
+        },
+        Coordinates(m_array, x_mean; yerror = x_sem)
+    )
+)</code></pre>
+<p>Out&#91;10&#93;:</p>
+<h3 id=multiple_plots_with_error_barsa_hrefhttpscodebeautifyorghtmlviewermultiple-plots-with-error-bars ><a href="#multiple_plots_with_error_barsa_hrefhttpscodebeautifyorghtmlviewermultiple-plots-with-error-bars" class=header-anchor >Multiple plots with error bars<a href="https://codebeautify.org/htmlviewer#Multiple-plots-with-error-bars">¶</a></a></h3>
+<p>In a similar manner, we can plot multiple plots with error bars as follows.</p>
+<p>In &#91;11&#93;:</p>
+<pre><code class="julia hljs">m_array = <span class=hljs-number >1</span>:<span class=hljs-number >10</span>
+measurements = <span class=hljs-number >1</span>:<span class=hljs-number >50</span>
+
+x_matrix_true = <span class=hljs-number >0.5</span>*m_array
+x_matrix_noise = randn(length(m_array),length(measurements)) 
+x_matrix = x_matrix_true .+ x_matrix_noise
+
+y_matrix_true = <span class=hljs-number >0.5</span>*sqrt.(m_array)
+y_matrix_noise = randn(length(m_array),length(measurements)) 
+y_matrix = y_matrix_true .+ y_matrix_noise
+
+x_mean = vec(mean(x_matrix, dims = <span class=hljs-number >2</span>)) <span class=hljs-comment ># mean(matrix, dims = 2)computes the row-wise mean of a matrix</span>
+x_std = vec(std(x_matrix, dims = <span class=hljs-number >2</span>))  
+x_sem = vec(x_std./sqrt(length(measurements))) <span class=hljs-comment ># sem = standard error of the mean</span>
+
+y_mean = vec(mean(y_matrix, dims = <span class=hljs-number >2</span>)) <span class=hljs-comment ># mean(matrix, dims = 2)computes the row-wise mean of a matrix</span>
+y_std = vec(std(y_matrix, dims = <span class=hljs-number >2</span>))  
+y_sem = vec(y_std./sqrt(length(measurements))) <span class=hljs-comment ># sem = standard error of the mean</span></code></pre>
+<p>Out&#91;11&#93;:</p>
+<pre><code class="julia hljs"><span class=hljs-number >10</span>-element <span class=hljs-built_in >Array</span>{<span class=hljs-built_in >Float64</span>,<span class=hljs-number >1</span>}:
+ <span class=hljs-number >0.13382424056139092</span>
+ <span class=hljs-number >0.15169294891036073</span>
+ <span class=hljs-number >0.12455783827400334</span>
+ <span class=hljs-number >0.14694898448593774</span>
+ <span class=hljs-number >0.15490045368362218</span>
+ <span class=hljs-number >0.14199887043991172</span>
+ <span class=hljs-number >0.13742334894544558</span>
+ <span class=hljs-number >0.12821628839800778</span>
+ <span class=hljs-number >0.13339558092910958</span>
+ <span class=hljs-number >0.13009038005264217</span></code></pre>
+<p>In &#91;12&#93;:</p>
+<pre><code class="julia hljs"><span class=hljs-meta >@pgf</span> Axis(
+    {
+        xmajorgrids, <span class=hljs-comment ># show grids along x axis</span>
+        ymajorgrids, <span class=hljs-comment ># show grids along y axis</span>
+        <span class=hljs-string >&quot;error bars/y dir=both&quot;</span>,
+        <span class=hljs-string >&quot;error bars/y explicit&quot;</span>,
+        <span class=hljs-string >&quot;error bars/error bar style={line width=1pt}&quot;</span>,
+        xlabel = <span class=hljs-string >L&quot;<span class=hljs-variable >$m</span>$ (scenarios)&quot;</span>,  <span class=hljs-comment ># L&quot;()&quot; shows $()$ in latex math</span>
+        ylabel = <span class=hljs-string >&quot;measurement&quot;</span> 
+    },
+    PlotInc(
+        {
+            <span class=hljs-string >&quot;no marks&quot;</span>,
+            style = <span class=hljs-string >&quot;{ultra thick}&quot;</span>,
+            <span class=hljs-comment ># style determines the linewidth: ultra thin, very thin, semithick, thick, very thick, ultra thick </span>
+            color = <span class=hljs-string >&quot;blue&quot;</span> 
+            <span class=hljs-comment ># other possible colors are red, green, blue, cyan, magenta, yellow, black, gray, darkgray, lightgray, brown, lime, olive, orange, pink, purple, teal, violet and white</span>
+        },
+        Coordinates(m_array, x_mean; yerror = x_sem)
+    ), 
+   LegendEntry(<span class=hljs-string >L&quot;x&quot;</span>),
+    PlotInc(
+        {
+            <span class=hljs-string >&quot;no marks&quot;</span>,
+            style = <span class=hljs-string >&quot;{ultra thick}&quot;</span>,
+            <span class=hljs-comment ># style determines the linewidth: ultra thin, very thin, semithick, thick, very thick, ultra thick </span>
+            color = <span class=hljs-string >&quot;red&quot;</span> 
+            <span class=hljs-comment ># other possible colors are red, green, blue, cyan, magenta, yellow, black, gray, darkgray, lightgray, brown, lime, olive, orange, pink, purple, teal, violet and white</span>
+        },
+        Coordinates(m_array, y_mean; yerror = y_sem)
+    ),
+  LegendEntry(<span class=hljs-string >L&quot;y&quot;</span>)
+)</code></pre>
+<p>Out&#91;12&#93;:</p>
+<div class=page-foot >
+  <div class=copyright >
+    &copy; Shuvomoy Das Gupta. Last modified: December 01, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div>
+        </div> 
+    </div>
