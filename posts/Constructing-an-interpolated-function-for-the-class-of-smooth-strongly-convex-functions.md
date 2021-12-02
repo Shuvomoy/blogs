@@ -45,7 +45,7 @@ For a function $f:\mathbf{R}^{d}\to\mathbf{R}$​ the following statements are e
 (d) $\frac{L}{2}\|\cdot\|^{2}-f\in\mathcal{F}_{0,\infty}(\mathbf{R}^{d})$​​.
 \end{theorem}
 
-Note that, in $(b)$ and $(c)$ saying that $f$ is convex is necessary, as the inequalities only in $(b),(c)$ are not sufficient to establish $L$-smooth convexity.
+In $(b)$ and $(c)$ of the theorem above, saying that $f$ is convex is necessary, as the inequalities only in $(b),(c)$ are not sufficient to establish $L$-smooth convexity.
 
 We now record the notion of an interpolable function.
 
@@ -105,7 +105,7 @@ where $a)$ follows from triangle inequallity and $b)$ follows from \theoremref{t
 
 ### Interpolation equivalence for smooth strongly convex and smooth convex functions
 
-Also, we are going to use the following interpolation result from`[1, Theorem 3.8]`.
+Also, we are going to use the following interpolation result.
 
 \begin{theorem}{Interpolation equivalence for smooth strongly convex and smooth convex functions}{thm-int-eqvl}
 
