@@ -273,25 +273,20 @@ export KNITRO_HOME="/home/gridsan/sdgupta/Knitro/knitro-12.4.0-Linux-64/"
 export PATH="${PATH}:${KNITRO_HOME}/knitroampl/"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${KNITRO_HOME}/lib"
 export ARTELYS_LICENSE="/home/gridsan/sdgupta/Knitro/knitro-12.4.0-Linux-64/artelys_lic_2021-07-14_trial_full_knitro_12.4_Das_Gupta_a8-f1-c1-5c-c4.txt"
-
 export PATH="/home/gridsan/sdgupta/.local/bin/:$PATH"
 
 # Pardiso related paths in Julia
 
 export PATH="/home/gridsan/sdgupta/sdgupta_lib/usr/lib/x86_64-linux-gnu/:$PATH"
-
 export PATH="/home/gridsan/sdgupta/sdgupta_lib/usr/lib/llvm-10/lib/:$PATH"
-
 export PATH="/home/gridsan/sdgupta/sdgupta_lib/usr/lib/llvm-10/include/openmp/:$PATH"
-
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/home/gridsan/sdgupta/libpardiso/"
-
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/home/sdgupta_lib/usr/lib/x86_64-linux-gnu/"
 export PARDISOLICMESSAGE=1
 
 # number of threads to be used by Pardiso
 
 export OMP_NUM_THREADS=32 
-
 export PATH="/home/gridsan/sdgupta/automake_1_16_1_installation_files/:$PATH"
 ```
 
