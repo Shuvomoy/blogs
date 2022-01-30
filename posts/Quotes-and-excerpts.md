@@ -10,7 +10,13 @@
 
 I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I have lost the notebook recently. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses. 
 
-*Last update: December 6, 2020*
+*Last update: January 26, 2022*
+
+
+
+It is very difficult to know exactly what good should come out of a particular situation. To attempt to manipulate circumstances so your idea of good can come about, is to let the ego play God-and that, as you know, can and does backfire.
+
+-- **Neem Karoli Baba**
 
 ---
 
@@ -47,21 +53,6 @@ What is death:
 But a moment when into chaos they fall.  
 
 -- **[Brij Narayan Chakbast](https://en.wikipedia.org/wiki/Brij_Narayan_Chakbast)**
-
----
-
-We did not ask for this room or this music.  
-We were invited in.   
-Therefore, because the dark surrounds us,   
-Let us turn our faces to the light.    
-Let us endure hardship to be grateful for plenty.   
-We have been given pain to be astounded by joy.    
-We have been given life to deny death.    
-We did not ask for this room or this music.    
-But because we are here,    
-Let us dance.   
-
--- **Stephen King**
 
 ---
 
@@ -309,8 +300,6 @@ He looked at me for a moment. ‘It’s a Zen story of course,’ he said, smili
 
 -- **Terry Hayes**
 
-
-
 ---------------------
 
 People say love is weak, but they’re wrong: love is strong. In nearly everyone it trumps all other things – patriotism and ambition, religion and upbringing. And of every kind of love – the epic and the small, the noble and the base – the one that a parent has for their child is the greatest of them all.
@@ -344,8 +333,6 @@ Into that heaven of freedom, my Father, let my country awake.
 --**[Rabindranath Tagore](https://en.wikipedia.org/wiki/Rabindranath_Tagore)**
 
 ---
-
-
 
 If you shut your door to all errors, truth will be shut out.
 

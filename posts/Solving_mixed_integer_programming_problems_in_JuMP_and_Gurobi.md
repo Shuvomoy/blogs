@@ -56,7 +56,7 @@ x_rand_feas = abs.(randn(n,1))
 
 y_rand_feas = bitrand(p,1)
 
-f = A*x_rand + B*y_rand # to ensure that we have a feasible solution
+f = A*x_rand_feas + B*y_rand_feas # to ensure that we have a feasible solution
 
 ```
 ```julia
