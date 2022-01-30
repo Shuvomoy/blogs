@@ -16,7 +16,7 @@ x_rand_feas = abs.(randn(n,<span class=hljs-number >1</span>))
 
 y_rand_feas = bitrand(p,<span class=hljs-number >1</span>)
 
-f = A*x_rand + B*y_rand <span class=hljs-comment ># to ensure that we have a feasible solution</span></code></pre> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> JuMP, Gurobi</code></pre>
+f = A*x_rand_feas + B*y_rand_feas <span class=hljs-comment ># to ensure that we have a feasible solution</span></code></pre> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> JuMP, Gurobi</code></pre>
 <h3 id=function_for_solving_mip ><a href="#function_for_solving_mip" class=header-anchor >Function for solving MIP</a></h3>
 <p>Let us write the function, which will find an optimal solution. We have used the notions of warm-start and variable hint in the function. Information about them can be found at the following links:</p>
 <ul>
@@ -265,7 +265,7 @@ User-callback calls <span class=hljs-number >71</span>, time <span class=hljs-ke
 </ol>
 <div class=page-foot >
   <div class=copyright >
-    &copy; Shuvomoy Das Gupta. Last modified: January 11, 2022. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+    &copy; Shuvomoy Das Gupta. Last modified: January 30, 2022. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
   </div>
 </div>
 </div>
