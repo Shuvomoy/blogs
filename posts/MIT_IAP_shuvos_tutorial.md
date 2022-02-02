@@ -1,8 +1,8 @@
-@def title = "Tutorial on Optimizatio in Julia for MIT IAP course 15.S60: Computing in Optimization and Statistics (2022)"
+@def title = "Tutorial on Optimization in Julia for MIT IAP course 15.S60: Computing in Optimization and Statistics (2022)"
 @def published ="February 02, 2022"
 @def tags =["programming", "Julia", "optimization"]
 
-# MIT IAP course 15.S60: Computing in Optimization and Statistics (2022)
+# Tutorial on Optimization in Julia for MIT IAP course 15.S60: Computing in Optimization and Statistics (2022)
 
 **Shuvomoy Das Gupta**
 
