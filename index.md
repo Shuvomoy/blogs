@@ -5,6 +5,9 @@
 Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Research Center](https://orc.mit.edu/). This blog is an attempt to improve my English. Here is my [academic website](https://shuvomoy.github.io/site/).
 
 ## [Posts]( #posts)
+
+* (2022-02-02) [Tutorial on Optimization in Julia for MIT IAP course 15.S60: Computing in Optimization and Statistics (2022)](posts/MIT_IAP_shuvos_tutorial)
+
 - *(2021-12-01)* [Constructing an interpolated function for the class of smooth strongly convex functions](posts/Constructing-an-interpolated-function-for-the-class-of-smooth-strongly-convex-functions)
 - *(2021-11-30)* [Publication-quality plots in Julia using PGFPlotsX](posts/Publication-quality-plots-in-Julia-using-PGFPlotsX)
 - *(2021-11-24)* [Properties of smooth nonconvex interpolated functions](posts/Properties_of_rho_smooth_nonconvex_interpolation_functions)
