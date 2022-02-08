@@ -98,7 +98,7 @@ h_{i+1,i-1}-h_{i,i-1} & =\zeta_{i+1}\left(h_{i,i-1}-1\right)\\
 h_{i+1,i} & =\zeta_{i+1}+\eta_{i+1}+1.
 \end{aligned}
 $$
-with initial condition $h_{1,0}=1,h_{1,j}=0$​​ for $j<0$​​ and $h_{0,j}=0$​​ for all $j$​​. This system of equation gives us a way to compute $\zeta,\eta$ from $h$.
+with initial condition $h_{1,j}=0$​​​ for $j<0$​​​ and $h_{0,j}=0$​​​ for all $j$​​​. This system of equation gives us a way to compute $\zeta,\eta$​ from $h$​.
 
 #### Specific example: OGM
 
