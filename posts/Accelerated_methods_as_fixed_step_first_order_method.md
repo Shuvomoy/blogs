@@ -23,7 +23,7 @@ y_{i+1} & =x_{i}-\frac{1}{L}\nabla f(x_{i})\\
 x_{i+1} & =y_{i+1}+\zeta_{i+1}(y_{i+1}-y_{i})+\eta_{i+1}(y_{i+1}-x_{i}),
 \end{array}\quad(\textrm{MomentumOGM)}
 $$
- which we show to be equivalent to (FSFOM). To show that (MomentumOGM) is in the form (FSFOM), we put, the iterative form $y_{+1}$​ and $y_{i}$​ in terms of the $x$​ iterates in the second iterate. For simplification purpose, denote $g_{i}=\nabla f(x_{i})$​​. We get:
+which we show to be equivalent to (FSFOM). To show that (MomentumOGM) is in the form (FSFOM), we put, the iterative form $y_{+1}$​​ and $y_{i}$​​ in terms of the $x$​​ iterates in the second iterate. For simplification purpose, denote $g_{i}=\nabla f(x_{i})$​​​. We get:
 $$
 x_{i+1}=x_{i}+\zeta_{i+1}\left(x_{i}-x_{i-1}\right)-\frac{\left(\zeta_{i+1}+\eta_{i+1}+1\right)}{L}g_{i}+\frac{\zeta_{i+1}}{L}g_{i-1},\quad \textrm{(MOM-SIMP)}
 $$
