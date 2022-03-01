@@ -10,9 +10,15 @@
 
 I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I have lost the notebook recently. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses. 
 
-*Last update: January 26, 2022*
+*Last update: February 28, 2022*
 
 
+
+Do not get entangled in technicalities. You may work hard endlessly for years and years, and gain complete mastery over technique, but it will not lead you to the Truth. Technique is merely a medium to express your thinking. Technique can be taught. Truth cannot. For that, you must have the strength to look inwards with unflinching honesty. This is extremely difficult. It is a lifelong quest. And eventually, when you do encounter the Truth, it takes great courage to face it. Because the Truth is often not pretty.
+
+-- **Maai** in [**The disciple**](https://en.wikipedia.org/wiki/The_Disciple_(2020_film))
+
+---
 
 It is very difficult to know exactly what good should come out of a particular situation. To attempt to manipulate circumstances so your idea of good can come about, is to let the ego play God-and that, as you know, can and does backfire.
 
