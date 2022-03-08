@@ -55,12 +55,22 @@ You gotta work hard. And at the end of the day you have to look at everything yo
 
 ---
 
-Zindagī kyā hai anāsir meñ zuhūr-e-tartīb   
+Zindagī kyā hai anāsir meñ zuhūr-e-tartīb  
+
+
 Maut kyā hai inhīñ ajzā kā pareshāñ honā  
 
+
+
+
+
 What is life: 
-When elements become ordered, that’s all.  
+
+When elements become ordered, that’s all.
+
+
 What is death:
+
 But a moment when into chaos they fall.  
 
 -- **[Brij Narayan Chakbast](https://en.wikipedia.org/wiki/Brij_Narayan_Chakbast)**
@@ -317,22 +327,32 @@ Imagine you’re trying to split a huge piece of wood with a small axe. You hit 
 
 But, of course, we needed all those earlier attempts to weaken the fiber of the wood. It doesn’t feel very good when we’re only on hit number thirty-four or thirty-five; it seems as if we aren’t making any progress at all. But we are, and not only because of the mechanical act of banging on the wood and weakening its fiber. What’s really transformative is our willingness to keep going, our openness to possibility, our patience, our effort, our humor, our growing self-knowledge, and the strength that we gain as we keep going. These intangible factors are the most vital to our success. 
 
-In meditation practice, these elements are growing and deepening even when we’re sleepy, restless, bored, or anxious. They’re the qualities that move us toward transformation over time. They’re what splits open the wood, and the world.
-
 -- **Sharon Salzberg**
 
 ---
 
-Where the mind is without fear and the head is held high  
+Where the mind is without fear and the head is held high 
+
+
 Where knowledge is free  
+
 Where the world has not been broken up into fragments  
+
 By narrow domestic walls  
+
 Where words come out from the depth of truth  
-Where tireless striving stretches its arms towards perfection  
+
+Where tireless striving stretches its arms towards perfection 
+
+
 Where the clear stream of reason has not lost its way  
+
 Into the dreary desert sand of dead habit  
+
 Where the mind is led forward by thee  
+
 Into ever-widening thought and action  
+
 Into that heaven of freedom, my Father, let my country awake.  
 
 --**[Rabindranath Tagore](https://en.wikipedia.org/wiki/Rabindranath_Tagore)**
@@ -397,7 +417,7 @@ The mind is everything. It is in the mind alone that one feels pure and impure. 
 ---
 
 
-Man finds faults in others after bringing down his own mind to that level. Does anything ever happen to another if you enumerate his faults? It only injures you. This has been my attitude. Hence I cannot see anybody's faults. If a man does a trifle for me, I try to remember him even for that. To see the faults of others! One should never do it.
+Man finds faults in others after bringing down his own mind to that level. Does anything ever happen to another if you enumerate his faults? It only injures you. This has been my attitude. Hence I cannot see anybody's faults. If a man does a trifle for me, I try to remember him gratefully even for that. To see the faults of others! One should never do it.
 
 -- **Sarada Devi** 
 
