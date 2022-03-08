@@ -6,7 +6,8 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 
 ## [Posts]( #posts)
 
-* (2022-02-02) [Tutorial on Optimization in Julia for MIT IAP course 15.S60: Computing in Optimization and Statistics (2022)](posts/MIT_IAP_shuvos_tutorial)
+* *(2022-03-01)* [Favorite Quotes and Excerpts](posts/Quotes-and-excerpts/)
+* *(2022-02-02)* [Tutorial on Optimization in Julia for MIT IAP course 15.S60: Computing in Optimization and Statistics (2022)](posts/MIT_IAP_shuvos_tutorial)
 
 - *(2021-12-01)* [Constructing an interpolated function for the class of smooth strongly convex functions](posts/Constructing-an-interpolated-function-for-the-class-of-smooth-strongly-convex-functions)
 - *(2021-11-30)* [Publication-quality plots in Julia using PGFPlotsX](posts/Publication-quality-plots-in-Julia-using-PGFPlotsX)
@@ -39,7 +40,6 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 - *(2020-03-22)* [How to create a simple package in Julia](posts/How-to-create-a-simple-package-in-julia/)
 - *(2020-01-24)* [Running Julia code on MIT Supercloud](posts/Running-Julia-code-on-MIT-supercloud/)
 - *(2020-01-20)* [Solving mixed-integer quadratic programming (MIQP) using Julia+JuMP](posts/Solving_mixed_integer_quadratic_programming_Julia/)
-- *(2018-03-15)* [Favorite Quotes and Excerpts](posts/Quotes-and-excerpts/)
 
 ## Tags
 

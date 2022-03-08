@@ -240,9 +240,9 @@ td {
 ================================================================== */
 
 .franklin-content img {
-  width: 100%;
+  width: 70%;
   text-align: center;
-  padding-left: 0%;
+  padding-left: 10%;
 }
 
 .franklin-content .img-small img {
@@ -251,18 +251,11 @@ td {
   padding-left: 20%;
 }
 
-.franklin-content .img-big img {
-  width: 200%;
-  text-align: center;
-  padding-left: 20%;
-}
-
 /* ==================================================================
     KATEX
 ================================================================== */
-/*
+
 body { counter-reset: eqnum; }
-*/
 
 .katex { font-size: 1em !important; }
 
@@ -274,7 +267,6 @@ body { counter-reset: eqnum; }
   white-space: normal;
 }
 
-/* This prevents equation numbering 
 .katex-display::after {
   counter-increment: eqnum;
   content: "(" counter(eqnum) ")";
@@ -287,7 +279,6 @@ body { counter-reset: eqnum; }
   counter-increment: nothing;
   content: "";
 }
-*/
 
 /* ==================================================================
     CODE & HIGHLIGHT.JS

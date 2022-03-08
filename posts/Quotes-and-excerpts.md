@@ -1,20 +1,25 @@
 @def title = "Favorite Quotes and Excerpts"
-@def published ="March 15, 2018"
+@def published ="March 1, 2022"
 @def tags =["non-technical"]
 
 # Favorite Quotes and Excerpts
 **Shuvomoy Das Gupta**
 
-*March 15, 2018*
+*Last update: March 1, 2022*
 
 
 I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I have lost the notebook recently. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses. 
 
-*Last update: February 28, 2022*
 
+---
 
+I tell you one thing – if you want peace of mind, do not find fault with others. Rather learn to see your own faults. Learn to make the whole world your own. No one is a stranger, my child; this whole world is your own.
 
-Do not get entangled in technicalities. You may work hard endlessly for years and years, and gain complete mastery over technique, but it will not lead you to the Truth. Technique is merely a medium to express your thinking. Technique can be taught. Truth cannot. For that, you must have the strength to look inwards with unflinching honesty. This is extremely difficult. It is a lifelong quest. And eventually, when you do encounter the Truth, it takes great courage to face it. Because the Truth is often not pretty.
+-- **Sarada Devi** 
+
+---
+
+Do not get entangled in technicalities. You may work hard endlessly for years and years, and gain complete mastery over technique, but it will not lead you to the Truth. Technique is merely a medium to express your thinking. Technique can be taught. Truth cannot. To attain the Truth, you must have the strength to look inwards with unflinching honesty. This is extremely difficult. It is a lifelong quest. And eventually, when you do encounter the Truth, it takes great courage to face it. Because the Truth is often not pretty.
 
 -- **Maai** in [**The disciple**](https://en.wikipedia.org/wiki/The_Disciple_(2020_film))
 
@@ -143,12 +148,6 @@ The greatest test of courage on earth is to bear defeat without losing heart.
 When heaven is about to confer a great responsibility on any man, it will exercise his mind with suffering, subject his sinews and bones to hard work, expose his body to hunger, put him to poverty, place obstacles in the paths of his deeds, so as to stimulate his mind, harden his nature, and improve wherever he is incompetent.
 
 -- **MENG TZU,1 CHINA, 3RD CENT. BCE**
-
----
-
-I tell you one thing – if you want peace of mind, do not find fault with others. Rather learn to see your own faults. Learn to make the whole world your own. No one is a stranger, my child; this whole world is your own.
-
--- **Sarada Devi** 
 
 ---
 
@@ -394,6 +393,7 @@ The mind is everything. It is in the mind alone that one feels pure and impure. 
 
 -- **Sarada Devi** 
 	
+
 ---
 
 

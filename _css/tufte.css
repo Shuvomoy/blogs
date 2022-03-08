@@ -159,7 +159,7 @@ body {
 
   /* padding-left: 12.5%; */
   font-family:   bookerly, et-book, TexGyrePagella, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
-  background-color: #ffffff; /*#fffff8;*/
+  background-color: #ffffff;/* #fffff8; */
   color: #111;
   max-width: 1400px;
   counter-reset: sidenote-counter;
@@ -309,9 +309,11 @@ figure.fullwidth figcaption { margin-right: 24%; }
 
 /* Links: replicate underline that clears descenders */
 a:link,
-a:visited { color: inherit; }
+a:visited { color: #6c1960; }
 
+/*
 a:link {
+  color: #004de6;
   text-decoration: none;
   background: -webkit-linear-gradient(#fffff8, #fffff8), -webkit-linear-gradient(#fffff8, #fffff8), -webkit-linear-gradient(#333, #333);
   background: linear-gradient(#fffff8, #fffff8), linear-gradient(#fffff8, #fffff8), linear-gradient(#333, #333);
@@ -322,6 +324,14 @@ a:link {
   text-shadow: 0.03em 0 #fffff8, -0.03em 0 #fffff8, 0 0.03em #fffff8, 0 -0.03em #fffff8, 0.06em 0 #fffff8, -0.06em 0 #fffff8, 0.09em 0 #fffff8, -0.09em 0 #fffff8, 0.12em 0 #fffff8, -0.12em 0 #fffff8, 0.15em 0 #fffff8, -0.15em 0 #fffff8;
   background-position: 0% 93%, 100% 93%, 0% 93%;
 }
+*/
+
+a:link {
+  color: #004de6;
+  text-decoration: none;
+}
+
+
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) { a:link { background-position-y: 87%, 87%, 87%; } }
 
