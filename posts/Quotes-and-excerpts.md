@@ -8,7 +8,7 @@
 *Last update: March 1, 2022*
 
 
-I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I have lost the notebook recently. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses. 
+I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I lost the notebook around 2018. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses. 
 
 
 ---
