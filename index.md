@@ -6,6 +6,7 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 
 ## [Posts]( #posts)
 
+* *(2022-03-18)* [“My heart skipped a beat” by Nasir Kazmi](posts/My-heart-skipped-a-beat-by-Nasir-Kazmi/)
 * *(2022-03-09)* [Solving bilinear optimization problem using JuMP](posts/Solving_bilinear_optimization_problem_using_JuMP)
 * *(2022-03-01)* [Favorite quotes and excerpts](posts/Quotes-and-excerpts/)
 * *(2022-02-02)* [Tutorial on Optimization in Julia for MIT IAP course 15.S60: Computing in Optimization and Statistics (2022)](posts/MIT_IAP_shuvos_tutorial)
