@@ -15,15 +15,22 @@ Thanks to Youtube's recommendation algorithm, I came across this beautiful [ghaz
 ~~~
 
 Dil dharakne ka sabab yaad aayaa  
+
 Woh teri yaad thi ab yaad aayaa  
   
+  
 Haal-e-dil ham bhi sunate lekin  
+
 Jab who rukhsat hue tab yaad aayaa  
+
   
 Aaj mushkil tha sambhalna ae dost  
+
 Tu museebat mein ajab yaad aayaa  
+
   
 Baith kar saayaa-e-gul  mein 'Nasir'  
+
 Ham bohat roye woh jab yaad aayaa  
   
 ---
@@ -31,15 +38,22 @@ Ham bohat roye woh jab yaad aayaa
 **English translation**
 
 My heart skipped a beat suddenly today,  
+  
 And I remembered you, my beloved!   
   
+  
 I wanted to express the state of my heart,  
+  
 But when that time came, you were not in my life.  
   
+  
 Keeping up appearances was not so easy in that moment  
+  
 My heart could think of only you, when I tried not to.  
   
+  
 Sitting in a shadow of tranquility today,  
+  
 I can think of only you and my heart bleeds.   
   
 
