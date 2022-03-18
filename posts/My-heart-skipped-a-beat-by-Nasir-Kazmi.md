@@ -11,7 +11,7 @@
 Thanks to Youtube's recommendation algorithm, I came across this beautiful [ghazal](https://en.wikipedia.org/wiki/Ghazal) written by poet [Nasir Kazmi](https://en.wikipedia.org/wiki/Nasir_Kazmi). The soulful voice of [Shafqat Amanat Ali](https://en.wikipedia.org/wiki/Shafqat_Amanat_Ali) takes this amazying piece of poetry to another level.
 
 ~~~
-<iframe width="500" height="300" src="https://www.youtube.com/embed/sUBsEJiP_Qg?t=30" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="500" height="300" src="https://www.youtube.com/embed/sUBsEJiP_Qg?start=29" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 ~~~
 
 Dil dharakne ka sabab yaad aayaa \
