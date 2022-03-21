@@ -297,7 +297,7 @@ Show[ListPlot[data],
  LabelStyle -> {GrayLevel[0]}]
 ```
 
-<img src="https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Tips_and_tricks_in_Mathematica.assets/Tips_and_tricks_in_Mathematica.assets/image-20220321080728126.png" alt="image-20220321080728126"  />
+![image-20220321110644447](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Tips_and_tricks_in_Mathematica.assets/image-20220321110644447.png)
 
 Denote, $y \coloneqq (x_N)-f(x_\star)$ and $x\coloneqq N$, and assume that the $y$ is of the form $a x^k$. Then we can compute the best possible values of $a,k$ using log-log mechanism. Taking 10 based logarithm on both sides of the equation $y=a x^k$, we get $\log y=k \log x + \log a$. Setting, $Y=\log y$, $X=\log x$, and $\log a = b$, we get: $Y=k X + b$. We will find the best values of $k,b$ using the function `NonlinearModelFit` . 
 
