@@ -258,6 +258,106 @@ weval(W`
 # Times[x,Sin[x]] = x Sin[x]
 ```
 
+## Finding rate using the log-log plot
+
+Consider the following data. 
+
+```mathematica
+Narray = Table[i, {i, 1, 50}];
+
+perfMeasure = {0.12500000039401646, 0.06594597669442348, 
+   0.04289324973901232, 0.03256516933794558, 0.02439360612424908, 
+   0.019814662514600474, 0.01651332612698534, 0.01403712301081951, 
+   0.01218149925018591, 0.010707803345049002, 0.009565888232158155, 
+   0.008697583409315162, 0.007952102291835897, 0.007297301195680385, 
+   0.006730482071052881, 0.006252646825576575, 0.005811266656901224, 
+   0.005375016068984765, 0.004988492057531461, 0.004678377044818489, 
+   0.004432075710848663, 0.004182361213651744, 0.003927793416225444, 
+   0.003685188468346122, 0.0035042664229482465, 0.0033476311067778732,
+    0.003197565715268286, 0.003042783220507925, 0.002897332765325484, 
+   0.0027996149048139653, 0.0027113029867317606, 0.002611154164034634,
+    0.0025004251428767336, 0.0023944918234701054, 
+   0.0023289238102664417, 0.002269349268869964, 0.0022063087714561456,
+    0.0021491496850726713, 0.0020823484078409675, 
+   0.0020174824338334476, 0.0019410515750403516, 
+   0.0018646784364243156, 0.0018059789720844554, 
+   0.0017544334125811612, 0.001701395601716227, 0.0016528475942262394,
+    0.0016101924826737329, 0.0015764160943991692, 
+   0.0015510946954243204, 0.0015327205414233504};
+   
+data = MapThread[List, {Narray, perfMeasure}];
+
+Show[ListPlot[data], 
+ AxesLabel -> {"N", 
+   "f (\!\(\*SubscriptBox[\(x\), \(N\)]\))-f( \
+\!\(\*SubscriptBox[\(x\), \(*\)]\))"}, 
+ PlotLabel -> 
+  "f (\!\(\*SubscriptBox[\(x\), \(N\)]\))-f \
+(\!\(\*SubscriptBox[\(x\), \(*\)]\)) vs N", 
+ LabelStyle -> {GrayLevel[0]}]
+```
+
+<img src="https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Tips_and_tricks_in_Mathematica.assets/image-20220321080728126.png" alt="image-20220321080728126" style="zoom:67%;" />
+
+Denote, $y \coloneqq (x_N)-f(x_\star)$ and $x\coloneqq N$, and assume that the $y$ is of the form $a x^k$. Then we can compute the best possible values of $a,k$ using log-log mechanism. Taking 10 based logarithm on both sides of the equation $y=a x^k$, we get $\log y=k \log x + \log a$. Setting, $Y=\log y$, $X=\log x$, and $\log a = b$, we get: $Y=k X + b$. We will find the best values of $k,b$ using the function `NonlinearModelFit` . 
+
+First, construct data in log-log scale. 
+
+```mathematica
+logNarray = Map[Log10, Narray] // N;
+logPerfMeasure = Map[Log10, perfMeasure] // N;
+loglogdata = MapThread[List, {logNarray, logPerfMeasure}]
+```
+
+which has the output:
+
+```mathematica
+(*
+loglogdata = {{0., -0.90309}, {0.30103, -1.18081}, {0.477121, -1.36761}, {0.60206, \
+-1.48725}, {0.69897, -1.61272}, {0.778151, -1.70301}, {0.845098, \
+-1.78217}, {0.90309, -1.85272}, {0.954243, -1.9143}, {1., -1.9703}, \
+{1.04139, -2.01927}, {1.07918, -2.0606}, {1.11394, -2.09952}, \
+{1.14613, -2.13684}, {1.17609, -2.17195}, {1.20412, -2.20394}, \
+{1.23045, -2.23573}, {1.25527, -2.26962}, {1.27875, -2.30203}, \
+{1.30103, -2.3299}, {1.32222, -2.35339}, {1.34242, -2.37858}, \
+{1.36173, -2.40585}, {1.38021, -2.43354}, {1.39794, -2.4554}, \
+{1.41497, -2.47526}, {1.43136, -2.49518}, {1.44716, -2.51673}, \
+{1.4624, -2.538}, {1.47712, -2.5529}, {1.49136, -2.56682}, {1.50515, \
+-2.58317}, {1.51851, -2.60199}, {1.53148, -2.62079}, {1.54407, \
+-2.63284}, {1.5563, -2.6441}, {1.5682, -2.65633}, {1.57978, \
+-2.66773}, {1.59106, -2.68145}, {1.60206, -2.69519}, {1.61278, \
+-2.71196}, {1.62325, -2.7294}, {1.63347, -2.74329}, {1.64345, \
+-2.75586}, {1.65321, -2.76919}, {1.66276, -2.78177}, {1.6721, \
+-2.79312}, {1.68124, -2.80233}, {1.6902, -2.80936}, {1.69897, \
+-2.81454}}    
+*)
+```
+
+Let us find the best fit.
+
+```mathematica
+nlm = NonlinearModelFit[loglogdata, k x + b, {k, b}, x]
+(* Output: FittedModel[-0.806098 - 1.17805 X]*)
+```
+
+The best parameter values for $k,b$ are:
+
+```mathematica
+nlm["BestFitParameters"]
+(* Output: {k -> -1.17805, b -> -0.806098}*)
+```
+
+Hence, we have $a=10^b=0.156279$. And, $f(x_N)-f(x_\star)=0.156279 \frac{1}{N^{1.17805}}$.
+
+A plot of how good the fit in the original scale can be observed by the following code. 
+
+```julia 
+Show[ListPlot[data], Plot[0.156279/x^1.17805, {x, 1, 50}], 
+ Frame -> True]
+```
+
+![image-20220321082704633](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Tips_and_tricks_in_Mathematica.assets/image-20220321082704633.png)
+
 ## Copy Mathematics code as Unicode characters
 
 This solution is from the [link](https://mathematica.stackexchange.com/questions/1137/how-to-copy-as-unicode-from-a-notebook). Suppose we want to copy the following text from Mathematica into some other editor while preserving the Unicode characters:
