@@ -258,7 +258,7 @@ weval(W`
 # Times[x,Sin[x]] = x Sin[x]
 ```
 
-## Finding rate using the log-log plot
+## Finding convergence rate using the log-log plot
 
 Consider the following data. 
 
