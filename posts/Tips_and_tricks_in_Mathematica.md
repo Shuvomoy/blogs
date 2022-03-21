@@ -301,7 +301,7 @@ Show[ListPlot[data],
 
 ![image-20220321144622743](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Tips_and_tricks_in_Mathematica.assets/image-20220321144622743.png)
 
-Denote, $y \coloneqq (x_N)-f(x_\star)$ and $x\coloneqq N$, and assume that the $y$ is of the form $a x^k$. Then we can compute the best possible values of $a,k$ using log-log mechanism. Taking 10 based logarithm on both sides of the equation $y=a x^k$, we get $\log y=k \log x + \log a$. Setting, $Y=\log y$, $X=\log x$, and $\log a = b$, we get: $Y=k X + b$. We will find the best values of $k,b$ using the function `NonlinearModelFit` . 
+Denote, $y \coloneqq f(x_N)-f(x_\star)$ and $x\coloneqq N$, and assume that the $y$ is of the form $a x^k$. Then we can compute the best possible values of $a,k$ using log-log mechanism. Taking 10 based logarithm on both sides of the equation $y=a x^k$, we get $\log y=k \log x + \log a$. Setting, $Y=\log y$, $X=\log x$, and $\log a = b$, we get: $Y=k X + b$. We will find the best values of $k,b$ using the function `NonlinearModelFit` . 
 
 First, construct data in log-log scale. 
 
@@ -338,7 +338,7 @@ loglogdata = {{0., -0.90309}, {0.30103, -1.18081}, {0.477121, -1.36761}, {0.6020
 Let us find the best fit.
 
 ```mathematica
-nlm = NonlinearModelFit[loglogdata, k x + b, {k, b}, x]
+nlm = NonlinearModelFit[loglogdata, k X + b, {k, b}, X]
 (* Output: FittedModel[-0.806098 - 1.17805 X]*)
 ```
 
