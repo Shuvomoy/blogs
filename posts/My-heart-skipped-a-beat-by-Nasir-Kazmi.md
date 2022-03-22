@@ -43,5 +43,5 @@ Keeping up appearances was not so easy in that moment\
 My heart could think of only you, when I tried not to.\
 \
 Sitting in a shadow of tranquility today,\
-I can think of only you and my heart bleeds.\
+This lonely heart  bleeds at your remembrance.\
 
