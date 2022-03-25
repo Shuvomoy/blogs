@@ -2,7 +2,26 @@
 
 # Blogs by Shuvomoy Das Gupta
 
-Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Research Center](https://orc.mit.edu/). This blog is an attempt to improve my English. Here is my [academic website](https://shuvomoy.github.io/site/).
+
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" <img style="width: 400px; height: 254px;"
+ src="/assets/image_2022.png" alt="sdg2019">
+    <p> <br /> <br /> <br />
+        Shuvomoy Das Gupta  <br />
+        Ph.D. Student<br />
+        <a href="https://orc.mit.edu/">Operations Research Center</a><br />
+        <a href="http://www.mit.edu/">MIT</a><br />
+        Email:<a href="mailto:sdgupta@mit.edu"> sdgupta@mit.edu</a><br />
+		  <a href="https://shuvomoy.github.io/site/">Academic Website</a><br />
+            </p>
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+
+Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Research Center](https://orc.mit.edu/). 
 
 ## [Posts]( #posts)
 
