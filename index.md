@@ -7,7 +7,7 @@
 <div class="row">
   <div class="container">
     <img class="left" <img style="width: 300px; height: 376px;"
- src="/assets/image_2022.jpg" alt="sdg2019">
+ src="/assets/image_2022.jpg" alt="sdg">
     <p> <br /> <br /> <br /> <br /> <br />
         Shuvomoy Das Gupta  <br />
         Ph.D. Student<br />
