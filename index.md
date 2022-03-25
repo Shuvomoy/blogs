@@ -6,9 +6,9 @@
 ~~~
 <div class="row">
   <div class="container">
-    <img class="left" <img style="width: 400px; height: 254px;"
- src="/assets/image_2022.png" alt="sdg2019">
-    <p> <br /> <br /> <br />
+    <img class="left" <img style="width: 300px; height: 376px;"
+ src="/assets/image_2022.jpg" alt="sdg2019">
+    <p> <br /> <br /> <br /> <br /> <br />
         Shuvomoy Das Gupta  <br />
         Ph.D. Student<br />
         <a href="https://orc.mit.edu/">Operations Research Center</a><br />
