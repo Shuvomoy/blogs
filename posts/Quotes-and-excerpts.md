@@ -11,17 +11,17 @@ I had a notebook of quotes and excerpts. Over the years I collected a lot of quo
 
 ---
 
-Don’t worry about motivation. Motivation is fickle. It comes and goes. It is unreliable and when you are counting on motivation to get your goals accomplished—you will likely fall short. So. Don’t expect to be motivated every day to get out there and make things happen. You won’t be.\ 
+Don’t worry about motivation. Motivation is fickle. It comes and goes. It is unreliable and when you are counting on motivation to get your goals accomplished—you will likely fall short. So. Don’t expect to be motivated every day to get out there and make things happen. You won’t be.
 
-Don’t count on motivation.\ 
+Don’t count on motivation.
 
-Count on Discipline.\ 
+Count on Discipline.
 
-You know what you have to do. So: MAKE YOURSELF DO IT. You do that with Discipline.\ 
+You know what you have to do. So: MAKE YOURSELF DO IT. You do that with Discipline.
 
-Everyone wants some magic pill—some life hack—that eliminates the need to do the work. But that does not exist. No. You have to do the work. You’ve got to hold the line. You’ve got to MAKE IT HAPPEN.\ 
+Everyone wants some magic pill—some life hack—that eliminates the need to do the work. But that does not exist. No. You have to do the work. You’ve got to hold the line. You’ve got to MAKE IT HAPPEN.
 
-So. Dig in. Find the Discipline. Be the Discipline. ACCOMPLISH. That’s it.\ 
+So. Dig in. Find the Discipline. Be the Discipline. ACCOMPLISH. That’s it.
 
 -- **Jocko Willink**
 
