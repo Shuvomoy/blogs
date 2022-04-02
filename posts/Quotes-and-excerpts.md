@@ -7,8 +7,23 @@
 
 *Last update: March 1, 2022*
 
-
 I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I lost the notebook around 2018. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses. 
+
+---
+
+Don’t worry about motivation. Motivation is fickle. It comes and goes. It is unreliable and when you are counting on motivation to get your goals accomplished—you will likely fall short. So. Don’t expect to be motivated every day to get out there and make things happen. You won’t be.\ 
+
+Don’t count on motivation.\ 
+
+Count on Discipline.\ 
+
+You know what you have to do. So: MAKE YOURSELF DO IT. You do that with Discipline.\ 
+
+Everyone wants some magic pill—some life hack—that eliminates the need to do the work. But that does not exist. No. You have to do the work. You’ve got to hold the line. You’ve got to MAKE IT HAPPEN.\ 
+
+So. Dig in. Find the Discipline. Be the Discipline. ACCOMPLISH. That’s it.\ 
+
+-- **Jocko Willink**
 
 
 ---
