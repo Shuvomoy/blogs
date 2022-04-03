@@ -410,6 +410,39 @@ Minimize[{-a x + (b + \[Beta])/2 (x^2 + y^2),
    0 <= y <= 1 }, {x, y}]
 ```
 
+## Completing squares for a multi-variate polynomials 
+
+```mathematica
+(*Complete square*)
+CompleteTheSquare::notquad = 
+  "The expression is not quadratic in the variables `1`";
+CompleteTheSquare[expr_] := CompleteTheSquare[expr, Variables[expr]]
+CompleteTheSquare[expr_, Vars_Symbol] := 
+ CompleteTheSquare[expr, {Vars}]
+CompleteTheSquare[expr_, Vars : {__Symbol}] := 
+  Module[{array, A, B, C, s, vars, sVars}, 
+   vars = Intersection[Vars, Variables[expr]];
+   Check[array = CoefficientArrays[expr, vars], Return[expr], 
+    CoefficientArrays::poly];
+   If[Length[array] != 3, Message[CompleteTheSquare::notquad, vars]; 
+    Return[expr]];
+   {C, B, A} = array; A = Symmetrize[A];
+   s = Simplify[1/2 Inverse[A] . B, Trig -> False];
+   sVars = Hold /@ (vars + s); A = Map[Hold, A, {2}];
+   Expand[A . sVars . sVars] + 
+     Simplify[C - s . A . s, Trig -> False] // ReleaseHold];
+
+```
+
+```mathematica
+(*Example*)
+CompleteTheSquare[a x^2 + b x + c y^2 + d y, {x, y}]
+(*
+-((a b^2 c^2 + a^2 c d^2)/(4 a^2 c^2)) + a (b/(2 a) + x)^2 + 
+ c (d/(2 c) + y)^2    
+    *)
+```
+
 ## Matrix manipulation
 
 ```mathematica
@@ -468,5 +501,317 @@ PartCat[A11, A12, A21, A22]
 eiVec[n_, i_] := Module[{t1}, t1 = ConstantArray[0, {n, 1}];
   t1[[i]] = {1}; t1]
 eiVec[7, 3] // MatrixForm
+```
+
+## Verifying inequality in Mathematica
+
+### A simple example: AM-GM inequality
+
+We start with a very simple example: the well-known AM-GM inequality. It states that for $x>0,y>0$ we have 
+$$
+\frac{x+y}{2} \geq \sqrt{xy}.
+$$
+We can verify it as follows. 
+
+```mathematica
+(* Clear all the variables, this often comes handy*)
+ClearAll["Global`*"];
+
+(*construct the conditions*)
+conditions = x > 0 && y > 0;
+
+(*check wheather the AM-GM inequality holds for all x,y satisfying conditions*)
+
+(*Create the AM GM inequality*)
+inequalityAMGM = 
+ ForAll[{x, y}, 
+  conditions, (x + y)/2 >= 
+   Sqrt[x y]] 
+   
+(*Verify if the inequality holds for all x,y satisfying conditions*)   
+Resolve[inequalityAMGM] 
+```
+
+where we get the output `True`, so we have verified the AM-GM inequality.
+
+### Cauchy inequality
+
+The Cauchy inequality probably one of the most famous inequalities. Let us verify it in `Mathematica` for dimension 3.
+
+```mathematica 
+(* Clear all the variables *)
+ClearAll["Global`*"];
+
+(* Create the Cauchy inequality *)
+ineqCauchy = ForAll[{x, y}, Element[x | y, Vectors[3, Reals]], 
+       Abs[x . y] <= Norm[x]*Norm[y]]; 
+
+(* Verify if the inequality holds *)
+Resolve[ineqCauchy]
+```
+
+which outputs `True` again. We can run this for larger dimension too. However, keep in mind that larger the dimension, longer it would take for `Mathematica` to verify it. Hence, it is best if this verification process is kept confined to a smaller dimension, and then if the verification process yields `True`, then go for the good old pen and paper to prove it formally. 
+
+### A more complicated example: Performance Estimation Problem
+
+As our final example, we consider verifying an inequality that shows up in the performance estimation problem, for more details about this problem, please see the paper by Taylor et al. [here](https://arxiv.org/pdf/1502.05666.pdf). We want to verify an identity that shows up in Theorem 4 of the mentioned paper. Given vectors $f_i,f_i,x_i,x_j,g_i,g_j\in \mathbf{R}^n$ we want to show that the following two terms $t_1$ and $t_2$ are equal to each other. We have:
+$$
+t_1 = f_i - f_j - \left\langle g_j \mid x_i - x_j \right\rangle - \frac{1}{2(1/(\mu / L))} \left( \frac{1}{L}\|g_i - g_j \|_2^2 + \mu \|x_i - x_j \|_2^2-\left\langle g_j - g_i \mid x_j - x_i\right\rangle\right)
+$$
+
+
+and
+
+
+$$
+\begin{align*}
+s_{i} & =\frac{\mu}{L-\mu}\left\langle g_{i}\mid x_{i}\right\rangle -\frac{\mu L}{2(L-\mu)}\|x_{i}\|_{2}^{2}-\frac{1}{2(L-\mu)}\|g_{i}\|_{2}^{2}\\
+s_{j} & =\frac{\mu}{L-\mu}\left\langle g_{j}\mid x_{j}\right\rangle -\frac{\mu L}{2(L-\mu)}\|x_{j}\|_{2}^{2}-\frac{1}{2(L-\mu)}\|g_{j}\|_{2}^{2}\\
+p_{ij} & =\left\langle g_{j}-\mu x_{j}\mid\left(\frac{L}{L-\mu}x_{i}-\frac{1}{L-\mu}g_{i}\right)-\left(\frac{L}{L-\mu}x_{j}-\frac{1}{L-\mu}g_{j}\right)\right\rangle \\
+t_{2} & =s_{i}-s_{j}-p_{ij}.
+\end{align*}
+$$
+Where $0<\mu < L$.
+
+First we clear the variables.
+
+```mathematica
+(*Clear all the variables*)
+ClearAll["Global`*"];
+```
+
+We are going to do this test for $n=3$. Let us create our assumptions.
+
+```mathematica
+n = 2; 
+myAssumptions = Element[xi | xj | gi | gj, Vectors[n, Reals]] && Element[μ | L, Reals] && μ > 0 && L > 0 && μ < L
+```
+
+Let us construct $t_1$ first.
+
+```mathematica
+t1 = fi - fj - gj . (xi - xj) - (-((2*μ*(-gi + gj) . (-xi + xj))/L) + Norm[gi - gj]^2/L + μ*Norm[xi - xj]^2)/(2*(1 - μ/L))
+```
+
+Now, let us construct $t_2$ by constructing $s_i,s_j,$ and $p_{ij}$.
+
+```mathematica
+si = (μ/(L - μ))*gi . xi - ((μ*L)/(2*(L - μ)))*Norm[xi]^2 - (1/(2*(L - μ)))*Norm[gi]^2 + fi; 
+
+sj = (μ/(L - μ))*gj . xj - ((μ*L)/(2*(L - μ)))*Norm[xj]^2 - (1/(2*(L - μ)))*Norm[gj]^2 + fj; 
+
+pij = (gj - μ*xj) . (((L/(L - μ))*xi - (1/(L - μ))*gi) - ((L/(L - μ))*xj - (1/(L - μ))*gj)); 
+
+t2 = si - sj - pij
+```
+
+Construct the identity now. 
+
+```mathematica
+identityPEP = ForAll[{gi, gj, xi, xj, μ, L}, myAssumptions, t1 == t2]
+```
+
+Time to resolve.
+
+```julia 
+Resolve[identityPEP]
+```
+
+This yields `True` (it will take a few minutes) so the identity in question is true for $n=3$. 
+
+## Collect distributed sum and iversonian sum simplification
+
+```mathematica
+distributedSumRule1 = HoldPattern[a_. Sum[c_, y___]] :> Sum[a c, y];
+distributedSumRule2 = 
+  HoldPattern[Sum[a_. b_, y___] + Sum[c_. d_, y___]] :> 
+   Sum[ a b + c d, y];
+iversonRule1 = 
+  HoldPattern[Sum[a_, List[j_, 1, n_], List[k_, j_, n_]]] :> 
+   Sum[a, List[k, 1, n], List[j, 1, k]];
+iversonRule2 = 
+  HoldPattern[Sum[a_, List[k_, 1, n_], List[j_, 1, k_]]] :> 
+   Sum[a, List[j, 1, n], List[k, j, n]];
+```
+
+Here are a couple of examples of sum simplification.
+
+```mathematica
+{c*Sum[a[j, k], {j, 1, n}, {k, 1, n}] + d*Sum[b[j, k], {j, 1, n}, {k, 1, n}] /. distributedSumRule1 /. distributedSumRule2, Sum[a[j, k], {j, 1, n}, {k, j, n}] /. iversonRule1, Sum[a[j, k], {k, 1, n}, {j, 1, k}] /. iversonRule2}
+```
+
+![image-20220403155217977](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Tips_and_tricks_in_Mathematica.assets/Tips_and_tricks_in_Mathematica.assets/image-20220403155217977.png)
+
+## Rule-based programming in Mathematica
+
+Basic notation:
+
+* `sym:obj` or `Pattern[sym, obj]` represents the pattern-object `obj`, assigned the name `sym`.
+* The form `s_` is equivalent to `s:_`. Similarly, `s_h` is equivalent to `s:_h`, `s__` is equivalent to `s:__` and so on.
+
+We have the following symbols for rule-based programming in Mathematica. 
+
+1. `_ or Blank[]` is a pattern object that can stand for any Wolfram Language expression. 
+2. `__` (two _ characters) or `BlankSequence[]` is a pattern object that can stand for any sequence of one or more Wolfram Language expressions. 
+3. `___` (three _ characters) or `BlankNullSequence[]` is a pattern object that can stand for any sequence of zero or more Wolfram Language expressions. 
+4. `patt/;test` is a pattern which matches only if the evaluation of test yields `True`.
+5. `p1|p2` is a pattern object that represents any of the patterns `p1` or `p2`.
+6. `p..` or `Repeated[p]` is a pattern object that represents a sequence of one or more expressions, each matching `p`. 
+
+These patterns have the following full forms:
+
+```mathematica
+FullForm[x_] (*= Pattern[x,Blank[]]*)
+FullForm[x__] (*= Pattern[x,BlankSequence[]]*)
+FullForm[x___] (*= Pattern[x,BlankNullSequence[]]*)
+FullForm[x:(_Integer|_Rational)] (*= Pattern[x, Alternatives[Blank[Integer], Blank[Rational]]]*)
+FullForm[x:{(1|0)..}] (*= Pattern[x,List[Repeated[Alternatives[1,0]]]]*)
+```
+
+Let us take a look at some examples of rule-based programming.
+
+**Sorting a list of integers**
+
+```mathematica
+(*Sorting a list of random integers*)
+
+testlist = {20, 19, 17, 16, 12, 1, 14, 18, 8, 1, 1, 10, 20, 2, 14}
+sortrule = {x___, y_, z_, t___} /; (y > z) :> {x, z, y, t};
+testlist //. sortrule
+
+(*Output:
+{1, 1, 1, 2, 8, 10, 12, 14, 14, 16, 17, 18, 19, 20, 20}   
+*)
+```
+
+**Delete duplicate elements from a list**
+
+```mathematica
+(*Delete duplicate elements from a list*)
+
+testlist = {5, 2, 2, 1, 1, 4, 5, 3, 5, 4, 5, 1, 1, 4, 3}
+delrule = {x___, y_, z___, y_, t___} :> {x, y, z, t};
+testlist //. delrule
+
+(*Output:
+{5, 2, 1, 4, 3}    
+*)
+```
+
+**Rule-based recursion function**
+
+```mathematica
+(*Rule based factorial*)
+frules = {fact[1] -> 1, fact[n_Integer] :> fact[n - 1]*n}
+(*To evaluate use ReplaceRepeated until we have a fixed point*)
+fact[5] //. frules
+
+(*Output:
+120    
+*)
+```
+
+**Take a list of numbers and raise the nonnegative integers to the cubic power**
+
+```mathematica
+testlist = {2, 2, -2, -1, -1, 0, -2, -2, 2, 0} 
+(* Can be generated using 
+    Table[Random[Integer, {-2, 2}], 10] *)
+
+powrule = (x_Integer /; (x >= 0) :> x^3);
+
+(*x_Integer: find the entries that have head integer,
+/; on the condition that that entry is >= 0, raise the power of that entry to 3.
+*)
+testlist /. powrule
+
+(* Output:
+{-1, 8, -2, 8, 1, 0, -1, -1, 0, 8}
+*)
+```
+
+**Take the square root of all the elements that are full squares**
+
+```mathematica
+(*Take the square root of all the elements that are full squares*)
+testlist = Range[30] (*Will create
+{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, \
+20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30}
+*)
+sqrtrule = x_ /; (IntegerQ[Sqrt[x]]) :> Sqrt[x];
+testlist /. sqrtrule
+
+(*Output:
+{1, 2, 3, 2, 5, 6, 7, 8, 3, 10, 11, 12, 13, 14, 15, 4, 17, 18, 19, \
+20, 21, 22, 23, 24, 5, 26, 27, 28, 29, 30}
+*)
+```
+**Take square root of numbers that are either integer or rational**
+
+```mathematica
+testlist={x,2,Pi,3/2,2/5,4,Sin[y],8,Cos[z]};
+sqrtrule=x:(_Integer|_Rational):>Sqrt[x];
+(* x:(_Integer|_Rational) is the shortcut for Pattern[x,Alternatives[Blank[Integer],Blank[Rational]]]*)
+testlist/.sqrtrule
+
+(*Output:
+{x, Sqrt[2], \[Pi], Sqrt[3/2], Sqrt[2/5], 2, Sin[y], 2 Sqrt[2], 
+ Cos[z]}
+*)
+```
+
+**Optional pattern**
+
+`patt :def` or `Optional[patt,def]` is a pattern object that represents an expression of the form `patt`, which, if omitted, should be replaced by the default value `def`.
+
+```mathematica
+f[{a}, {a, b}, {a, b, c}] /. {x__, Optional[y_, 1]} :> {x + y}  (* means that {x__,y_} is replaced with {x+y} whereas {x__} is replaced with {x+1} *)
+
+(*Output:
+f[{1 + a}, {a + b}, {a + b + c}]
+*)
+```
+
+**Repeated pattern**
+
+Repeated pattern is useful in cases when we have to match a sequence of expressions each of which is matched by a given pattern, but we don' t know how many terms there will be in a sequence. 
+
+```mathematica
+(*Convert to numbers all lists that represent binary digits, i.e., 
+all lists that contain any number of ones and zeros mixed aribtrarily*)
+
+mylist = {{1, 0, 0}, {0, 1, 0}, {1, 1, 1}, {2, 0, 1}, {1, 0}, {1, 0, 3}};
+myrule = x : {(1 | 0) ..} :> FromDigits[x, 2];
+mylist /. myrule
+
+(*Output:
+{4, 2, 7, {2, 0, 1}, 2, {1, 0, 3}}
+*)
+```
+**Simple derivative function using rule-based programming**
+
+```mathematica
+(*Simple derivative function using rule based programming*)
+
+diff[c_*f_, x_] /; FreeQ[c, x] := c*diff[f, x]
+(*FreeQ[expr,var] returns true if expr does not depend on the variables var*)
+
+diff[f_ + g_, x_] := diff[f, x] + diff[g, x]
+
+diff[c_, x_] /; FreeQ[c, x] := 0
+
+diff[x_^n_., x_] /; FreeQ[n, x] := n x^(n - 1)
+
+(*x_^n_. means the pattern x_ and x_^n_, i.e., n_. can be omitted*)
+```
+
+Test the function. 
+
+```mathematica
+diff[3 x^2 - 2 x + 1, x]
+
+(*Output:
+-2 + 6 x
+*)
 ```
 
