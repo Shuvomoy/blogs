@@ -23,8 +23,6 @@ In this blog, I am collecting a bunch of tips and tricks in Mathematica, that I 
 ClearAll["Global`*"];
 ```
 
-
-
 ## Removing outliers from data
 
 This solution is due to [Carl Lange](https://mathematica.stackexchange.com/users/57593/carl-lange).
@@ -405,12 +403,12 @@ Reduce[
 ## Parametric optimization problem
 
 ```julia 
-Minimize[{-a x + (b + \[Beta])/2 (x^2 + y^2), 
-  a > (b + \[Beta]) && \[Beta] > 0 && b > 0 && 0 <= x <= 1 && 
-   0 <= y <= 1 }, {x, y}]
+Minimize[{(-a)*x + ((b + β)/2)*(x^2 + y^2), a > b + β && β > 0 && b > 0 && 0 <= x <= 1 && 0 <= y <= 1}, {x, y}]
 ```
 
-## Completing squares for a multi-variate polynomials 
+![image-20220403165856742](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Tips_and_tricks_in_Mathematica.assets/image-20220403165856742.png)
+
+## Completing squares for a multi-variate polynomials
 
 ```mathematica
 (*Complete square*)
