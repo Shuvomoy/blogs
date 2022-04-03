@@ -406,7 +406,7 @@ Reduce[
 Minimize[{(-a)*x + ((b + β)/2)*(x^2 + y^2), a > b + β && β > 0 && b > 0 && 0 <= x <= 1 && 0 <= y <= 1}, {x, y}]
 ```
 
-![image-20220403165856742](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Tips_and_tricks_in_Mathematica.assets/image-20220403165856742.png)
+![image-20220403165856742](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts//Tips_and_tricks_in_Mathematica.assets/image-20220403165856742.png)
 
 ## Completing squares for a multi-variate polynomials
 
