@@ -440,6 +440,7 @@ t_{2} &amp; =s_{i}-s_{j}-p_{ij}.
 <span class=hljs-built_in >FullForm</span><span class=hljs-punctuation >[</span><span class=hljs-variable >x</span><span class=hljs-operator >:</span><span class=hljs-punctuation >{</span><span class=hljs-punctuation >(</span><span class=hljs-number >1</span><span class=hljs-operator >|</span><span class=hljs-number >0</span><span class=hljs-punctuation >)</span><span class=hljs-operator >..</span><span class=hljs-punctuation >}</span><span class=hljs-punctuation >]</span> <span class=hljs-comment >(*= Pattern[x,List[Repeated[Alternatives[1,0]]]]*)</span></code></pre>
 <p>Let us take a look at some examples of rule-based programming.</p>
 <p><strong>Sorting a list of integers</strong></p>
+<p>Note that in this example, we are using <code>//.</code> which is the same as <code>ReplaceRepeated</code>. This repeatedly applies a rule or list of rules to an expression until it stops changing. </p>
 <pre><code class="mathematica hljs"><span class=hljs-comment >(*Sorting a list of random integers*)</span>
 
 <span class=hljs-variable >testlist</span> <span class=hljs-operator >=</span> <span class=hljs-punctuation >{</span><span class=hljs-number >20</span><span class=hljs-operator >,</span> <span class=hljs-number >19</span><span class=hljs-operator >,</span> <span class=hljs-number >17</span><span class=hljs-operator >,</span> <span class=hljs-number >16</span><span class=hljs-operator >,</span> <span class=hljs-number >12</span><span class=hljs-operator >,</span> <span class=hljs-number >1</span><span class=hljs-operator >,</span> <span class=hljs-number >14</span><span class=hljs-operator >,</span> <span class=hljs-number >18</span><span class=hljs-operator >,</span> <span class=hljs-number >8</span><span class=hljs-operator >,</span> <span class=hljs-number >1</span><span class=hljs-operator >,</span> <span class=hljs-number >1</span><span class=hljs-operator >,</span> <span class=hljs-number >10</span><span class=hljs-operator >,</span> <span class=hljs-number >20</span><span class=hljs-operator >,</span> <span class=hljs-number >2</span><span class=hljs-operator >,</span> <span class=hljs-number >14</span><span class=hljs-punctuation >}</span>
@@ -546,7 +547,7 @@ all lists that contain any number of ones and zeros mixed aribtrarily*)</span>
 *)</span></code></pre>
 <div class=page-foot >
   <div class=copyright >
-    &copy; Shuvomoy Das Gupta. Last modified: April 03, 2022. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+    &copy; Shuvomoy Das Gupta. Last modified: April 11, 2022. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
   </div>
 </div>
 </div>
