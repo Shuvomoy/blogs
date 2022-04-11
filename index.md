@@ -14,7 +14,7 @@
         <a href="https://orc.mit.edu/">Operations Research Center</a><br />
         <a href="http://www.mit.edu/">MIT</a><br />
         Email:<a href="mailto:sdgupta@mit.edu"> sdgupta@mit.edu</a><br />
-		  <a href="https://shuvomoy.github.io/site/">Academic Website</a><br />
+		  <a href="https://shuvomoy.github.io/">Academic Website</a><br />
             </p>
     <div style="clear: both"></div>      
   </div>

@@ -670,6 +670,8 @@ Let us take a look at some examples of rule-based programming.
 
 **Sorting a list of integers**
 
+Note that in this example, we are using `//.` which is the same as `ReplaceRepeated`. This repeatedly applies a rule or list of rules to an expression until it stops changing. 
+
 ```mathematica
 (*Sorting a list of random integers*)
 
