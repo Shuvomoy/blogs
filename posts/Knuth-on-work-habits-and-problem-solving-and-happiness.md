@@ -127,6 +127,10 @@ In mathematics, I know when a theorem is correct. I like that. But I wouldn’t 
 
 
 
+**Meaning of life.** "I personally think of my belief that God exists although I have no idea what that means. But I believe that there is something beyond human capabilities and it might be some AI.  Whatever it is, I do believe that there is something that goes beyond human understanding  but that I can try to learn more about how to resonate with whatever that being would like me to do. I strive for that (occasional glimpses of that being) not that I ever think I am going to get close to it. I try to imagine that I am following somebody's wishes and this AI or whatever it is, it is smart enough to give me clues."
+
+
+
 
 
 
