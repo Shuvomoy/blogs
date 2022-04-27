@@ -15,18 +15,17 @@ In this blog, we discuss how to construct automatic SDP relaxation of a nonconve
 Consider the following QCQP as an example:
 $$
 p^{\star}=\left(\begin{array}{ll}
-\underset{x,y\in\mathbf{R}^{2},\;P, Z\in\mathbf{S}^{2}}{\mbox{minimize}} & c_{1}^{\top}x+c_{2}^{\top}y+c_{3}\mathbf{tr}(Z)\\
-\mbox{subject to} & a_{1}xy^{\top}+A_{1}\left(\begin{bmatrix}x\\
+\textrm{minimize} & c_{1}^{\top}x+c_{2}^{\top}y+c_{3}\mathbf{tr}(Z)\\
+\textrm{subject to} & a_{1}xy^{\top}+A_{1}\left(\begin{bmatrix}x\\
 y
 \end{bmatrix}\right)=Z,\\
-
  & xy^{\top}+A_{2}\left(\begin{bmatrix}x\\
 y
 \end{bmatrix}\right)\leq0,\\
-& Z=PP^{\top}.\\
-\end{array}\right) \quad(1)
+ & Z=PP^{\top},
+\end{array}\right)\quad(1)
 $$
-We have the bound information that the optimal value lies between $[-400,-200]$Here $A_1, A_2$ are linear operators from $\mathbf{R}^4$ to $\mathbf{S}^2$. First, let us solve the problem to global optimality using `Gurobi+JuMP`.
+where the decision variables are: $x,y\in\mathbf{R}^{2},\; P,Z\in\mathbf{S}^{2}$.We have the bound information that the optimal value lies between $[-400,-200]$Here $A_1, A_2$ are linear operators from $\mathbf{R}^4$ to $\mathbf{S}^2$. First, let us solve the problem to global optimality using `Gurobi+JuMP`.
 
 ```julia
 # Load the packages
@@ -249,26 +248,26 @@ QuadCon1StdTerms, QuadCon2StdTerms = standard_form_data_constructor(c_1, c_2, c_
 So, we have the following SDP relaxation of (2):
 $$
 p_{\textrm{SDP}}^{\star}=\left(\begin{array}{ll}
-\underset{x,y\in\mathbf{R}^{2},\; Z\in\mathbf{S}^{2},\; W\in\mathbf{S}^{4}}{\mbox{minimize}} & c_{1}^{\top}x+c_{2}^{\top}y+c_{3}\mathbf{tr}(Z)\\
-\mbox{subject to} & \mathbf{tr}(P_{1}^{(k,\ell)}W)+q_{1}^{(k,\ell)\top}w+r_{1}^{(k,\ell)}=Z_{k,\ell}, \quad k\in[1:2],\;\ell\in[1:k],\\
- & \mathbf{tr}(P_{2}^{(k,\ell)}W)+q_{2}^{(k,\ell)\top}w+r_{2}^{(k,\ell)} \leq 0, \quad k\in[1:2],\;\ell\in[1:k],\\
+\textrm{minimize} & c_{1}^{\top}x+c_{2}^{\top}y+c_{3}\mathbf{tr}(Z)\\
+\textrm{subject to} & \mathbf{tr}(P_{1}^{(k,\ell)}W)+q_{1}^{(k,\ell)\top}w+r_{1}^{(k,\ell)}=Z_{k,\ell},\quad k\in[1:2],\;\ell\in[1:k],\\
+ & \mathbf{tr}(P_{2}^{(k,\ell)}W)+q_{2}^{(k,\ell)\top}w+r_{2}^{(k,\ell)}\leq0,\quad k\in[1:2],\;\ell\in[1:k],\\
  & Z\succeq0,\\
  & \begin{bmatrix}W & w\\
 w^{\top} & 1
 \end{bmatrix}\succeq0,\\
- & w=\textrm{vec}(x,y), \\
- & W-l_{w}w^{\top}-wl_{w}^{\top}  \geq  -l_{w}l_{w}^{\top},\\
-& W-l_{w}w{}^{\top}-wl_{w}^{\top}  \geq  -u_{w}u_{w}^{\top},\\
-& W-l_{w}w^{\top}-wu_{w}^{\top}  \geq  -l_{w}u_{w}^{\top},\\
-& l_{w}\leq w\leq u_{w}.
+ & w=\textrm{vec}(x,y),\\
+ & W-l_{w}w^{\top}-wl_{w}^{\top}\geq-l_{w}l_{w}^{\top},\\
+ & W-l_{w}w{}^{\top}-wl_{w}^{\top}\geq-u_{w}u_{w}^{\top},\\
+ & W-l_{w}w^{\top}-wu_{w}^{\top}\geq-l_{w}u_{w}^{\top},\\
+ & l_{w}\leq w\leq u_{w},
 \end{array}\right)
 $$
 
-The last four constraints are called RLT cuts that are valid inequalities for $W=w w^\top$. For more details about the RLT cut and how the SDP relaxation is constructed in general, see
+where the decision variables are $x,y\in\mathbf{R}^{2},\; Z\in\mathbf{S}^{2},\; W\in\mathbf{S}^{4}$. The last four constraints are called RLT cuts that are valid inequalities for $W=w w^\top$. For more details about the RLT cut and how the SDP relaxation is constructed in general, see
 
-> Anstreicher, Kurt M. "Semidefinite programming versus the reformulation-linearization technique for nonconvex quadratically constrained quadratic programming." *Journal of Global Optimization* 43.2 (2009): 471-484.
+> Anstreicher, Kurt M. "Semidefinite programming versus the reformulation-linearization technique for nonconvex quadratically constrained quadratic programming." *Journal of Global Optimization* 43.2 (2009): 471-484.   
 >
-> Link: [http://www.optimization-online.org/DB_FILE/2007/05/1655.pdf](http://www.optimization-online.org/DB_FILE/2007/05/1655.pdf)
+> (Link: [http://www.optimization-online.org/DB_FILE/2007/05/1655.pdf](http://www.optimization-online.org/DB_FILE/2007/05/1655.pdf))
 
 Let us solve the SDP model step by step.
 
