@@ -124,9 +124,9 @@ $$
 
  and we want to write the second quadratic constraint
 $$
-xy^{\top}+A_{2}\left(\begin{bmatrix}x\
+xy^{\top}+A_{2}\left(\begin{bmatrix}x\\
 y
-\end{bmatrix}\right)\leq0
+\end{bmatrix}\right) \leq 0
 $$
 as
 $$
