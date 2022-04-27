@@ -25,6 +25,7 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 
 ## [Posts]( #posts)
 
+* *(2022-04-27)* [Automated SDP relaxation of QCQPs in JuMP+Julia](posts/Automatic_sdp_relaxation_of_QCQP_in_JuMP_Julia/)
 * *(2022-03-18)* [“My heart skipped a beat” by Nasir Kazmi](posts/My-heart-skipped-a-beat-by-Nasir-Kazmi/)
 * *(2022-03-09)* [Solving bilinear optimization problem using JuMP](posts/Solving_bilinear_optimization_problem_using_JuMP)
 * *(2022-03-01)* [Favorite quotes and excerpts](posts/Quotes-and-excerpts/)
