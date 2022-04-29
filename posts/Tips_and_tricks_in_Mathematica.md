@@ -80,7 +80,7 @@ ListPlot[{Data, CleanedData}, PlotStyle -> {Red, Blue}]
 
 ![image-20210824081952993](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Tips_and_tricks_in_Mathematica.assets/image-20210824081952993.png)
 
-## Collecting terms with specific pattern
+## Collecting terms with specific pattern 
 
 ```mathematica
 (*This code will collect terms with a specific patterns*)
@@ -101,6 +101,30 @@ CollectWRTVarList[
             
 (*output = a (c + d) (x1 + x2) + a (y1 + y2)*)            
 ```
+
+## Expanding terms with fractions
+
+```mathematica
+(*The function that will expand expression involving fractional terms neatly*)
+
+fractionExpand[expr_] :=
+  Replace[Expand@expr, 
+  expr2_Plus :> (Together@*Plus @@@ 
+      GatherBy[List @@ expr2, Variables@*Denominator] // Total)]
+```
+
+```mathematica
+(*Example*)
+testExpr = 
+  1/(a b c) (a b + a c + b c + c d + c e + c f g + a h + a i + a j k +
+      l + a c m + b c n + a b o + p q);
+fractionExpand[testExpr]
+(*Output:
+(1+m)/b+(1+n)/a+(1+o)/c+(d+e+f g)/(a b)+(h+i+j k)/(b c)+(l+p q)/(a b c)
+*)
+```
+
+![image-20220429085125460](Tips_and_tricks_in_Mathematica.assets/image-20220429085125460.png)
 
 
 
