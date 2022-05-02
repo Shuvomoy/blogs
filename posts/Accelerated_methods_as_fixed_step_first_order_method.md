@@ -90,7 +90,7 @@ Recall that, using (Diff-x) any (FSFOM) satisfying sequence will obey:
 
 $$x_{i+1}=x_{i}-\sum_{j=0}^{i-1}\frac{(h_{i+1,j}-h_{i,j})}{L}g_{j}-\frac{h_{i+1,i}}{L}g_{i}\quad \textrm{(Diff-x-2)}$$
 
-Note that (Diff-x-2) and (FSFOM-A) are in the same format now for a pattern matching. Comparing the terms part by part, we get the following recursive system: 
+Note that (Diff-x-2) and (FSFOM-A) are in the same format now for a pattern matching. Comparing the terms part by part, we get the following recursive system for $i\in [0:N-1]$
 ​
 $$
 \begin{aligned}\forall_{j\in[0:i-2]}\quad h_{i+1,j} & -h_{i,j}=\zeta_{i+1}\left(h_{i,j}-h_{i-1,j}\right)\\
@@ -98,7 +98,7 @@ h_{i+1,i-1}-h_{i,i-1} & =\zeta_{i+1}\left(h_{i,i-1}-1\right)\\
 h_{i+1,i} & =\zeta_{i+1}+\eta_{i+1}+1.
 \end{aligned}
 $$
-with initial condition $h_{1,j}=0$​​​ for $j<0$​​​ and $h_{0,j}=0$​​​ for all $j$​​​. This system of equation gives us a way to compute $\zeta,\eta$​ from $h$​.
+with initial condition $h_{1,0}=1$, $h_{1,k}=0$ if $k<0$ and $h_{0,k}=0$ for all $k$. This system of equation gives us a way to compute $\zeta,\eta$​ from $h$​.
 
 #### Specific example: OGM
 
