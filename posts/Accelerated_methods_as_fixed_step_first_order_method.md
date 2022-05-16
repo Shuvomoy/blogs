@@ -1,6 +1,6 @@
 @def title = "Accelerated first-order methods as fixed-step first-order methods: conversion between momentum form and standard form"   
 @def published = "August 06, 2021"   
-@def tags =["programming", "Mathematica", "performance-estimation-problem"]  
+@def tags =["programming", "Mathematica", "performance-estimation-problem", "Julia"]  
 
 # Accelerated first-order methods as fixed-step first-order methods: conversion between momentum form and standard form
 
@@ -121,12 +121,245 @@ $$
 \end{aligned}
 $$
 
-
-### Construct $h$ from $\{\zeta, \eta\}$
+### Code to construct $h$ from $\{\zeta, \eta\}$
 
 Suppose we have $\{\zeta, \eta\}$  and we want to construct $h$ from that. So, the Julia code to do that is as follows:
 
 ```julia 
+## function to construct h from ζ, η
+
+function construct_h_from_ζ_η(N, L, ζ, η; solution_method = :constraint)
+
+   # other option for solution_method is :penalty
+
+   # time to construct model
+
+   mod1 = Model(Gurobi.Optimizer)
+
+   @variable(mod1, h[i=0:N, j=-2:N] >= 0)
+
+   # we are just interested in h[i = 1:N, j = 0:i-1], rest should be set to zero
+
+   for i in 0:N
+      for j in -2:N
+         if !(i >= 1 && i <= N && j >= 0 && j <= i-1)
+            fix(h[i,j], 0.0; force = true)
+         end
+      end
+   end
+
+   if solution_method == :constraint
+
+      for i in 0:N-1
+         for j in 0:i-2
+            @constraint(mod1, h[i+1,j] - h[i,j] .== ζ[i+1]*(h[i,j] - h[i-1,j]) )
+         end
+      end
+
+      for i in 0:N-1
+         @constraint(mod1, h[i+1,i-1] - h[i,i-1] .== ζ[i+1]*(h[i,i-1] -1) )
+      end
+
+      for i in 0:N-1
+         @constraint(mod1, h[i+1,i] .== ζ[i+1] + η[i+1] + 1 )
+      end
+
+      @objective(mod1, Min, 0)
+
+   elseif solution_method == :penalty
+
+      term_1 = @expression(mod1, sum( (h[i+1,j] - h[i,j] - ζ[i+1]*(h[i,j] - h[i-1,j]))^2 for i in 0:N-1, j in 0:N-1 if j <= i-2) )
+
+      term_2 = @expression(mod1, sum( (h[i+1,i-1] - h[i,i-1] - ζ[i+1]*(h[i,i-1] -1))^2 for i in 0:N-1))
+
+      term_3 = @expression(mod1, sum( (h[i+1,i] - (ζ[i+1] + η[i+1] + 1) )^2 for i in 0:N-1) )
+
+      @objective(mod1, Min, term_1 + term_2 + term_3)
+
+   end
+
+   optimize!(mod1)
+
+   if termination_status(mod1) != OPTIMAL
+      @error "termination status is not optimal"
+   end
+
+   obj_val = objective_value(mod1)
+
+   @info "Value of h for N=$(N) with fitting error = $(obj_val)"
+
+   h_star = value.(h)
+
+   # h_star_compact = h[i=1:N, j = 0:N-1 if j <= i-1]
+   #
+   # @show h_star_compact
+
+   return h_star
+
+end
+
+```
+
+Let us test the function. First, we generate a specific $\zeta, \eta$ to test for, which comes from OGM (see below about more details about OGM). 
+
+```julia 
+## Load the packages
+
+using OffsetArrays, Gurobi, JuMP, LinearAlgebra
+
+N = 5
+
+# Generate θ for OGM
+
+L = 1
+
+R = 1
+
+θ = Dict{Int64,Float64}()
+
+θ[0] = 1
+
+for i in 1:N
+   if i <= N-1
+        θ[i] = (1+sqrt(1+4*θ[i-1]^2))/2
+   elseif i == N
+       θ[i] = (1+sqrt(1+8*θ[i-1]^2))/2
+   end
+end
+
+ζ_OGM = OffsetVector(zeros(N), 1:N)
+
+for i in 0:N-1
+   ζ_OGM[i+1] = (θ[i]-1)/θ[i+1]
+end
+
+@show ζ_OGM
+
+# output: 
+# ζ_OGM = [0.0, 0.28175352512532087, 0.434042782780302, 0.5310638054044795, 0.4424791858537259]
+
+η_OGM = OffsetVector(zeros(N), 1:N)
+
+for i in 0:N-1
+   η_OGM[i+1] = θ[i]/θ[i+1]
+end
+
+@show η_OGM
+
+# output:
+# η_OGM = [0.6180339887498948, 0.7376403052281875, 0.7977067398993897, 0.8345650247944008, 0.6352906827290474]
+```
+
+Now let us test the function `construct_h_from_ζ_η`.
+
+```julia 
+h_star_constraint = construct_h_from_ζ_η(N, L, ζ_OGM, η_OGM; solution_method = :constraint)
+
+@show round.(h_star_constraint[1:N, 0:N-1], digits = 5)
+
+# The output is:
+# h_star_constraint[1:N, 0:N-1] =
+# [
+# 1.61803  0.0      0.0      0.0      0.0;
+# 1.79217  2.01939  0.0      0.0      0.0;
+# 1.86775  2.46185  2.23175  0.0      0.0;
+# 1.90789  2.69683  2.88589  2.36563  0.0;
+# 1.92565  2.8008   3.17533  2.96989  2.07777
+# ]
+
+h_star_penalty = construct_h_from_ζ_η(N, L, ζ_OGM, η_OGM; solution_method = :penalty)
+
+@show round.(h_star_penalty[1:N, 0:N-1], digits = 5)
+
+# The output is:
+# h_star_penalty[1:N, 0:N-1] =
+# [
+# 1.61803  0.0      0.0      0.0      0.0
+# 1.79217  2.01939  0.0      0.0      0.0
+# 1.86775  2.46185  2.23175  0.0      0.0
+# 1.90789  2.69683  2.88589  2.36563  0.0
+# 1.92565  2.8008   3.17533  2.96989  2.07777
+# ]
+
+h_star = h_star_penalty # we will use this for another test below
+```
+
+### Code to construct  $\{\zeta, \eta\}$ from $h$
+
+Now we consider the opposite direction. Now we want to construct $\{\zeta, \eta\}$  from a given $h$. The Julia code to do that is as follows:
+
+```julia 
+function construct_ζ_η_from_h(N, L, h; fix_ζ_η = :true, ζ_ws = ζ_OGM, η_ws = η_OGM)
+
+   mod1 = Model(Gurobi.Optimizer)
+
+   @variable(mod1, ζ[i = 1:N])
+
+   @variable(mod1, η[i = 1:N])
+
+   if fix_ζ_η == :true
+     @info "fixing  ζ and η to that of OGM to check if there are multiple solutions"
+     fix.(ζ, ζ_ws; force=true)
+     fix.(η, η_ws; force = true)
+  end
+
+   term_1 = @expression(mod1, sum( (h[i+1,j] - h[i,j] - ζ[i+1]*(h[i,j] - h[i-1,j]))^2 for i in 0:N-1, j in 0:N-1 if j <= i-2) )
+
+   term_2 = @expression(mod1, sum( ( h[i+1,i-1] - h[i,i-1] - ζ[i+1]*(h[i,i-1] -1) )^2 for i in 0:N-1))
+
+   term_3 = @expression(mod1, sum( (h[i+1,i] - (ζ[i+1] + η[i+1] + 1) )^2 for i in 0:N-1) )
+
+   @objective(mod1, Min, term_1 + term_2 + term_3)
+
+   optimize!(mod1)
+
+   if termination_status(mod1) != OPTIMAL
+      @error "termination status is not optimal"
+   end
+
+   obj_val = objective_value(mod1)
+
+   @info "fitting error for N=$(N) to construct ζ, η from h = $(obj_val)"
+
+   ζ_star = value.(ζ)
+
+   η_star = value.(η)
+
+   return ζ_star, η_star
+
+end
+```
+
+Let us now test this function. 
+
+```julia 
+ζ_star, η_star = construct_ζ_η_from_h(N, L, h_star; fix_ζ_η = :false)
+
+# output: [ Info: fitting error for N=5 to construct ζ, η from h = -6.039613253960852e-14
+
+@show ζ_star
+
+# output: ζ_star = [6.352740751660148e-16, 0.2817535522830343, 0.43404278553274767, 0.5310638059557159, 0.442479185968013]
+
+@show η_star
+
+# output: η_star = [0.6180340040827577, 0.7376402784557785, 0.7977067372415494, 0.8345650242736313, 0.6352906826136708]
+```
+
+Let us compare now if the original $\zeta, \eta$ from OGM matches this reconstructed.
+
+```julia 
+## Compare with original ζ, η coming from OGM
+
+@show "difference between ζ_OGM and ζ_reconstructed is: $(norm(ζ_star - ζ_OGM))"
+
+# output: 
+# "difference between ζ_OGM and ζ_reconstructed is: $(norm(ζ_star - ζ_OGM))" = "difference between ζ_OGM and ζ_reconstructed is: 2.7302642325329647e-8"
+
+@show "difference between ζ_OGM and ζ_reconstructed is: $(norm(η_star - η_OGM))"
+
+# output:
+# "difference between ζ_OGM and ζ_reconstructed is: $(norm(η_star - η_OGM))" = "difference between ζ_OGM and ζ_reconstructed is: 3.0971070252469905e-8"
 ```
 
 
