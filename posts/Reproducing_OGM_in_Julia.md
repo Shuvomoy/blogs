@@ -8,7 +8,13 @@
 
 *May16, 2022*
 
-In this blog, we discuss how to reproduce the Optimized Gradient Method (OGM) using `Julia+JuMP` step by step. OGM is the optimal method for minimizing smooth convex functions with respect to the performance measure of function value gap. It was first discovered numerically by Drori and Teboulle in their paper [https://arxiv.org/pdf/1206.3209.pdf](https://arxiv.org/pdf/1206.3209.pdf) and with the analytical form it appearing in the paper https://arxiv.org/pdf/1406.5468.pdf by Kim and Fessler. For more details, please see the aforementioned papers.
+In this blog, we discuss how to reproduce the Optimized Gradient Method (OGM) using `Julia+JuMP` step by step. OGM is the optimal method for minimizing smooth convex functions with respect to the performance measure of function value gap. It was first discovered numerically by Drori and Teboulle in their paper [https://arxiv.org/pdf/1206.3209.pdf](https://arxiv.org/pdf/1206.3209.pdf) and with the analytical form it appearing in the paper [https://arxiv.org/pdf/1406.5468.pdf](https://arxiv.org/pdf/1406.5468.pdf ) by Kim and Fessler. For more details, please see the aforementioned papers.
+
+---
+**Table of contents**
+\toc
+
+---
 
 ## Background
 

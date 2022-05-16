@@ -10,7 +10,15 @@
 
 In this blog, we discuss how to write accelerated first-order methods as fixed-step first-order methods.
 
-#### Converting between momentum-form and and standard form of fixed-step first-order method
+---
+**Table of contents**
+\toc
+
+---
+
+
+
+## Converting between momentum-form and and standard form of fixed-step first-order method
 
 Consider a $L$-smooth function. ​Fixed step first order methods for this function $f$ are algorithms of the form (called the standard form)
 $$x_{k}=x_{0}-\sum_{j=0}^{k-1}\frac{h_{k,j}}{L}\nabla f(x_{j}),\quad\textrm{(FSFOM)}$$​​​ 
@@ -50,7 +58,7 @@ term1 = Collect[Subscript[x,
  *)
 ```
 
-<img src="Accelerated_methods_as_fixed_step_first_order_method.assets/image-20220111154904525.png" alt="image-20220111154904525"  />
+<img src="https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Accelerated_methods_as_fixed_step_first_order_method.assets/image-20220111154904525.png" alt="image-20220111154904525"  />
 
 Now from (FSFOM):
 $$\begin{aligned}
@@ -84,7 +92,7 @@ term3 = Collect[term2, {Subscript[g, i], Subscript[g, i - 1]},
   Simplify]
 ```
 
-![image-20220111155941105](Accelerated_methods_as_fixed_step_first_order_method.assets/image-20220111155941105.png)
+![image-20220111155941105](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Accelerated_methods_as_fixed_step_first_order_method.assets/image-20220111155941105.png)
 
 Recall that, using (Diff-x) any (FSFOM) satisfying sequence will obey: 
 
@@ -98,9 +106,32 @@ h_{i+1,i-1}-h_{i,i-1} & =\zeta_{i+1}\left(h_{i,i-1}-1\right)\\
 h_{i+1,i} & =\zeta_{i+1}+\eta_{i+1}+1.
 \end{aligned}
 $$
-with initial condition $h_{1,0}=1$, $h_{1,k}=0$ if $k<0$ and $h_{0,k}=0$ for all $k$. This system of equation gives us a way to compute $\zeta,\eta$​ from $h$​.
+with initial condition  $h_{1,k}=0$ if $k<0$ and $h_{0,k}=0$ for all $k$. This system of equation gives us a way to compute $\zeta,\eta$​ from $h$​.
 
-#### Specific example: OGM
+## Julia code to construct $h$ from $\{\zeta, \eta\}$ and back
+
+The main system of equations is for this conversion process is: 
+$$
+\begin{aligned} & h\equiv\{h_{i,j}\}_{i\in[1:N],j\in[0:i-1]}\\
+ & \forall_{i\in[0:N-1]}\forall_{j\in[0:i-2]}\quad h_{i+1,j}-h_{i,j}=\zeta_{i+1}\left(h_{i,j}-h_{i-1,j}\right)\\
+ & \forall_{i\in[0:N-1]}\quad h_{i+1,i-1}-h_{i,i-1}=\zeta_{i+1}\left(h_{i,i-1}-1\right)\\
+ & \forall_{i\in[0:N-1]}\quad h_{i+1,i}=\zeta_{i+1}+\eta_{i+1}+1\\
+ & h_{1,j}=0,\textrm{ if }j<0\\
+ & \forall_{j\in[0:i-1]}\quad h_{0,j}=0.
+\end{aligned}
+$$
+
+
+### Construct $h$ from $\{\zeta, \eta\}$
+
+Suppose we have $\{\zeta, \eta\}$  and we want to construct $h$ from that. So, the Julia code to do that is as follows:
+
+```julia 
+```
+
+
+
+## Specific example: OGM
 
 As our example, we consider the Optimized Gradient Method (OGM) due to Kim and Fessler. For a $L$-smooth convex function $f$, $x_{0}\in\mathbf{R}^{d},\theta_{0}=1,$ the algorithm is defined in its *auxiliary form* as
 $$\begin{array}{ll}
@@ -261,4 +292,4 @@ $$\begin{aligned}
 \forall_{j\in[0:i-2]}\quad h_{i+1,j} & -h_{i,j}=\frac{\left(\theta_{i}-1\right)}{\theta_{i+1}}\left(h_{i,j}-h_{i-1,j}\right)\\
 h_{i+1,i-1}-h_{i,i-1} & =\frac{\left(\theta_{i}-1\right)\left(h_{i,i-1}-1\right)}{\theta_{i+1}}\\
 h_{i+1,i} & =\frac{\left(2\theta_{i}+\theta_{i+1}-1\right)}{\theta_{i+1}},\end{aligned}$$​
-with initial condition $h_{1,0}=1,h_{1,j}=0$​ for $j<0$​ and $h_{0,j}=0$​ for all $j$​.
+with initial condition $h_{1,j}=0$​ for $j<0$​ and $h_{0,j}=0$​ for all $j$​.
