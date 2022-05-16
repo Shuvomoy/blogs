@@ -26,14 +26,18 @@ where $k\in\{0,1,\ldots,N\}$​​​.
 
 Also, we have the following "momentum form" of the fixed-step first-order method: 
 $$
+\begin{align*}
 \begin{array}{ll}
 y_{i+1} & =x_{i}-\frac{1}{L}\nabla f(x_{i})\\
 x_{i+1} & =y_{i+1}+\zeta_{i+1}(y_{i+1}-y_{i})+\eta_{i+1}(y_{i+1}-x_{i}),
 \end{array}\quad(\textrm{MomentumOGM)}
+\end{align*}
 $$
 which we show to be equivalent to (FSFOM). To show that (MomentumOGM) is in the form (FSFOM), we put, the iterative form $y_{+1}$​​ and $y_{i}$​​ in terms of the $x$​​ iterates in the second iterate. For simplification purpose, denote $g_{i}=\nabla f(x_{i})$​​​. We get:
 $$
+\begin{align*}
 x_{i+1}=x_{i}+\zeta_{i+1}\left(x_{i}-x_{i-1}\right)-\frac{\left(\zeta_{i+1}+\eta_{i+1}+1\right)}{L}g_{i}+\frac{\zeta_{i+1}}{L}g_{i-1},\quad \textrm{(MOM-SIMP)}
+\end{align*}
 $$
 where the Mathematica code for this is shown below. 
 
@@ -58,16 +62,18 @@ term1 = Collect[Subscript[x,
  *)
 ```
 
-<img src="https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Accelerated_methods_as_fixed_step_first_order_method.assets/image-20220111154904525.png" alt="image-20220111154904525"  />
+
+
+![image-20220111155941105](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Accelerated_methods_as_fixed_step_first_order_method.assets/image-20220111154904525.png)
 
 Now from (FSFOM):
-$$\begin{aligned}
+$$\begin{align*}
 x_{i} & =x_{0}-\sum_{j=0}^{i-1}\frac{h_{i,j}}{L}g_{j},\\
-x_{i-1} & =x_{0}-\sum_{j=0}^{i-2}\frac{h_{i-1,j}}{L}g_{j},\end{aligned}$$​​
+x_{i-1} & =x_{0}-\sum_{j=0}^{i-2}\frac{h_{i-1,j}}{L}g_{j},\end{align*}$$​​
 which gives 
 $$
-\begin{aligned}
-x_{i}-x_{i-1} & =-\sum_{j=0}^{i-2}\frac{(-h_{i-1,j}+h_{i,j})}{L}g_{j}-\frac{h_{i,i-1}}{L}g_{i-1}\quad \textrm{(Diff-x)} \end{aligned}
+\begin{align*}
+x_{i}-x_{i-1} & =-\sum_{j=0}^{i-2}\frac{(-h_{i-1,j}+h_{i,j})}{L}g_{j}-\frac{h_{i,i-1}}{L}g_{i-1}\quad \textrm{(Diff-x)} \end{align*}
 $$
 and putting this in (MOM-SIMP) and then simplifying we get: 
 $$
@@ -96,15 +102,15 @@ term3 = Collect[term2, {Subscript[g, i], Subscript[g, i - 1]},
 
 Recall that, using (Diff-x) any (FSFOM) satisfying sequence will obey: 
 
-$$x_{i+1}=x_{i}-\sum_{j=0}^{i-1}\frac{(h_{i+1,j}-h_{i,j})}{L}g_{j}-\frac{h_{i+1,i}}{L}g_{i}\quad \textrm{(Diff-x-2)}$$
+\nonumber{$$x_{i+1}=x_{i}-\sum_{j=0}^{i-1}\frac{(h_{i+1,j}-h_{i,j})}{L}g_{j}-\frac{h_{i+1,i}}{L}g_{i}\quad \textrm{(Diff-x-2)}$$}
 
 Note that (Diff-x-2) and (FSFOM-A) are in the same format now for a pattern matching. Comparing the terms part by part, we get the following recursive system for $i\in [0:N-1]$
 ​
 $$
-\begin{aligned}\forall_{j\in[0:i-2]}\quad h_{i+1,j} & -h_{i,j}=\zeta_{i+1}\left(h_{i,j}-h_{i-1,j}\right)\\
+\begin{align*}\forall_{j\in[0:i-2]}\quad h_{i+1,j} & -h_{i,j}=\zeta_{i+1}\left(h_{i,j}-h_{i-1,j}\right)\\
 h_{i+1,i-1}-h_{i,i-1} & =\zeta_{i+1}\left(h_{i,i-1}-1\right)\\
 h_{i+1,i} & =\zeta_{i+1}+\eta_{i+1}+1.
-\end{aligned}
+\end{align*}
 $$
 with initial condition  $h_{1,k}=0$ if $k<0$ and $h_{0,k}=0$ for all $k$. This system of equation gives us a way to compute $\zeta,\eta$​ from $h$​.
 
@@ -112,13 +118,13 @@ with initial condition  $h_{1,k}=0$ if $k<0$ and $h_{0,k}=0$ for all $k$. This s
 
 The main system of equations is for this conversion process is: 
 $$
-\begin{aligned} & h\equiv\{h_{i,j}\}_{i\in[1:N],j\in[0:i-1]}\\
+\begin{align*} & h\equiv\{h_{i,j}\}_{i\in[1:N],j\in[0:i-1]}\\
  & \forall_{i\in[0:N-1]}\forall_{j\in[0:i-2]}\quad h_{i+1,j}-h_{i,j}=\zeta_{i+1}\left(h_{i,j}-h_{i-1,j}\right)\\
  & \forall_{i\in[0:N-1]}\quad h_{i+1,i-1}-h_{i,i-1}=\zeta_{i+1}\left(h_{i,i-1}-1\right)\\
  & \forall_{i\in[0:N-1]}\quad h_{i+1,i}=\zeta_{i+1}+\eta_{i+1}+1\\
  & h_{1,j}=0,\textrm{ if }j<0\\
  & \forall_{j\in[0:i-1]}\quad h_{0,j}=0.
-\end{aligned}
+\end{align*}
 $$
 
 ### Code to construct $h$ from $\{\zeta, \eta\}$
@@ -376,10 +382,10 @@ where $i\in\{0,1,\ldots,N-1\}$​.
 
 First, note that in (OGM), gradient is evaluated at $x_{i}$​ iterates, so we will try to remove $z_{i}$​ iterates from (OGM), and write the last iterate as terms involving $y_{i+1},y_{i},$​ and $x_{i}$​. To that goal, we will write, $z_{i+1}$​ completely using $y_{i},x_{i},$​ and $y_{i+1}$​. From, the first iteration of (OGM), $$\frac{1}{L}\nabla f(x_{i})=x_{i}-y_{i+1},\quad(1)$$​ and putting (1) in the second iterate of (OGM), we have 
 
-$$\begin{aligned}
+$$\begin{align*}
 z_{i+1} & =z_{i}-\frac{2\theta_{i}}{L}\nabla f(x_{i})\\
  & =z_{i}-(2\theta_{i})(x_{i}-y_{i+1})\\
- & =z_{i}-2\theta_{i}x_{i}+2\theta_{i}y_{i+1}\quad(2).\end{aligned}$$​ 
+ & =z_{i}-2\theta_{i}x_{i}+2\theta_{i}y_{i+1}\quad(2).\end{align*}$$​ 
 The third iterate of (OGM) for index $i$​ will give:
 
 ```julia
@@ -391,9 +397,9 @@ Collect[y[i] + x[i] \[Theta][i] - y[i] \[Theta][i], {x[i], y[i]}]
 (*Out[] = y[i] (1-\[Theta][i])+x[i] \[Theta][i]*)
 ```
 
-$$\begin{aligned}
+$$\begin{align*}
 x_{i} & =\left(1-\frac{1}{\theta_{i}}\right)y_{i}+\frac{1}{\theta_{i}}z_{i}\\
-\Leftrightarrow z_{i} & =(1-\theta_{i})y_{i}+\theta_{i}x_{i},\end{aligned}$$​
+\Leftrightarrow z_{i} & =(1-\theta_{i})y_{i}+\theta_{i}x_{i},\end{align*}$$​
 and putting that in (2), we get:
 
 ```julia
@@ -402,9 +408,9 @@ z[i] - 2 \[Theta][i] x[i] + 2 \[Theta][i] y[i + 1] /.
 (*Out[] = y[i] (1-\[Theta][i])-x[i] \[Theta][i]+2 y[1+i] \[Theta][i]*)
 ```
 
-$$\begin{aligned}
+$$\begin{align*}
 z_{i+1} & =z_{i}-2\theta_{i}x_{i}+2\theta_{i}y_{i+1}\\
- & =(1-\theta_{i})y_{i}-\theta_{i}x_{i}+2\theta_{i}y_{i+1}\quad(3),\end{aligned}$$​
+ & =(1-\theta_{i})y_{i}-\theta_{i}x_{i}+2\theta_{i}y_{i+1}\quad(3),\end{align*}$$​
 and putting (3) into the third iterate of (OGM), we get
 
 ```julia
@@ -441,14 +447,14 @@ Collect[y[1 + i] - t1/\[Theta][1 + i] + (
 \[Theta][i])/\[Theta][1+i]*)
 ```
 
-$$\begin{aligned}
+$$\begin{align*}
 x_{i+1} & =\left(1-\frac{1}{\theta_{i+1}}\right)y_{i+1}+\frac{1}{\theta_{i+1}}z_{i+1}\\
-= & y_{i+1}+\frac{\theta_{i}-1}{\theta_{i+1}}(y_{i+1}-y_{i})+\frac{\theta_{i}}{\theta_{i+1}}(y_{i+1}-x_{i}).\end{aligned}$$
+= & y_{i+1}+\frac{\theta_{i}-1}{\theta_{i+1}}(y_{i+1}-y_{i})+\frac{\theta_{i}}{\theta_{i+1}}(y_{i+1}-x_{i}).\end{align*}$$
 So, we have the following "*momentum form*" of (OGM):
-$$\begin{array}{ll}
+\nonumber{$$\begin{array}{ll}
 y_{i+1} & =x_{i}-\frac{1}{L}\nabla f(x_{i})\\
 x_{i+1} & =y_{i+1}+\frac{\theta_{i}-1}{\theta_{i+1}}(y_{i+1}-y_{i})+\frac{\theta_{i}}{\theta_{i+1}}(y_{i+1}-x_{i}),
-\end{array}\quad(\textrm{MomentumOGM)}$$​ 
+\end{array}\quad(\textrm{MomentumOGM)}$$}​ 
 which we show to be equivalent to (FSFOM).
 To show that (MomentumOGM) is in the form (FSFOM), we put, the iterative form $y_{+1}$ and $y_{i}$ in terms of the $x$ iterates in the second iterate. For simplification purpose, denote $g_{i}=\nabla f(x_{i})$. We get:
 
@@ -470,15 +476,15 @@ Collect[Subscript[x,
 (*Output[] = Subscript[x, i]+(Subscript[g, -1+i] (-1+Subscript[\ \[Theta], i]))/(L Subscript[\[Theta], 1+i])+((-Subscript[x, \ -1+i]+Subscript[x, i]) (-1+Subscript[\[Theta], \ i]))/Subscript[\[Theta], 1+i]-(Subscript[g, i] (-1+2 Subscript[\ \[Theta], i]+Subscript[\[Theta], 1+i]))/(L Subscript[\[Theta], 1+i])*)
 ```
 
-$$x_{i+1}=x_{i}+\frac{\left(\theta_{i}-1\right)\left(x_{i}-x_{i-1}\right)}{\theta_{i+1}}+\frac{g_{i-1}\left(\theta_{i}-1\right)}{L\theta_{i+1}}-\frac{g_{i}\left(2\theta_{i}+\theta_{i+1}-1\right)}{L\theta_{i+1}}\quad(1)$$
+\nonumber{$$x_{i+1}=x_{i}+\frac{\left(\theta_{i}-1\right)\left(x_{i}-x_{i-1}\right)}{\theta_{i+1}}+\frac{g_{i-1}\left(\theta_{i}-1\right)}{L\theta_{i+1}}-\frac{g_{i}\left(2\theta_{i}+\theta_{i+1}-1\right)}{L\theta_{i+1}}\quad(1)$$}
 
 Now from (FSFOM):
-$$\begin{aligned}
+$$\begin{align*}
 x_{i} & =x_{0}-\sum_{j=0}^{i-1}\frac{h_{i,j}}{L}g_{j},\\
-x_{i-1} & =x_{0}-\sum_{j=0}^{i-2}\frac{h_{i-1,j}}{L}g_{j},\end{aligned}$$​
+x_{i-1} & =x_{0}-\sum_{j=0}^{i-2}\frac{h_{i-1,j}}{L}g_{j},\end{align*}$$​
 which gives 
-$$\begin{aligned}
-x_{i}-x_{i-1} & =-\sum_{j=0}^{i-2}\frac{(-h_{i-1,j}+h_{i,j})}{L}g_{j}-\frac{h_{i,i-1}}{L}g_{i-1}\quad(2)\end{aligned}$$​​ 
+$$\begin{align*}
+x_{i}-x_{i-1} & =-\sum_{j=0}^{i-2}\frac{(-h_{i-1,j}+h_{i,j})}{L}g_{j}-\frac{h_{i,i-1}}{L}g_{i-1}\quad(2)\end{align*}$$​​ 
 and putting this in (1) and then simplifying we get:
 
 ```julia
@@ -515,14 +521,14 @@ i]+Subscript[\[Theta], 1+i]))/(L Subscript[\[Theta], \
      j\)])\)\), \(L\)]\))/Subscript[\[Theta], 1+i]*)
 ```
 
-$$\begin{aligned}
+$$\begin{align*}
 x_{i+1} & =x_{i}-\frac{\left(\theta_{i}-1\right)}{\theta_{i+1}}\sum_{j=0}^{i-2}\frac{\left(h_{i,j}-h_{i-1,j}\right)}{L}g_{j}\\
- & -\frac{\left(\theta_{i}-1\right)\left(h_{i,i-1}-1\right)}{L\theta_{i+1}}g_{i-1}-\frac{\left(2\theta_{i}+\theta_{i+1}-1\right)}{L\theta_{i+1}}g_{i}.\quad(\textrm{FSFOM-OGM})\end{aligned}$$​
+ & -\frac{\left(\theta_{i}-1\right)\left(h_{i,i-1}-1\right)}{L\theta_{i+1}}g_{i-1}-\frac{\left(2\theta_{i}+\theta_{i+1}-1\right)}{L\theta_{i+1}}g_{i}.\quad(\textrm{FSFOM-OGM})\end{align*}$$​
 Recall that, using (2) any (FSFOM) satisfying sequence will obey: 
 $$x_{i+1}=x_{i}-\sum_{j=0}^{i-1}\frac{(h_{i+1,j}-h_{i,j})}{L}g_{j}-\frac{h_{i+1,i}}{L}g_{i}\quad(3)$$​
 Note that (3) and (FSFOM-OGM) are in the same format now for a pattern matching. Comparing the terms part by part, we get the following recursive system: 
-$$\begin{aligned}
+$$\begin{align*}
 \forall_{j\in[0:i-2]}\quad h_{i+1,j} & -h_{i,j}=\frac{\left(\theta_{i}-1\right)}{\theta_{i+1}}\left(h_{i,j}-h_{i-1,j}\right)\\
 h_{i+1,i-1}-h_{i,i-1} & =\frac{\left(\theta_{i}-1\right)\left(h_{i,i-1}-1\right)}{\theta_{i+1}}\\
-h_{i+1,i} & =\frac{\left(2\theta_{i}+\theta_{i+1}-1\right)}{\theta_{i+1}},\end{aligned}$$​
+h_{i+1,i} & =\frac{\left(2\theta_{i}+\theta_{i+1}-1\right)}{\theta_{i+1}},\end{align*}$$​
 with initial condition $h_{1,j}=0$​ for $j<0$​ and $h_{0,j}=0$​ for all $j$​.
