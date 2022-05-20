@@ -22,18 +22,18 @@ In this blog, we discuss how to write accelerated first-order methods as fixed-s
 
 Consider a $L$-smooth function. ​Fixed step first order methods for this function $f$ are algorithms of the form (called the standard form)
 $$x_{k}=x_{0}-\sum_{j=0}^{k-1}\frac{h_{k,j}}{L}\nabla f(x_{j}),\quad\textrm{(FSFOM)}$$​​​ 
-where $k\in\{0,1,\ldots,N\}$​​​.
+where $k\in\{1,\ldots,N\}$ and $x_0$ is the initial point​​​.
 
-Also, we have the following "momentum form" of the fixed-step first-order method: 
+Also, we have the following "momentum form" of the fixed-step first-order method, where $i\in \{0,\ldots, N-1\}$.
 $$
 \begin{align*}
 \begin{array}{ll}
 y_{i+1} & =x_{i}-\frac{1}{L}\nabla f(x_{i})\\
 x_{i+1} & =y_{i+1}+\zeta_{i+1}(y_{i+1}-y_{i})+\eta_{i+1}(y_{i+1}-x_{i}),
-\end{array}\quad(\textrm{MomentumOGM)}
+\end{array}\quad(\textrm{MomentumForm)}
 \end{align*}
 $$
-which we show to be equivalent to (FSFOM). To show that (MomentumOGM) is in the form (FSFOM), we put, the iterative form $y_{+1}$​​ and $y_{i}$​​ in terms of the $x$​​ iterates in the second iterate. For simplification purpose, denote $g_{i}=\nabla f(x_{i})$​​​. We get:
+which we show to be equivalent to (FSFOM). To show that (MomentumForm) is in the form (FSFOM), we put, the iterative form $y_{+1}$​​ and $y_{i}$​​ in terms of the $x$​​ iterates in the second iterate. For simplification purpose, denote $g_{i}=\nabla f(x_{i})$​​​. We get:
 $$
 \begin{align*}
 x_{i+1}=x_{i}+\zeta_{i+1}\left(x_{i}-x_{i-1}\right)-\frac{\left(\zeta_{i+1}+\eta_{i+1}+1\right)}{L}g_{i}+\frac{\zeta_{i+1}}{L}g_{i-1},\quad \textrm{(MOM-SIMP)}
@@ -114,7 +114,7 @@ h_{i+1,i} & =\zeta_{i+1}+\eta_{i+1}+1.
 $$
 with initial condition  $h_{1,k}=0$ if $k<0$ and $h_{0,k}=0$ for all $k$. This system of equation gives us a way to compute $\zeta,\eta$​ from $h$​.
 
-## Julia code to construct $h$ from $\{\zeta, \eta\}$ and back
+### Julia code to construct $h$ from $\{\zeta, \eta\}$ and back
 
 The main system of equations is for this conversion process is: 
 $$
@@ -127,7 +127,7 @@ $$
 \end{align*}
 $$
 
-### Code to construct $h$ from $\{\zeta, \eta\}$
+#### Code to construct $h$ from $\{\zeta, \eta\}$
 
 Suppose we have $\{\zeta, \eta\}$  and we want to construct $h$ from that. So, the Julia code to do that is as follows:
 
@@ -290,7 +290,7 @@ h_star_penalty = construct_h_from_ζ_η(N, L, ζ_OGM, η_OGM; solution_method = 
 h_star = h_star_penalty # we will use this for another test below
 ```
 
-### Code to construct  $\{\zeta, \eta\}$ from $h$
+#### Code to construct  $\{\zeta, \eta\}$ from $h$
 
 Now we consider the opposite direction. Now we want to construct $\{\zeta, \eta\}$  from a given $h$. The Julia code to do that is as follows:
 
@@ -368,9 +368,130 @@ Let us compare now if the original $\zeta, \eta$ from OGM matches this reconstru
 # "difference between ζ_OGM and ζ_reconstructed is: $(norm(η_star - η_OGM))" = "difference between ζ_OGM and ζ_reconstructed is: 3.0971070252469905e-8"
 ```
 
+## Converting between auxiliary-format form and momentum-form
+
+Recall that the momentum-form is written as:
+$$
+\begin{align*}
+\begin{array}{ll}
+y_{i+1} & =x_{i}-\frac{1}{L}\nabla f(x_{i}), \quad (i)\\
+x_{i+1} & =y_{i+1}+\zeta_{i+1}(y_{i+1}-y_{i})+\eta_{i+1}(y_{i+1}-x_{i}) \quad (ii),
+\end{array}\quad(\textrm{MomentumForm)}
+\end{align*}
+$$
+Another common format that usually appears in proofs is the so-called auxiliary-format form:
+$$
+\begin{align*}
+\begin{array}{ll} x_{i}=(1-\delta_{i})y_{i}+\delta_{i}z_{i},\quad(i)\\ 
+y_{i+1}=x_{i}-\frac{1}{L}\nabla f(x_{i}),\quad(ii) \\
+z_{i+1}=z_{i}+\gamma_{i}(y_{i+1}-x_{i}).\quad(iii) \end{array}\quad(\textrm{AuxForm)}\end{align*}
+$$
+Now, the iterate $x_{i+1}$ would be: 
+$$
+\begin{align*}
+x_{i+1} & =(1-\delta_{i+1})y_{i+1}+\delta_{i+1}z_{i+1} \\
+ & =(1-\delta_{i+1})y_{i+1}+\delta_{i+1}\left(z_{i}+\gamma_{i}(y_{i+1}-x_{i})\right)\\
+ & =(1-\delta_{i+1})y_{i+1}+\delta_{i+1}\left(\frac{1}{\delta_{i}}x_{i}+\left(1-\frac{1}{\delta_{i}}\right)y_{i}+\gamma_{i}(y_{i+1}-x_{i})\right)\\
+ & =y_{i+1}+\left(\frac{\delta_{i+1}}{\delta_{i}}-\delta_{i+1}\right)\left(y_{i+1}-y_{i}\right)+\left(\gamma_{i}\delta_{i+1}-\frac{\delta_{i+1}}{\delta_{i}}\right)\left(y_{i+1}-x_{i}\right), \quad (\textrm{SimpX})
+\end{align*}
+$$
+where in the third line we have used the equation
+$$
+z_{i}=\frac{1}{\delta_{i}}x_{i}+\left(1-\frac{1}{\delta_{i}}\right)y_{i}.
+$$
+that comes from (AuxForm)(i). Comparing (SimpX) with (MomentumForm):
+$$
+\begin{align*}
+\zeta_{i+1} & =\delta_{i+1}\left(\frac{1}{\delta_{i}}-1\right),\\
+\eta_{i+1} & =\delta_{i+1}\left(\gamma_{i}-\frac{1}{\delta_{i}}\right).
+\end{align*}
+$$
+Given $\zeta, \eta$ we can compute $\delta, \gamma$ as follows. Define: $a_i = 1/\delta_i$, then solve the linear system of equations with variables $a_i, \gamma_i$: 
+$$
+\begin{align*}
+ & \zeta_{i+1}a_{i+i}=a_{i}-1, \\
+ & \eta_{i+1}a_{i+1}=\gamma_{i}-a_{i}.
+\end{align*}
+$$
+Then we have $\gamma_i$ we compute $\delta_i$ by using $\delta_i = 1/a_i$. 
+
+**Mathematica code.**
+
+```julia 
+CollectWRTVarList[expr_, vars_List] := 
+  Expand[Simplify[
+     expr /. Flatten[
+       Solve[# == ToString@#, First@Variables@#] & /@ vars]], 
+    Alternatives @@ ToString /@ vars] /. 
+   Thread[ToString /@ vars -> vars];
+term1 = CollectWRTVarList[
+    Subscript[y, 
+      1 + i] (1 - Subscript[\[Delta], 
+        1 + i]) + ((-Subscript[x, i] + Subscript[y, 
+           1 + i]) Subscript[\[Gamma], i] + 
+        Subscript[y, i] (1 - Subscript[inv\[Delta], i]) + 
+        Subscript[x, i] Subscript[inv\[Delta], i]) Subscript[\[Delta],
+       1 + i], {Subscript[y, 1 + i] - Subscript[y, i], 
+     Subscript[y, 1 + i] - Subscript[x, 
+      i]}] /. {(-Subscript[x, i] + Subscript[y, 1 + i]) -> 
+     fact1, (-Subscript[y, i] + Subscript[y, 1 + i]) -> fact2};
+termFinal = 
+ Collect[term1, {fact1, 
+    fact2}] /. {fact1 -> (-Subscript[x, i] + Subscript[y, 1 + i]), 
+   fact2 -> (-Subscript[y, i] + Subscript[y, 1 + i]), 
+   Subscript[inv\[Delta], i] -> (1/Subscript[\[Delta], i]), 
+   Linv -> (1/L)}
+```
 
 
-## Specific example: OGM
+
+## Example 1. FISTA
+
+FISTA in momentum format is
+
+$$
+\begin{aligned} & x_{0}=y_{0},\quad(i)\\
+ & y_{i+1}=x_{i}-\frac{1}{L}\nabla f(x_{i})-\frac{1}{L}h^{\prime}(y_{i+1}),\quad i\in[0:N-1],\quad(ii)\\
+ & x_{i+1}=y_{i+1}+\zeta_{i+1}(y_{i+1}-y_{i})+\eta_{i+1}(y_{i+1}-x_{i}),\quad i\in[0:N-1].\quad(iii)
+\end{aligned}
+$$
+
+FISTA in auxiliary iterate format:
+
+$$
+\begin{eqnarray*}
+ &  & z_{0}=x_{0}=y_{0},\quad(i)\\
+ &  & x_{i}=(1-\delta_{i})y_{i}+\delta_{i}z_{i},\quad(ii)\\
+ &  & y_{i+1}=x_{i}-\frac{1}{L}\nabla f(x_{i})-\frac{1}{L}h^{\prime}(y_{i+1}),\quad(iii)\\
+ &  & z_{i+1}=z_{i}+\gamma_{i}(y_{i+1}-x_{i}).\quad(iv)
+\end{eqnarray*}
+$$
+
+From auxiliary format (ii) we have 
+$$
+z_{i}=\frac{1}{\delta_{i}}x_{i}+\left(1-\frac{1}{\delta_{i}}\right)y_{i}
+$$
+
+At the next iteration we have: 
+$$
+\begin{align*}
+x_{i+1} & =(1-\delta_{i+1})y_{i+1}+\delta_{i+1}z_{i+1}\\
+ & =(1-\delta_{i+1})y_{i+1}+\delta_{i+1}\left(z_{i}+\gamma_{i}(y_{i+1}-x_{i})\right)\\
+ & =(1-\delta_{i+1})y_{i+1}+\delta_{i+1}\left(\frac{1}{\delta_{i}}x_{i}+\left(1-\frac{1}{\delta_{i}}\right)y_{i}+\gamma_{i}(y_{i+1}-x_{i})\right)\\
+ & =y_{i+1}+\left(\frac{\delta_{i+1}}{\delta_{i}}-\delta_{i+1}\right)\left(y_{i+1}-y_{i}\right)+\left(\gamma_{i}\delta_{i+1}-\frac{\delta_{i+1}}{\delta_{i}}\right)\left(y_{i+1}-x_{i}\right).
+\end{align*}
+$$
+
+By pattern-matching we have the follwoing relationship: 
+
+$$
+\begin{align*}
+\zeta_{i+1} & =\delta_{i+1}\left(\frac{1}{\delta_{i}}-1\right),\\
+\eta_{i+1} & =\delta_{i+1}\left(\gamma_{i}-\frac{1}{\delta_{i}}\right).
+\end{align*}
+$$
+
+## Example 2. OGM
 
 As our example, we consider the Optimized Gradient Method (OGM) due to Kim and Fessler. For a $L$-smooth convex function $f$, $x_{0}\in\mathbf{R}^{d},\theta_{0}=1,$ the algorithm is defined in its *auxiliary form* as
 $$\begin{array}{ll}
