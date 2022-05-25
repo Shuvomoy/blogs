@@ -7,6 +7,8 @@
 
 *April 13, 2020*
 
+*Last update: May 2, 2022*
+
 
 Recently, I came across a few old and new interviews of [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth), where he sheds light on his work habits, how he approaches problems, and his philosophy towards happiness. I really enjoyed reading the interviews. In this blog, I am recording his thoughts on approaching a problem, organizing daily activities, and the pursuit of happiness.
 
@@ -20,9 +22,9 @@ Recently, I came across a few old and new interviews of [Donald Knuth](https://e
 
 
 
-**Visualizers vs Symbolizers.** Well, you know, I’m visualizing the symbols. To me, the symbols are reality, in a way. I take a mathematical problem, I translate it into formulas, and then the formulas are the reality. I know how to transform one formula into another. That should be the subtitle of my book Concrete Mathematics: How to Manipulate Formulas. I’d like to talk about that a little. 
+**Visualizers vs Symbolizers.** "Well, you know, I’m visualizing the symbols. To me, the symbols are reality, in a way. I take a mathematical problem, I translate it into formulas, and then the formulas are the reality. I know how to transform one formula into another. That should be the subtitle of my book Concrete Mathematics: How to Manipulate Formulas. I’d like to talk about that a little. 
 
-I have a feeling that a lot of the brightest students don’t go into mathematics because---curious thing---they don’t need algebra at the level I did. I don’t think I was smarter than the other people in my class, but I learned algebra first. A lot of very bright students today don’t see any need for algebra. They see a problem, say, the sum of two numbers is 100 and the difference is 20, they just sort of say, “Oh, 60 and 40.” They’re so smart they don’t need algebra. They go on seeing lots of problems and they can just do them, without knowing how they do it, particularly. Then finally they get to a harder problem, where the only way to solve it is with algebra. But by that time, they haven’t learned the fundamental ideas of algebra. The fact that they were so smart prevented them from learning this important crutch that I think turned out to be important for the way I approach a problem. Then they say, “Oh, I can’t do math.” They do very well as biologists, doctors and lawyers. 
+I have a feeling that a lot of the brightest students don’t go into mathematics because---curious thing---they don’t need algebra at the level I did. I don’t think I was smarter than the other people in my class, but I learned algebra first. A lot of very bright students today don’t see any need for algebra. They see a problem, say, the sum of two numbers is 100 and the difference is 20, they just sort of say, “Oh, 60 and 40.” They’re so smart they don’t need algebra. They go on seeing lots of problems and they can just do them, without knowing how they do it, particularly. Then finally they get to a harder problem, where the only way to solve it is with algebra. But by that time, they haven’t learned the fundamental ideas of algebra. The fact that they were so smart prevented them from learning this important crutch that I think turned out to be important for the way I approach a problem. Then they say, “Oh, I can’t do math.” They do very well as biologists, doctors and lawyers."
 
 
 
