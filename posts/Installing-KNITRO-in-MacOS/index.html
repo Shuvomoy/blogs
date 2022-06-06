@@ -1,0 +1,24 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blogs/libs/highlight/github.min.css"> <link rel=stylesheet  href="/blogs/css/franklin.css"> <link rel=stylesheet  href="/blogs/css/tufte.css"> <link rel=stylesheet  href="/blogs/css/latex.css"> <link rel=stylesheet  href="/blogs/css/adjust.css"> <link rel=stylesheet  href="/blogs/css/FranklinTheorems.css"> <link rel=icon  href="/blogs/assets/favicon.png"> <title>Installing KNITRO in MacOS</title> <link rel=icon  href="/blogs/assets/favicon.ico"> <script src="/blogs/libs/lunr/lunr.min.js"></script> <script src="/blogs/libs/lunr/lunr_index.js"></script> <script src="/blogs/libs/lunr/lunrclient.min.js"></script> <div id=layout > <div id=menu > <ul> <li><a href="/blogs/">Blogs</a> <li><a href="/blogs/index.html#tags">Tags</a> <li><a href="https://shuvomoy.github.io/">Website</a> <li><form id=lunrSearchForm  name=lunrSearchForm > <input class=search-input  name=q  placeholder=" " type=text > <input type=submit  value=Search  formaction="/blogs/search/index.html"> </form> </ul> </div> <div id=main > <!-- Content appended here .result-title a { text-decoration: none; } .result-title a:hover { text-decoration: underline; } .result-preview { color: #808080; } .resultCount { color: #808080; } .result-query { font-weight: bold; } #lunrSearchForm { margin-top: 1em; } --> <div class=franklin-content ><h1 id=installing_knitro_in_macos ><a href="#installing_knitro_in_macos" class=header-anchor >Installing KNITRO in MacOS</a></h1> <p><strong>Shuvomoy Das Gupta</strong></p> <p><em>June 6, 2022</em></p> <p>In this blog, we will discuss how to install KNITRO in MacOS. First, unzip the KNITRO.zip file by following the instructions <a href="https://www.artelys.com/docs/knitro/1_introduction/installation/unix.html">here</a>. Then copy the unzipped folder to your home directory. Location of the home directory can be found by pressing Command&#43;Shift&#43;H in finder. </p> <p>After that, run the following commands in terminal &#40;.zsh&#41;.</p> <pre><code class="julia hljs">nano ~/.zshrc</code></pre>
+<p>This will open the <code>.zshrc</code> file in terminal. Add the following two lines in the file. &#40;Keep in mind that the precise location will vary from user to user.&#41;</p>
+<pre><code class="julia hljs"><span class=hljs-keyword >export</span> PATH=<span class=hljs-string >&quot;/Users/shuvomoy_das_gupta/knitro-13.0.1-MacOS-64/knitroampl:<span class=hljs-variable >$PATH</span>&quot;</span>
+
+<span class=hljs-keyword >export</span> DYLD_LIBRARY_PATH=<span class=hljs-string >&quot;/Users/shuvomoy_das_gupta/knitro-13.0.1-MacOS-64/lib:<span class=hljs-variable >$DYLD_LIBRARY_PATH</span>$&quot;</span></code></pre>
+<p>Now press <code>Ctrl&#43;O</code> to save and the press <code>Enter</code> to confirm the save. Then, quit <code>nano</code> by pressing <code>Ctrl&#43;X</code>.</p>
+<p>Now, source the <code>.zshrc</code> file by entering</p>
+<pre><code class="julia hljs">source ~/.zshrc</code></pre>
+<p>in terminal.</p>
+<p>Check if the path and library path has been loaded properly by running the following in the terminal.</p>
+<pre><code class="julia hljs">echo $PATH</code></pre>
+<pre><code class="julia hljs">echo $DYLD_LIBRARY_PATH</code></pre>
+<p>Copy the license file to the home folder.</p>
+<p>While installing <code>KNITRO.jl</code> in <code>Julia</code>, if you have any library problem, then add the following lines in the <code>deps.jl</code> file located in <code>KNITRO/BuildNumber/deps/</code>.</p>
+<pre><code class="julia hljs"><span class=hljs-keyword >const</span> libknitro = <span class=hljs-string >&quot;/Users/shuvomoy_das_gupta/knitro-13.0.1-MacOS-64/lib/libknitro.dylib&quot;</span>
+<span class=hljs-keyword >const</span> amplexe = <span class=hljs-string >&quot;/Users/shuvomoy_das_gupta/knitro-13.0.1-MacOS-64/knitroampl&quot;</span></code></pre>
+<div class=page-foot >
+  <div class=copyright >
+    &copy; Shuvomoy Das Gupta. Last modified: June 06, 2022. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+  </div>
+</div>
+</div>
+        </div> 
+    </div>
