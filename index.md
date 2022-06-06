@@ -24,9 +24,8 @@
 Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Research Center](https://orc.mit.edu/). 
 
 ## [Posts]( #posts)
-
-* (2022-05-16) [Reproducing Optimized Gradient Method (OGM) in Julia+JuMP](posts/Reproducing_OGM_in_Julia)
-
+* *(2022-06-06)* [Installing KNITRO in MacOS](posts/Installing-KNITRO-in-MacOS)
+* *(2022-05-16)* [Reproducing Optimized Gradient Method (OGM) in Julia+JuMP](posts/Reproducing_OGM_in_Julia)
 * *(2022-04-27)* [Automated SDP relaxation of QCQPs in JuMP+Julia](posts/Automatic_sdp_relaxation_of_QCQP_in_JuMP_Julia/)
 * *(2022-03-18)* [“My heart skipped a beat” by Nasir Kazmi](posts/My-heart-skipped-a-beat-by-Nasir-Kazmi/)
 * *(2022-03-09)* [Solving bilinear optimization problem using JuMP](posts/Solving_bilinear_optimization_problem_using_JuMP)
@@ -72,6 +71,12 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 * [#Optimization](/tag/optimization)
 * [#Lower bounds in optimization](/tag/lower-bounds-in-optimization)
 * [#Performance estimation problem](/tag/performance-estimation-problem)
+
+## Deep Work Counter
+
+ [Deep work counter](posts/Deep-Work-Counter/)
+
+
 
 
 
