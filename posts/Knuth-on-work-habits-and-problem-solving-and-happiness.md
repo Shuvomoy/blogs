@@ -10,7 +10,7 @@
 *Last update: May 2, 2022*
 
 
-Recently, I came across a few old and new interviews of [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth), where he sheds light on his work habits, how he approaches problems, and his philosophy towards happiness. I really enjoyed reading the interviews. In this blog, I am recording his thoughts on approaching a problem, organizing daily activities, and the pursuit of happiness.
+Recently, I came across a few old and new interviews of [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth) (sources: [Companion to the Papers of Donald Knuth](https://www-cs-faculty.stanford.edu/~knuth/cp.html), Interviews conducted by Lex Fridman [Part 1](https://www.youtube.com/watch?v=2BdBfsXbST8&ab_channel=LexFridman) and [Part 2](https://youtu.be/EE1R8FYUJm0)), where he sheds light on his work habits, how he approaches problems, and his philosophy towards happiness. I really enjoyed reading the interviews. In this blog, I am recording his thoughts on approaching a problem, organizing daily activities, and the pursuit of happiness.
 
 
 
