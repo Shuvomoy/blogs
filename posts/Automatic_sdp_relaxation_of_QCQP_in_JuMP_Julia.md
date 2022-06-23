@@ -25,7 +25,7 @@ y
  & Z=PP^{\top},
 \end{array}\right)\quad(1)
 $$
-where the decision variables are: $x,y\in\mathbf{R}^{2},\; P,Z\in\mathbf{S}^{2}$.We have the bound information that the optimal value lies between $[-400,-200]$Here $A_1, A_2$ are linear operators from $\mathbf{R}^4$ to $\mathbf{S}^2$. First, let us solve the problem to global optimality using `Gurobi+JuMP`.
+where the decision variables are: $x,y\in\mathbf{R}^{2},\; P,Z\in\mathbf{S}^{2}$. We have the bound information that the optimal value lies between $[-400,-200]$. Here $A_1, A_2$ are linear operators from $\mathbf{R}^4$ to $\mathbf{S}^2$. First, let us solve the problem to global optimality using `Gurobi+JuMP`.
 
 ```julia
 # Load the packages
