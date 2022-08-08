@@ -5,9 +5,15 @@
 # Favorite Quotes and Excerpts
 **Shuvomoy Das Gupta**
 
-*Last update: March 1, 2022*
+*Last update: July 30, 2022*
 
 I had a notebook of quotes and excerpts. Over the years I collected a lot of quotes and excerpts in it. I often sought refuge in some of the quotes, and they provided me great solace. Unfortunately, I lost the notebook around 2018. In this blog I am just re-accumulating some of those quotes and excerpts (for which the sources are available) and adding a few new ones. I will update this blog as time progresses. 
+
+---
+
+Who could be so lucky? Who comes to a lake for water and sees the reflection of moon.
+
+--**Rumi**
 
 ---
 
