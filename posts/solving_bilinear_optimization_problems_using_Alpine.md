@@ -22,7 +22,7 @@ In this blog, we will discuss how to solve bilinear optimizations problem using 
 
 `Alpine` is an open-source `Julia` packageto solve **m**ixed-**i**nteger **n**on**l**inear optimization **p**roblems (MINLPs) to global optimality. It is an open-source implementation of the [**A**daptive **M**ultivariate **P**artitioning (AMP) Algorithm](https://arxiv.org/pdf/1707.02514.pdf) proposed by Nagarajan et al in [Nagarajan2019]. AMP uses an adaptive, piecewise convexification scheme and constraint programming methods to solve MINLPs to global optimality. The benefit of `Alpine` over other spatial branch-and-bound solvers is that it is entirely built upon `JuMP` [Dunning2017] and `MathOptInterface` [Legat2021] in Julia, which provides significant flexibility and modeling power. 
 
-### Example in consideration
+## Example in consideration
 
 We want to solve the following bilinear problem:
 $$
@@ -140,7 +140,7 @@ The options used in declaring the `alpine` solver above are as follows (Source: 
 `"log_level" => 100`  enables detailed debugging mode of `Alpine`. The option `log_level (default = 0)` controls the verbosity level of Alpine output; choose 1 for turning on logging, else 100 for detailed debugging mode.
 ```
 
-## Solve the problem
+## Solve the problem 
 
 Now we solve the problem using Alpine.
 
