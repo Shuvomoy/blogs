@@ -126,17 +126,19 @@ const alpine = JuMP.optimizer_with_attributes(Alpine.Optimizer,
 
 The options used in declaring the `alpine` solver above are as follows (Source: [https://lanl-ansi.github.io/Alpine.jl/latest/parameters/](https://lanl-ansi.github.io/Alpine.jl/latest/parameters/))
 
->`"nlp_solver"   => ipopt`  sets `Ipopt` as the local solver
->
->`"mip_solver"   => gurobi`  sets `Gurobi` as the global solver
->
->`"presolve_bt"  => true`  performs sequential optimization-based bound tightening (OBBT) at the presolve step. For more details about sequential OBBT, see Section 3.1.1 of [https://arxiv.org/pdf/1707.02514.pdf](https://arxiv.org/pdf/1707.02514.pdf).
->
-> `disc_ratio => 10`  is used to measure the width of new partitions relative to the active partition chosen in the sequentially solved lower-bounding MIPs. This value can substantially affect the run time for global convergence; this value can be set to different integer values (>= 4) for various classes of problems.
->
-> `"apply_partitioning" => true`  applies `Alpine`'s built-in MIP-based partitioning algorithm  only (MAP) when activated; else terminates with the presolve solution.
->
-> `"log_level" => 100`  enables detailed debugging mode of `Alpine`. The option `log_level (default = 0)` controls the verbosity level of Alpine output; choose 1 for turning on logging, else 100 for detailed debugging mode.
+```julia
+`"nlp_solver"   => ipopt`  sets `Ipopt` as the local solver 
+
+`"mip_solver"   => gurobi`  sets `Gurobi` as the global solver
+
+`"presolve_bt"  => true`  performs sequential optimization-based bound tightening (OBBT) at the presolve step. For more details about sequential OBBT, see Section 3.1.1 of [https://arxiv.org/pdf/1707.02514.pdf](https://arxiv.org/pdf/1707.02514.pdf).
+
+`disc_ratio => 10`  is used to measure the width of new partitions relative to the active partition chosen in the sequentially solved lower-bounding MIPs. This value can substantially affect the run time for global convergence; this value can be set to different integer values (>= 4) for various classes of problems.
+
+`"apply_partitioning" => true`  applies `Alpine`'s built-in MIP-based partitioning algorithm  only (MAP) when activated; else terminates with the presolve solution.
+
+`"log_level" => 100`  enables detailed debugging mode of `Alpine`. The option `log_level (default = 0)` controls the verbosity level of Alpine output; choose 1 for turning on logging, else 100 for detailed debugging mode.
+```
 
 ## Solve the problem
 
@@ -186,7 +188,7 @@ UPPER-BOUNDING ITERATIONS
 | finish | 24.0            | 24.0                | 24.0021            | 0.009           | 0.46s            
 ====================================================================================================
 
-*** Alpine ended with status OPTIMAL ***
+## *** Alpine ended with status OPTIMAL *** ##
 ```
 
 ## Getting tightened bound on the variables using Alpine
