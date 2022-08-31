@@ -20,7 +20,7 @@ In this blog, we will discuss how to solve bilinear optimizations problem using 
 
 ## What is `Alpine`?
 
-`Alpine` is an open-source `Julia` packageto solve **m**ixed-**i**nteger **n**on**l**inear optimization **p**roblems (MINLPs) to global optimality. It is an open-source implementation of the [**A**daptive **M**ultivariate **P**artitioning (AMP) Algorithm](https://arxiv.org/pdf/1707.02514.pdf) proposed by Nagarajan et al in [Nagarajan2019]. AMP uses an adaptive, piecewise convexification scheme and constraint programming methods to solve MINLPs to global optimality. The benefit of `Alpine` over other spatial branch-and-bound solvers is that it is entirely built upon `JuMP` [Dunning2017] and `MathOptInterface` [Legat2021] in Julia, which provides significant flexibility and modeling power. 
+`Alpine` is an open-source `Julia` package to solve **m**ixed-**i**nteger **n**on**l**inear optimization **p**roblems (MINLPs) to global optimality. It is an open-source implementation of the [**A**daptive **M**ultivariate **P**artitioning (AMP) Algorithm](https://arxiv.org/pdf/1707.02514.pdf) proposed by Nagarajan et al in [Nagarajan2019]. AMP uses an adaptive, piecewise convexification scheme and constraint programming methods to solve MINLPs to global optimality. The benefit of `Alpine` over other spatial branch-and-bound solvers is that it is entirely built upon `JuMP` [Dunning2017] and `MathOptInterface` [Legat2021] in Julia, which provides significant flexibility and modeling power. 
 
 ## Example in consideration
 
@@ -47,7 +47,7 @@ First, we load the packages.
 using Alpine, JuMP, Gurobi, Ipopt
 ```
 
-Now, we create a function, that will construct the optimization model in  `JuMP`. For the optimization model to be classfied as an MINLP, we need atleast one nonlinear constraint or objective declared specifically in the `JuMP` model. This can be achieved by using `@NLobjective` or `@NLconstraint` macro.
+Now, we create a function that will construct the optimization model in  `JuMP`. For the optimization model to be classified as an MINLP, we need at least one nonlinear constraint or objective declared specifically in the `JuMP` model. This can be achieved by using `@NLobjective` or `@NLconstraint` macro.
 
 ```julia
 function BLPSolver(; solver=nothing)
@@ -95,26 +95,32 @@ Now we will solve this problem using `Alpine`. To implement the MAP algorithm, w
 
 (i) One local solver, which usually implements some variant of the nonlinear interior point algorithm to find a locally optimal solution to the MINLP. Solvers of this type that are supported by `Alpine` via ` MathOptInterface` are: `Ipopt` and `KNITRO`.
 
-(ii) One mixed-integer optimization solver, that usually implements some sort of branch-and-bound algorithm to solve mixed-integer optimization problems (MIPs). During every iteration of the MAP algorithm, `Alpine` solves an MIP sub-problem. Because MIPs are usually hard to solve, `Alpine`'s run time heavily depends on the run-time of these solvers. The MIP solvers that are supported by `Alpine` are: `Cbc`, `CPLEX`, `Gurobi`,  and `Bonmin`. In my numerical experiments, I have found `Gurobi` to be the fastest and the `Alpine`  developers also recommend `Gurobi` as well.
+(ii) One mixed-integer optimization solver, that usually implements some sort of branch-and-bound algorithm to solve mixed-integer optimization problems (MIPs). During every iteration of the MAP algorithm, `Alpine` solves an MIP sub-problem. Because MIPs are usually hard to solve, `Alpine`'s runtime heavily depends on the runtime of these solvers. The MIP solvers that are supported by `Alpine` are: `Cbc`, `CPLEX`, `Gurobi`,  and `Bonmin`. In my numerical experiments, I have found `Gurobi` to be the fastest and the `Alpine`  developers also recommend `Gurobi` as well.
 
 We set the local and global subsolvers, followed by setting `Alpine` as the global solver as follows.  
 
 ```julia
 # function to set local subsolver as Ipopt
 # ----------------------------------------
-ipopt = JuMP.optimizer_with_attributes(Ipopt.Optimizer,
-MOI.Silent() => true)
+ipopt = JuMP.optimizer_with_attributes(
+                                      Ipopt.Optimizer,
+                                      MOI.Silent() => true
+                                      )
 
 # function to set global subsolver as Gurobi
 # ------------------------------------------
 GRB_ENV  = Gurobi.Env()
-gurobi = JuMP.optimizer_with_attributes(() -> Gurobi.Optimizer(GRB_ENV),
+
+gurobi = JuMP.optimizer_with_attributes(
+                                        () -> Gurobi.Optimizer(GRB_ENV),
                                         MOI.Silent() => true,
-                                        "Presolve" => 0)
+                                        "Presolve" => 0
+                                        )
 
 # function to set Alpine as the global solver
 # -------------------------------------------
-const alpine = JuMP.optimizer_with_attributes(Alpine.Optimizer,
+const alpine = JuMP.optimizer_with_attributes(
+                                              Alpine.Optimizer,
                                               "nlp_solver"   => ipopt, # local solver
                                               "mip_solver"   => gurobi, # global solver
                                               "presolve_bt"  => true, 
@@ -126,7 +132,6 @@ const alpine = JuMP.optimizer_with_attributes(Alpine.Optimizer,
 
 The options used in declaring the `alpine` solver above are as follows (Source: [https://lanl-ansi.github.io/Alpine.jl/latest/parameters/](https://lanl-ansi.github.io/Alpine.jl/latest/parameters/))
 
-```julia
 `"nlp_solver"   => ipopt`  sets `Ipopt` as the local solver 
 
 `"mip_solver"   => gurobi`  sets `Gurobi` as the global solver
@@ -138,7 +143,6 @@ The options used in declaring the `alpine` solver above are as follows (Source: 
 `"apply_partitioning" => true`  applies `Alpine`'s built-in MIP-based partitioning algorithm  only (MAP) when activated; else terminates with the presolve solution.
 
 `"log_level" => 100`  enables detailed debugging mode of `Alpine`. The option `log_level (default = 0)` controls the verbosity level of Alpine output; choose 1 for turning on logging, else 100 for detailed debugging mode.
-```
 
 ## Solve the problem 
 
@@ -152,7 +156,7 @@ JuMP.optimize!(m)
 
 The output is as follows.
 
-```julia
+```
 PROBLEM STATISTICS
   Objective sense = Max
   # Variables = 10
@@ -205,9 +209,70 @@ In certain applications, we may be interested in computing valid but tightened b
 
 For example, by inspecting BLP, we see that $0 \leq x \leq 10$. We will now show how to tighten these bounds significantly by using the sequential OBBT feature of the AMP algorithm that is implemented in `Alpine`. 
 
+### The first way
+
 ```julia
 ## Set Alpine as the global solver but to compute tighter bounds
-const alpineOBBT = JuMP.optimizer_with_attributes(Alpine.Optimizer,
+const alpineOBBT1 = JuMP.optimizer_with_attributes(
+                                               Alpine.Optimizer,
+                                              "nlp_solver"   => ipopt, # local solver
+                                              "mip_solver"   => gurobi, # global solver
+                                              "presolve_bt"  => true, 
+                                              "disc_ratio"   => 10,
+                                              "apply_partitioning" => false,
+                                              "log_level" => 1
+                                              )           
+```
+
+Solve the bound tightening problem and get the tightened bounds on the variables.
+
+```julia
+mOBBT1 = BLPSolver(solver = alpineOBBT1)
+
+JuMP.optimize!(mOBBT1)
+```
+
+Let us get the lower bound and upper bound on our decision variable `x`.
+
+```julia
+vars = all_variables(mOBBT1) # 
+
+lowerBoundVar = MOI.get.(mOBBT1, Alpine.TightenedLowerBound(), vars) 
+
+upperBoundVar = MOI.get.(mOBBT1, Alpine.TightenedUpperBound(), vars)
+
+@info "[☼ ] Bound on the decision variable x is:"
+
+for i in eachindex(vars)
+    @info "$(lowerBoundVar[i]) <=  x[$(i)] <= $(upperBoundVar[i])"
+end
+```
+
+The output is:
+
+```
+[ Info: [☼ ] Bound on the decision variable x is:
+
+[ Info: 4.6326 <=  x[1] <= 5.174300000000001
+[ Info: 0.0 <=  x[2] <= 0.2096
+[ Info: 0.0 <=  x[3] <= 0.030600000000000002
+[ Info: 0.0 <=  x[4] <= 0.030000000000000002
+[ Info: 0.0 <=  x[5] <= 0.030000000000000002
+[ Info: 0.0 <=  x[6] <= 0.030000000000000002
+[ Info: 0.0 <=  x[7] <= 0.030000000000000002
+[ Info: 0.0 <=  x[8] <= 0.030600000000000002
+[ Info: 0.0 <=  x[9] <= 0.2096
+[ Info: 4.633100000000001 <=  x[10] <= 5.1742
+```
+
+, which is significantly tighter than $0 \leq x \leq 10$.
+
+### The second way 
+
+```julia
+## Set Alpine as the global solver but to compute tighter bounds
+const alpineOBBT2 = JuMP.optimizer_with_attributes(
+                                               Alpine.Optimizer,
                                               "nlp_solver"   => ipopt, # local solver
                                               "mip_solver"   => gurobi, # global solver
                                               "presolve_bt"  => true, 
@@ -221,19 +286,19 @@ const alpineOBBT = JuMP.optimizer_with_attributes(Alpine.Optimizer,
 Solve the bound tightening problem and get the tightened bounds on the variables.
 
 ```julia
-mOBBT= BLPSolver(solver = alpineOBBT)
+mOBBT2 = BLPSolver(solver = alpineOBBT2)
 
-JuMP.optimize!(mOBBT)
+JuMP.optimize!(mOBBT2)
 ```
 
 Let us get the lower bound and upper bound on our decision variable `x`.
 
 ```julia
-vars = all_variables(mOBBT) # 
+vars = all_variables(mOBBT2) # 
 
-lowerBoundVar = MOI.get.(mOBBT, Alpine.TightenedLowerBound(), vars) 
+lowerBoundVar = MOI.get.(mOBBT2, Alpine.TightenedLowerBound(), vars) 
 
-upperBoundVar = MOI.get.(mOBBT, Alpine.TightenedUpperBound(), vars)
+upperBoundVar = MOI.get.(mOBBT2, Alpine.TightenedUpperBound(), vars)
 
 @info "[☼ ] Bound on the decision variable x is:"
 
@@ -244,7 +309,7 @@ end
 
 The output is:
 
-```julia
+```
 [ Info: [☼ ] Bound on the decision variable x is:
 [ Info: 3.8099000000000003 <=  x[1] <= 5.7202
 [ Info: 0.0 <=  x[2] <= 0.2625
