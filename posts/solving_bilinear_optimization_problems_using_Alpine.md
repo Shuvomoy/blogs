@@ -195,7 +195,7 @@ UPPER-BOUNDING ITERATIONS
 ## *** Alpine ended with status OPTIMAL *** ##
 ```
 
-## Getting tightened bound on the variables using Alpine
+## Getting tightened bounds on the variables using Alpine
 
 In certain applications, we may be interested in computing valid but tightened bounds on the variables rather than finding an optimal solution. One nice feature of Alpine is that, just by using its sequential OBBT algorithm, we can compute valid tightened bounds on the variables without solving the full problem. We can achieve this in two ways. 
 
