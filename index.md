@@ -65,6 +65,7 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 - *(2020-03-22)* [How to create a simple package in Julia](posts/How-to-create-a-simple-package-in-julia/)
 - *(2020-01-24)* [Running Julia code on MIT Supercloud](posts/Running-Julia-code-on-MIT-supercloud/)
 - *(2020-01-20)* [Solving mixed-integer quadratic programming (MIQP) using Julia+JuMP](posts/Solving_mixed_integer_quadratic_programming_Julia/)
+- [Satyanusaran](posts/Satyanusaran)
 
 ## Tags
 
@@ -74,9 +75,7 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 * [#Lower bounds in optimization](/tag/lower-bounds-in-optimization)
 * [#Performance estimation problem](/tag/performance-estimation-problem)
 
-## Deep Work Counter
 
- [Deep work counter](posts/Deep-Work-Counter/)
 
 
 
