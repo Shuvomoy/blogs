@@ -104,7 +104,7 @@ $$\begin{aligned}
 
 #### A handy inequality to bound the subgradient of $f$
 
-Hence, if we consider a point $x\in B(x_{\star};R)$ and any subgradient of $f$ at $x,$ denoted by $f^{\prime}(x)$, it can be expressed as $$f^{\prime}(x)=\mu x+\gamma\sum_{k\in I(x)}\lambda_{k}e_{k}:\textrm{ where }\left(\forall k\in I(x)\right)\;\lambda_{k}\geq0,\sum_{k\in I(x)}\lambda_{k}=1,$$ with the norm satisfying: 
+Hence, if we consider a point $x\in B(x_{\star};R)$ and any subgradient of $f$ at $x,$ denoted by $f^{\prime}(x)$, it can be expressed as: $$f^{\prime}(x)=\mu x+\gamma\sum_{k\in I(x)}\lambda_{k}e_{k}:\textrm{ where }\left(\forall k\in I(x)\right)\;\lambda_{k}\geq0,\sum_{k\in I(x)}\lambda_{k}=1,$$ with the norm satisfying: 
 
 $$\begin{aligned}
 \|f^{\prime}(x)\|_{2} & =\|\mu x+\gamma\sum_{k\in I(x)}\lambda_{k}e_{k}\|_{2}\\
