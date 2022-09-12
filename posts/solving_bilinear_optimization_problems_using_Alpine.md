@@ -138,6 +138,17 @@ AlpineSolver = JuMP.optimizer_with_attributes(
                                               )                                    
 ```
 
+Define a Gurobi solver to solve the bilinear problem to global optimality. 
+
+```julia
+GurobiSolver = JuMP.optimizer_with_attributes(
+                                        () -> Gurobi.Optimizer(GRB_ENV),
+                                        # MOI.Silent() => true,
+                                        "NonConvex" => 2 
+                                        # means we are going to use Gurobi's spatial branch-and-bound algorithm
+                                        )
+```
+
 The options used in declaring the `AlpineSolver` solver above are as follows (Source: [https://lanl-ansi.github.io/Alpine.jl/latest/parameters/](https://lanl-ansi.github.io/Alpine.jl/latest/parameters/))
 
 `"nlp_solver"   => IpoptSolverAlpine`  sets `Ipopt` as the local solver 
@@ -207,20 +218,11 @@ UPPER-BOUNDING ITERATIONS
 
 Alternatively, we can also solve the problem in consideration to global optimality using `Gurobi` as follows. 
 
-Define a Gurobi solver to solve the bilinear problem to global optimality. 
 
-```julia
-GurobiSolver = JuMP.optimizer_with_attributes(
-                                        () -> Gurobi.Optimizer(GRB_ENV),
-                                        # MOI.Silent() => true,
-                                        "NonConvex" => 2 
-                                        # means we are going to use Gurobi's spatial branch-and-bound algorithm
-                                        )
-```
 Now solve the problem. 
 
 ```julia
-mGurobi = BLPSolver(solver = GurobiSolver)
+mGurobi = BLPSolver(solver = GurobiSolver);
 
 JuMP.optimize!(mGurobi)
 ```
