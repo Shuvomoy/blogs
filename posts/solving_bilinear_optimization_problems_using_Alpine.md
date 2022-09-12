@@ -132,7 +132,7 @@ AlpineSolver = JuMP.optimizer_with_attributes(
                                               "nlp_solver"   => IpoptSolverAlpine, # local solver
                                               "mip_solver"   => GurobiSolverAlpine, # global solver
                                               "presolve_bt"  => true, 
-                                              # "disc_ratio"   => 10,
+                                              # "partition_scaling_factor"   => 10,
                                               "apply_partitioning" => true,
                                               "log_level" => 1
                                               )                                    
@@ -157,7 +157,7 @@ The options used in declaring the `AlpineSolver` solver above are as follows (So
 
 `"presolve_bt"  => true`  performs sequential optimization-based bound tightening (OBBT) at the presolve step. For more details about sequential OBBT, see Section 3.1.1 of [https://arxiv.org/pdf/1707.02514.pdf](https://arxiv.org/pdf/1707.02514.pdf).
 
-`disc_ratio => 10`  is used to measure the width of new partitions relative to the active partition chosen in the sequentially solved lower-bounding MIPs. This value can substantially affect the run time for global convergence; this value can be set to different integer values (>= 4) for various classes of problems.
+`partition_scaling_factor => 10`  is used to measure the width of new partitions relative to the active partition chosen in the sequentially solved lower-bounding MIPs. This value can substantially affect the run time for global convergence; this value can be set to different integer values (>= 4) for various classes of problems.
 
 `"apply_partitioning" => true`  applies `Alpine`'s built-in MIP-based partitioning algorithm  only (MAP) when activated; else terminates with the presolve solution.
 
