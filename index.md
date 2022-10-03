@@ -25,6 +25,8 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 
 ## [Posts]( #posts)
 
+* *(2022-10-03)* [References for the poster at the Cornell Young Researchers Workshop 2022](posts/Cornell_Young_Researchers_Workshop)
+
 * *(2022-08-30)* [Solving bilinear optimization problems using `Alpine.jl`](posts/solving_bilinear_optimization_problems_using_Alpine)
 * *(2022-06-06)* [Installing KNITRO in MacOS](posts/Installing-KNITRO-in-MacOS)
 * *(2022-05-16)* [Reproducing Optimized Gradient Method (OGM) in Julia+JuMP](posts/Reproducing_OGM_in_Julia)

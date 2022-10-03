@@ -6,7 +6,7 @@
 
 **Shuvomoy Das Gupta**
 
-*August 30, 2022*
+*August 30, 2022* 
 
 In this blog, we will discuss how to solve bilinear optimizations problem using `Alpine`. 
 
