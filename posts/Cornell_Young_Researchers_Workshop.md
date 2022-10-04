@@ -22,9 +22,9 @@ Hi! I am very grateful that my research interests you! In this page, I want to b
 
 ## BnB-PEP paper
 
-The poster is based on the following paper.
+The poster (pdf  [here](https://shuvomoy.github.io/Presentations/Cornell_Young_Researchers_Workshop/BnB_PEP_poster_final.pdf)) is based on the following paper.
 
-[*] **Shuvomoy Das Gupta**, Bart P.G. Van Parys, and Ernest K. Ryu, “[Branch-and-Bound Performance Estimation Programming: A Unified Methodology for Constructing Optimal Optimization Methods](https://arxiv.org/abs/2203.07305)”, 2022. [[pdf](https://optimization-online.org/wp-content/uploads/2022/03/8819.pdf)] [[code](https://github.com/Shuvomoy/BnB-PEP-code)][[slides](https://shuvomoy.github.io/assets/Sozi_presentations/bnb_pep_2022_presentation.html)]
+[*] **Shuvomoy Das Gupta**, Bart P.G. Van Parys, and Ernest K. Ryu, “[Branch-and-Bound Performance Estimation Programming: A Unified Methodology for Constructing Optimal Optimization Methods](https://arxiv.org/abs/2203.07305)”, 2022. [[pdf](https://optimization-online.org/wp-content/uploads/2022/03/8819.pdf)] [[code](/assets/Sozi_presentations/BnB_PEP_poster_final.pdf)]
 
 A detailed YouTube video describing the paper is below.
 
@@ -36,7 +36,9 @@ A detailed YouTube video describing the paper is below.
 
 BnB-PEP builds on PEP (performance estimation problem). I am very excited about PEP in general, so I want to tell you more about it!
 
-The performance estimation methodology, initiated by Drori and Teboulle in [1], formulates the worst case-performance of an optimization method as an optimization problem itself and upper bounds this performance through a semidefinite program (SDP) "relaxation. Taylor, Hendrickx, and Glineur then showed in [2] that the SDP formulation is tight (not a relaxation) through the notion of "convex interpolation". Taylor, Hendrickx, and Glineur subsequently extended PEP to composite convex optimization in [3]. There are many more fantastic papers on PEP, but we can start learning about PEP by studying those three first:
+### Papers
+
+The performance estimation methodology, initiated by Drori and Teboulle in [1], formulates the worst case-performance of an optimization method as an optimization problem itself and upper bounds this performance through a semidefinite program (SDP) "relaxation. [Taylor](https://adrientaylor.github.io/), Hendrickx, and Glineur then showed in [2] that the SDP formulation is tight (not a relaxation) through the notion of "convex interpolation". Taylor, Hendrickx, and Glineur subsequently extended PEP to composite convex optimization in [3]. There are many more fantastic papers on PEP, but we can start learning about PEP by studying those three first:
 
 [1] Y. Drori and M. Teboulle. Performance of first-order methods for smooth convex minimization: A novel approach. Mathematical Programming, 145(1-2):451–482, 2014. (link: [https://arxiv.org/pdf/1206.3209.pdf] (https://arxiv.org/pdf/1206.3209.pdf)
 
@@ -44,9 +46,13 @@ The performance estimation methodology, initiated by Drori and Teboulle in [1], 
 
 [3] A. B. Taylor, J. M. Hendrickx, and F. Glineur. Exact worst-case performance of first-order methods for composite convex optimization. SIAM Journal on Optimization, 27(3):1283–1313, 2017. (link: [https://arxiv.org/pdf/1512.07516.pdf](https://arxiv.org/pdf/1512.07516.pdf))
 
+### Blog
+
 If you are interested to learn about PEP more informally without reading the papers above first, a gentle introduction is the following blog post by [Adrien Taylor](https://adrientaylor.github.io/):
 
 [1] [A. B. Taylor, Computer-aided analyses in optimization](https://francisbach.com/computer-aided-analyses/)
+
+### Video presentation
 
 After the blog, a very nice video presentation by Adrien Taylor is available at this [link](https://stream.univie.ac.at/media/mathematik/owos/Adrien_Taylor-OWOS_Talk?res=1936). The slides for this talk is available [here](https://owos.univie.ac.at/fileadmin/user_upload/k_owos/Adrien_Taylor-OWOS.pdf).
 
