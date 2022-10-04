@@ -10,7 +10,7 @@
 
 You have landed on this page, because you have scanned the QR code of my poster for Cornell Young Researchers Workshop 2022 😃.
 
-Hello! I am very grateful that my research interests you 😊! In this page, I want to briefly provide you with some resources regarding my poster. Please feel free to send me an email 📧 to [sdgupta@mit.edu](mailto:sdgupta@mit.edu) regarding any subject including but not limited to comments about the poster, performance estimation problems (see below) in general, implementation for a specific research problem, or just to say hi!
+Hello! I am very grateful that my research interests you 😊! In this page, I want to briefly provide you with some resources regarding my poster. Please feel free to send me an email 📧 to [sdgupta@mit.edu](mailto:sdgupta@mit.edu) if you have any questions regarding the poster, or if you just want to say hi!
 
 ---
 
