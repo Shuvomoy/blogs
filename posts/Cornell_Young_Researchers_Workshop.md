@@ -8,9 +8,9 @@
 
 *October 6-8, 2022*
 
-If you have scanned the QR code of my poster for Cornell Young Researchers Workshop 2022, you should land on this page. 
+You have landed on this page, because you have scanned the QR code of my poster for Cornell Young Researchers Workshop 2022 😃.
 
-Hi! I am very grateful that my research interests you! In this page, I want to briefly provide some resources regarding my poster. 
+Hello! I am very grateful that my research interests you 😊! In this page, I want to briefly provide you with some resources regarding my poster. Please feel free to send me an email 📧 to [sdgupta@mit.edu](mailto:sdgupta@mit.edu) regarding any subject including but not limited to comments about the poster, performance estimation problems (see below) in general, implementation for a specific research problem, or just to say hi!
 
 ---
 
@@ -24,7 +24,7 @@ Hi! I am very grateful that my research interests you! In this page, I want to b
 
 The poster (pdf  [here](https://shuvomoy.github.io/Presentations/Cornell_Young_Researchers_Workshop/BnB_PEP_poster_final.pdf)) is based on the following paper.
 
-[*] **Shuvomoy Das Gupta**, Bart P.G. Van Parys, and Ernest K. Ryu, “[Branch-and-Bound Performance Estimation Programming: A Unified Methodology for Constructing Optimal Optimization Methods](https://arxiv.org/abs/2203.07305)”, 2022. [[pdf](https://optimization-online.org/wp-content/uploads/2022/03/8819.pdf)] [[code](/assets/Sozi_presentations/BnB_PEP_poster_final.pdf)]
+> **Shuvomoy Das Gupta**, Bart P.G. Van Parys, and Ernest K. Ryu, “[Branch-and-Bound Performance Estimation Programming: A Unified Methodology for Constructing Optimal Optimization Methods](https://arxiv.org/abs/2203.07305)”, 2022. [[pdf](https://optimization-online.org/wp-content/uploads/2022/03/8819.pdf)] [[code](/assets/Sozi_presentations/BnB_PEP_poster_final.pdf)]
 
 A detailed YouTube video describing the paper is below.
 
@@ -54,7 +54,7 @@ If you are interested to learn about PEP more informally without reading the pap
 
 ### Video presentation
 
-After the blog, a very nice video presentation by Adrien Taylor is available at this [link](https://stream.univie.ac.at/media/mathematik/owos/Adrien_Taylor-OWOS_Talk?res=1936). The slides for this talk is available [here](https://owos.univie.ac.at/fileadmin/user_upload/k_owos/Adrien_Taylor-OWOS.pdf).
+After the blog, a very nice video presentation by Adrien Taylor is available at this [link](https://stream.univie.ac.at/media/mathematik/owos/Adrien_Taylor-OWOS_Talk?res=1936). The slides for his talk is available [here](https://owos.univie.ac.at/fileadmin/user_upload/k_owos/Adrien_Taylor-OWOS.pdf).
 
 A more advanced talk by Adrien Taylor on constructing optimal first-order optimization methods in convex optimization using PEP is below.
 
