@@ -22,7 +22,7 @@ Hello! I am very grateful that my research interests you 😊! In this page, I w
 
 ## BnB-PEP paper
 
-The poster (pdf  [here](https://shuvomoy.github.io/Presentations/Cornell_Young_Researchers_Workshop/BnB_PEP_poster_final.pdf)) is based on the following paper.
+The poster (pdf  [here](https://shuvomoy.github.io/assets/Sozi_presentations/BnB_PEP_poster_final.pdf)) is based on the following paper.
 
 > **Shuvomoy Das Gupta**, Bart P.G. Van Parys, and Ernest K. Ryu, “[Branch-and-Bound Performance Estimation Programming: A Unified Methodology for Constructing Optimal Optimization Methods](https://arxiv.org/abs/2203.07305)”, 2022. [[pdf](https://optimization-online.org/wp-content/uploads/2022/03/8819.pdf)] [[code](/assets/Sozi_presentations/BnB_PEP_poster_final.pdf)]
 
