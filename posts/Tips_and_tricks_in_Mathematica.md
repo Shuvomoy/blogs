@@ -641,6 +641,48 @@ Resolve[identityPEP]
 
 This yields `True` (it will take a few minutes) so the identity in question is true for $n=3$. 
 
+## Simplify with assumptions
+
+(Source: [https://mathematica.stackexchange.com/questions/276745/simplifying-subtraction-of-sqrt-terms](https://mathematica.stackexchange.com/questions/276745/simplifying-subtraction-of-sqrt-terms))
+
+If we want to simplify the following expression $\sqrt{\frac{a}{(c-1) c}}-\frac{\sqrt{a}}{\sqrt{(c-1) c}}$ with terms inside the `Sqrt` function:
+
+```mathematica
+Simplify[-(Sqrt[a]/Sqrt[(-1 + c) c]) + Sqrt[a/((-1 + c) c)]]
+```
+
+we will get the same output as the input. The reason is that there are conditions under which it is not zero. 
+
+To get $0$, first, we find the ensure the condition under which $\sqrt{\frac{a}{b}}=\frac{\sqrt{a}}{\sqrt{b}}$. 
+
+```mathematica
+Reduce[Sqrt[a/b] == Sqrt[a]/Sqrt[b], {a, b}, Reals]
+(*Output:
+a >= 0 && b > 0
+*)
+```
+
+We can find the conditions on $a,c$ similarly.
+
+```mathematica
+Reduce[Sqrt[a/((-1 + c) c)] == Sqrt[a]/Sqrt[(-1 + c) c], {a, c}, Reals]
+(*Output:
+a >= 0 && (c < 0 || c > 1)  
+*)
+```
+
+Finally, simplify under appropriate assumptions:
+
+```mathematica
+Assuming[a >= 0 && (c < 0 || c > 1), 
+ Simplify[-(Sqrt[a]/Sqrt[(-1 + c) c]) + Sqrt[a/((-1 + c) c)]]]
+(*Output:
+0
+*)
+```
+
+
+
 ## Collect distributed sum and iversonian sum simplification
 
 ```mathematica
