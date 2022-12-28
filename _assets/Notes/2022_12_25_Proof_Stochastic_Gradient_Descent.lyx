@@ -51,7 +51,7 @@ theorems-ams
 \output_sync 0
 \bibtex_command bibtex
 \index_command default
-\paperfontsize default
+\paperfontsize 12
 \spacing single
 \use_hyperref true
 \pdf_bookmarks true
@@ -391,7 +391,6 @@ status open
 
 \begin_layout Plain Layout
 
-\size small
 
 \backslash
 ref{assum:oracle}
