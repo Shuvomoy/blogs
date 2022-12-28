@@ -1,0 +1,668 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass tufte-handout
+\begin_preamble
+\usepackage{ stmaryrd }
+\usepackage{ textcomp }
+\newtheorem{assumption}{Assumption}
+
+
+\newcommand{\filler}[1][10]%
+{   \foreach \x in {1,...,#1}
+    {   test 
+    }
+}
+
+\def\mathnote#1{%
+  \tag*{\rlap{\hspace\marginparsep\smash{\parbox[t]{\marginparwidth}{%
+  \footnotesize#1}}}}
+}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-ams
+\end_modules
+\maintain_unincluded_children false
+\begin_local_layout
+
+\end_local_layout
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "helvet" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format pdf2
+\output_sync 0
+\bibtex_command bibtex
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\notefontcolor #0000ff
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Stochastic gradient descent proof
+\end_layout
+
+\begin_layout Author
+Shuvomoy Das Gupta
+\end_layout
+
+\begin_layout Abstract
+We study a simple proof of stochastic gradient descent.
+ 
+\end_layout
+
+\begin_layout Section
+Algorithm description
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+paragraph{{
+\backslash
+color{red}Problem setup.}}
+\end_layout
+
+\end_inset
+
+ We are interested in solving the problem
+\begin_inset Flex Marginnote
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+Notation
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Pi_{C}$
+\end_inset
+
+: projection onto the set 
+\begin_inset Formula $C$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+p^{\star}=\left(\begin{array}{ll}
+\underset{x\in\mathbb{R}^{d}}{\mbox{minimize}} & f(x)\\
+\textrm{subject to} & x\in C,
+\end{array}\right)\tag{\ensuremath{\mathcal{P}}}\label{eq:problem}
+\end{equation}
+
+\end_inset
+
+where we have the following assumptions regarding the nature of the problem.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{assumption}[Structure of $
+\backslash
+mathcal{P}$]
+\backslash
+label{assum:problem}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We assume:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $f:\mathbb{R}^{d}\to(-\infty,\infty]$
+\end_inset
+
+ is a closed, proper, and convex function, 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $C$
+\end_inset
+
+ is a nonempty, closed, convex set, with 
+\begin_inset Formula $C\subseteq\textrm{int}\textrm{dom\,}f$
+\end_inset
+
+, and 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\textrm{argmin}f(C)=X^{\star}\neq\emptyset$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{assumption}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+paragraph{{
+\backslash
+color{red}Stochastic gradient descent.}}
+\end_layout
+
+\end_inset
+
+ The stochastic gradient descent (SGD) algorithm to solve 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:problem"
+
+\end_inset
+
+ is described by Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:sgd"
+
+\end_inset
+
+, where we make the following assumption regarding the nature of the oracle.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+input: 
+\series default
+
+\begin_inset Formula $f$
+\end_inset
+
+, 
+\begin_inset Formula $C$
+\end_inset
+
+, iteration limit 
+\begin_inset Formula $K$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hrulefill
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+algorithm:
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+1.
+ initialization
+\series default
+:
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+pick 
+\begin_inset Formula $x_{0}\in C$
+\end_inset
+
+ arbitrarily
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+2.
+ main iteration:
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+for
+\series default
+ 
+\begin_inset Formula $k=0,1,2,\ldots,K-1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset Formula $\quad$
+\end_inset
+
+pick stepsizes 
+\begin_inset Formula $\alpha_{k}>0$
+\end_inset
+
+ and random 
+\begin_inset Formula $g_{k}\in\mathbb{R}^{d}$
+\end_inset
+
+ satisfying Assumption 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\size small
+
+\backslash
+ref{assum:oracle}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\begin_inset Formula $x_{k+1}\gets\Pi_{C}\left(x_{k}-\alpha_{k}g_{k}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+end for
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+3.
+ return
+\series default
+ 
+\series bold
+
+\begin_inset Formula $x_{K}$
+\end_inset
+
+
+\series default
+\size default
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+SGD to solve 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:problem"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:sgd"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{assumption}[Stochastic oracle]
+\backslash
+label{assum:oracle}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We assume that given an iterate 
+\begin_inset Formula $x_{k}$
+\end_inset
+
+, the stochastic oracle is capable of producing a random vector 
+\begin_inset Formula $g_{k}$
+\end_inset
+
+with the following properties:
+\end_layout
+
+\begin_layout Itemize
+(unbiased) 
+\begin_inset Formula $\forall_{k\geq0}\;\mathbf{E}\left[g_{k}\mid x_{k}\right]\in\partial f(x_{k})$
+\end_inset
+
+, and
+\end_layout
+
+\begin_layout Itemize
+(bounded variance) 
+\begin_inset Formula $\exists_{G>0}\;\forall_{k\geq0}\;\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]\leq G^{2}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{assumption}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+paragraph{{
+\backslash
+color{red}Convergence analysis.}}
+\end_layout
+
+\end_inset
+
+ First, note that, for all 
+\begin_inset Formula $k\geq0$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+ & \mathbf{E}\left[\|\overbrace{x_{k+1}}^{=\Pi_{C}(x_{k}-\alpha_{k}g_{k})}-\overbrace{x_{\star}}^{=\Pi_{C}(x_{\star})}\|^{2}\mid x_{k}\right]\\
+= & \mathbf{E}\left[\overbrace{\|\Pi_{C}\left(x_{k}-\alpha_{k}g_{k}\right)-\Pi_{C}(x_{\star})\|^{2}}^{\leq\|x_{k}-\alpha_{k}g_{k}-x_{\star}\|^{2}}\mid x_{k}\right]\\
+\leq & \mathbf{E}\left[\overbrace{\|x_{k}-\alpha_{k}g_{k}-x_{\star}\|^{2}}^{=\|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}\|g_{k}\|^{2}-2\alpha_{k}\left\langle x_{k}-x_{\star};\,g_{k}\right\rangle }\mid x_{k}\right]\\
+= & \mathbf{E}\left[\|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}\|g_{k}\|^{2}-2\alpha_{k}\left\langle x_{k}-x_{\star};\,g_{k}\right\rangle \mid x_{k}\right]\\
+= & \mathbf{E}\left[\|x_{k}-x_{\star}\|^{2}\mid x_{k}\right]+\alpha_{k}^{2}\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]-2\alpha_{k}\mathbf{E}\left[\left\langle x_{k}-x_{\star};\,g_{k}\right\rangle \mid x_{k}\right]\mathnote{\textrm{\ensuremath{\rhd\;}using linearity of expectation}}\\
+= & \|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]-2\alpha_{k}\left\langle x_{k}-x_{\star};\,\mathbf{E}\left[g_{k}\mid x_{k}\right]\right\rangle \mathnote{\textrm{\ensuremath{\rhd\;}using "taking out what's known" rule \ensuremath{\mathbf{E}\left[h(X)Y\mid X\right]=h(X)\mathbf{E}\left[Y\mid X\right]}}}\\
+\leq & \|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}G^{2}-2\alpha_{k}\left\langle x_{k}-x_{\star};\,\mathbf{E}\left[g_{k}\mid x_{k}\right]\right\rangle \\
+ & \quad\texttt{/*}\\
+ & \quad\textrm{we have }\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]\ensuremath{\leq G^{2}}\\
+ & \quad\Leftrightarrow\forall_{y}\;f(y)\geq f(x_{k})+\left\langle \mathbf{E}\left[g_{k}\mid x_{k}\right];\,y-x_{k}\right\rangle \\
+ & \quad\overset{y\gets x_{\star}}{\Rightarrow}f(x_{\star})\geq f(x_{k})-\left\langle \mathbf{E}\left[g_{k}\mid x_{k}\right];\,x_{k}-x_{\star}\right\rangle \\
+ & \quad\ensuremath{\Rightarrow-\left\langle \mathbf{E}\left[g_{k}\mid x_{k}\right];\,x_{k}-x_{\star}\right\rangle \leq f(x_{\star})-f(x_{k})}\\
+ & \quad\texttt{*/}\\
+= & \|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}G^{2}-2\alpha_{k}\left(f(x_{k})-f(x_{\star})\right),
+\end{align*}
+
+\end_inset
+
+ So, we have proved
+\begin_inset Formula 
+\[
+\mathbf{E}\left[\|x_{k+1}-x_{\star}\|^{2}\mid x_{k}\right]\leq\|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}G^{2}-2\alpha_{k}\left(f(x_{k})-f(x_{\star})\right),
+\]
+
+\end_inset
+
+ so taking expectation with respect to 
+\begin_inset Formula $x_{k}$
+\end_inset
+
+ on both sides, we get: 
+\begin_inset Formula 
+\begin{align*}
+ & \mathbf{E}\left[\mathbf{E}\left[\|x_{k+1}-x_{\star}\|^{2}\mid x_{k}\right]\right]\\
+= & \mathbf{E}\left[\|x_{k+1}-x_{\star}\|^{2}\right]\mathnote{\textrm{\ensuremath{\rhd\;}using Adam's law\ensuremath{\mathbf{E}\left[\mathbf{E}\left[Y\mid X\right]\right]=\mathbf{E}\left[Y\right]}}}\\
+\leq & \mathbf{E}\left[\|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}G^{2}-2\alpha_{k}\left(f(x_{k})-f(x_{\star})\right)\right]\\
+= & \mathbf{E}\left[\|x_{k}-x_{\star}\|^{2}\right]-2\alpha_{k}\mathbf{E}\left[f(x_{k})-f(x_{\star})\right]+\alpha_{k}^{2}G^{2},
+\end{align*}
+
+\end_inset
+
+so 
+\begin_inset Formula 
+\[
+\mathbf{E}\left[\|x_{k+1}-x_{\star}\|^{2}\right]-\mathbf{E}\left[\|x_{k}-x_{\star}\|^{2}\right]\leq-2\alpha_{k}\mathbf{E}\left[f(x_{k})-f(x_{\star})\right]+\alpha_{k}^{2}G^{2}.
+\]
+
+\end_inset
+
+Now, let us do a telescoping sum:
+\begin_inset Formula 
+\begin{align*}
+\mathbf{E}\left[\|x_{k+1}-x_{\star}\|^{2}\right]-\mathbf{E}\left[\|x_{k}-x_{\star}\|^{2}\right] & \leq-2\alpha_{k}\mathbf{E}\left[f(x_{k})-f(x_{\star})\right]+\alpha_{k}^{2}G^{2}\\
+\mathbf{E}\left[\|x_{k}-x_{\star}\|^{2}\right]-\mathbf{E}\left[\|x_{k-1}-x_{\star}\|^{2}\right] & \leq-2\alpha_{k}\mathbf{E}\left[f(x_{k-1})-f(x_{\star})\right]+\alpha_{k-1}^{2}G^{2}\\
+\vdots & \vdots\\
+\mathbf{E}\left[\|x_{m+1}-x_{\star}\|^{2}\right]-\mathbf{E}\left[\|x_{m}-x_{\star}\|^{2}\right] & \leq-2\alpha_{m}\mathbf{E}\left[f(x_{m})-f(x_{\star})\right]+\alpha_{m}^{2}G^{2},
+\end{align*}
+
+\end_inset
+
+ and adding the equations above, we get: 
+\begin_inset Formula 
+\begin{align*}
+ & \mathbf{E}\left[\|x_{k+1}-x_{\star}\|^{2}\right]-\mathbf{E}\left[\|x_{m}-x_{\star}\|^{2}\right]\leq-2\sum_{i=m}^{k}\alpha_{i}\mathbf{E}\left[f(x_{i})-f(x_{\star})\right]+G^{2}\sum_{i=m}^{k}\alpha_{i}^{2}\\
+\Leftrightarrow & 0\leq\mathbf{E}\left[\|x_{k+1}-x_{\star}\|^{2}\right]\leq\mathbf{E}\left[\|x_{m}-x_{\star}\|^{2}\right]-2\sum_{i=m}^{k}\alpha_{i}\mathbf{E}\left[f(x_{i})-f(x_{\star})\right]+G^{2}\sum_{i=m}^{k}\alpha_{i}^{2}\\
+\Rightarrow & 0\leq\mathbf{E}\left[\|x_{m}-x_{\star}\|^{2}\right]-2\sum_{i=m}^{k}\alpha_{i}\mathbf{E}\left[f(x_{i})-f(x_{\star})\right]+G^{2}\sum_{i=1}^{m}\alpha_{i}^{2}\\
+\Leftrightarrow & \sum_{i=m}^{k}\alpha_{i}\mathbf{E}\left[f(x_{i})-f(x_{\star})\right]\leq\frac{1}{2}\left(\mathbf{E}\left[\|x_{m}-x_{\star}\|^{2}\right]+G^{2}\sum_{i=m}^{k}\alpha_{i}^{2}\right)\\
+\Rightarrow & \left(\sum_{i=m}^{k}\alpha_{i}\right)\left(\min_{i\in\{m,\ldots,k\}}\mathbf{E}\left[f(x_{i})-f(x_{\star})\right]\right)\\
+ & \quad\leq\frac{1}{2}\left(\mathbf{E}\left[\|x_{m}-x_{\star}\|^{2}\right]+G^{2}\sum_{i=m}^{k}\alpha_{i}^{2}\right)\mathnote{\textrm{\ensuremath{\rhd\;}for \ensuremath{b_{k}\geq0}, we have \ensuremath{\left(\min_{k}a_{k}\right)\sum_{k}b_{k}\leq\sum_{k}a_{k}b_{k}}}}\\
+\Rightarrow & \mathbf{E}\left[\min_{i\in\{m,\ldots,k\}}\left\{ f(x_{i})-f(x_{\star})\right\} \right]\leq\min_{i\in\{m,\ldots,k\}}\mathbf{E}\left[f(x_{i})-f(x_{\star})\right]\\
+ & \quad\leq\frac{\mathbf{E}\left[\|x_{m}-x_{\star}\|^{2}\right]+G^{2}\sum_{i=m}^{k}\alpha_{i}^{2}}{2\sum_{i=m}^{k}\alpha_{i}}.\mathnote{\textrm{\ensuremath{\rhd\;}using \ensuremath{\mathbf{E}\left[\min_{i}X_{i}\right]\leq\min_{i}\mathbf{E}\left[X_{i}\right]}}}
+\end{align*}
+
+\end_inset
+
+In the last inequality, 
+\begin_inset Formula $m$
+\end_inset
+
+ is arbitrary, so set 
+\begin_inset Formula $m\gets0$
+\end_inset
+
+, which leads to: 
+\begin_inset Formula 
+\[
+\mathbf{E}\left[\min_{i\in\{0,\ldots,k\}}f(x_{i})\right]-f(x_{\star})\leq\frac{\mathbf{E}\left[\|x_{0}-x_{\star}\|^{2}\right]+G^{2}\sum_{i=0}^{k}\alpha_{i}^{2}}{2\sum_{i=0}^{k}\alpha_{i}},
+\]
+
+\end_inset
+
+ so if we have 
+\begin_inset Formula $\sum_{i=0}^{k}\alpha_{i}^{2}<\infty$
+\end_inset
+
+ and 
+\begin_inset Formula $\sum_{i=0}^{k}\alpha_{i}=\infty$
+\end_inset
+
+, then we have 
+\begin_inset Formula 
+\[
+\mathbf{E}\left[\min_{i\in\{0,\ldots,k\}}f(x_{i})\right]\to f(x_{\star}).
+\]
+
+\end_inset
+
+ 
+\end_layout
+
+\end_body
+\end_document
