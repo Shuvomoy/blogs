@@ -19,7 +19,6 @@ In this blog, we study convergence of stochastic gradient method.
 ---
 
 ~~~
-<embed src="https://shuvomoy.github.io/assets/Sozi_presentations/BnB_PEP_poster_final.pdf" width="500" height="375" 
- type="application/pdf">
+<iframe src="https://shuvomoy.github.io/blogs/assets/Posts/2022_12_25_Proof_Stochastic_Gradient_Descent.pdf" style="min-height:100vh;width:100%" frameborder="0"></iframe>
 ~~~
 
