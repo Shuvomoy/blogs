@@ -134,12 +134,6 @@
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>shuvomoy.github.io/blogs/posts/Convergence_of_stochastic_subgradient_method/index.html</loc>
-    <lastmod>2022-12-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
     <loc>shuvomoy.github.io/blogs/posts/My-heart-skipped-a-beat-by-Nasir-Kazmi/index.html</loc>
     <lastmod>2022-12-28</lastmod>
     <changefreq>monthly</changefreq>
@@ -153,6 +147,12 @@
 </url>
 <url>
     <loc>shuvomoy.github.io/blogs/posts/An-understanding-by-Tagore/index.html</loc>
+    <lastmod>2022-12-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>shuvomoy.github.io/blogs/posts/Convergence_of_stochastic_gradient_method/index.html</loc>
     <lastmod>2022-12-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
