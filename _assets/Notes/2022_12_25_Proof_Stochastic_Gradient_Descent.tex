@@ -85,9 +85,9 @@ capable of producing a random vector $g_{k}$with the following properties:
 and
 \item (bounded variance) $\exists_{G>0}\;\forall_{k\geq0}\;\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]\leq G^{2}.$
 \end{itemize}
+\begin{algorithm}[h]
 {\small{}\hrulefill}{\small\par}
 
-\begin{algorithm}[h]
 {\small{}\hrulefill}{\small\par}
 
 \textbf{\small{}\uline{input:}}\textbf{\small{} }{\small{}$f$,
@@ -116,10 +116,10 @@ $\quad$$x_{k+1}\gets\Pi_{C}\left(x_{k}-\alpha_{k}g_{k}\right)$
 
 {\small{}\hrulefill}\caption{SGD to solve \eqref{eq:problem}}
 \label{alg:sgd}
-\end{algorithm}
- 
 
 {\small{}\hrulefill}{\small\par}
+\end{algorithm}
+ 
 
 \subsection*{Convergence analysis}
 
