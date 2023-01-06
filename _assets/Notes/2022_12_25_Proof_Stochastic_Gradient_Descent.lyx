@@ -117,23 +117,12 @@ Problem setup
 \begin_layout Standard
 We are interested in solving the problem
 \begin_inset Flex Marginnote
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
 \series bold
 Notation
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Formula $\Pi_{C}$
-\end_inset
-
-: projection onto the set 
-\begin_inset Formula $C$
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -411,10 +400,24 @@ ref{assum:oracle}
 \end_inset
 
 
-\begin_inset Formula $x_{k+1}\gets\Pi_{C}\left(x_{k}-\alpha_{k}g_{k}\right)$
+\begin_inset Formula $x_{k+1}\gets\Pi_{C}\left(x_{k}-\alpha_{k}g_{k}\right)\quad$
 \end_inset
 
+ 
+\family typewriter
+/*
+\family default
 
+\begin_inset Formula $\Pi_{C}$
+\end_inset
+
+: 
+\family typewriter
+projection onto the set 
+\begin_inset Formula $C$
+\end_inset
+
+/*
 \end_layout
 
 \begin_layout Plain Layout

@@ -47,17 +47,6 @@
 .pplr9d-x-x-80{font-size:80%;}
 .pplb9d-x-x-80{font-size:80%;font-weight: bold;}
 .pplb9d-x-x-80{font-weight: bold;}
-.pplr9t-x-x-80{font-size:80%;}
-.zplmr7m-x-x-80{font-size:80%;font-style: italic;}
-.zplmr7m-x-x-80{font-style: italic;}
-.zplmr7m-x-x-80{font-style: italic;}
-.zplmr7m-x-x-80{font-style: italic;}
-.zplmr7m-x-x-80{font-style: italic;}
-.zplmr7m-x-x-80{font-style: italic;}
-.zplmr7y-x-x-80{font-size:80%;}
-.zplmr7v-x-x-80{font-size:80%;}
-.zplmr7t-x-x-80{font-size:80%;}
-.msam-10x-x-83{font-size:83%;}
 .pplr9d-x-x-90{font-size:90%;}
 .pplb9d-x-x-90{font-size:90%;font-weight: bold;}
 .pplb9d-x-x-90{font-weight: bold;}
@@ -78,8 +67,19 @@
 .zplmr7y-x-x-90{font-size:90%;}
 .zplmr7t-x-x-90{font-size:90%;}
 .fplmbb-x-x-90{font-size:90%;}
+.pplr9t-x-x-80{font-size:80%;}
+.zplmr7m-x-x-80{font-size:80%;font-style: italic;}
+.zplmr7m-x-x-80{font-style: italic;}
+.zplmr7m-x-x-80{font-style: italic;}
+.zplmr7m-x-x-80{font-style: italic;}
+.zplmr7m-x-x-80{font-style: italic;}
+.zplmr7m-x-x-80{font-style: italic;}
+.zplmr7y-x-x-80{font-size:80%;}
+.zplmr7v-x-x-80{font-size:80%;}
 .zplmb7t-x-x-80{font-size:80%;font-weight: bold;}
 .zplmb7t-x-x-80{font-weight: bold;}
+.zplmr7t-x-x-80{font-size:80%;}
+.msam-10x-x-83{font-size:83%;}
 p{margin-top:0;margin-bottom:0}
 p.indent{text-indent:0;}
 p + p{margin-top:1em;}

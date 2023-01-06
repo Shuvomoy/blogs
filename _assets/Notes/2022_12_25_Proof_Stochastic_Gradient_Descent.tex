@@ -47,9 +47,7 @@
 
 \subsection*{Problem setup}
 
-We are interested in solving the problem\marginnote{\textbf{Notation}
-
-$\Pi_{C}$: projection onto the set $C$}
+We are interested in solving the problem\marginnote{\textbf{Notation}}
 \begin{equation}
 p^{\star}=\left(\begin{array}{ll}
 \underset{x\in\mathbb{R}^{d}}{\mbox{minimize}} & f(x)\\
@@ -108,7 +106,8 @@ $C$, iteration limit $K$}{\small\par}
 {\small{}$\quad$pick stepsizes $\alpha_{k}>0$ and random $g_{k}\in\mathbb{R}^{d}$
 satisfying Assumption \ref{assum:oracle}}{\small\par}
 
-$\quad$$x_{k+1}\gets\Pi_{C}\left(x_{k}-\alpha_{k}g_{k}\right)$
+$\quad$$x_{k+1}\gets\Pi_{C}\left(x_{k}-\alpha_{k}g_{k}\right)\quad$
+\texttt{/{*}}$\Pi_{C}$: \texttt{projection onto the set $C$/{*}}
 
 \textbf{\small{}end for}{\small\par}
 
