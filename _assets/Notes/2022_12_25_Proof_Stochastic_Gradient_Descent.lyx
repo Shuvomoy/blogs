@@ -241,6 +241,24 @@ with the following properties:
 \end_layout
 
 \begin_layout Standard
+
+\size small
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hrulefill
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float algorithm
 placement h
 wide false
@@ -319,6 +337,7 @@ algorithm:
 
 \series bold
 \size small
+\bar under
 1.
  initialization
 \series default
@@ -339,6 +358,7 @@ pick
 
 \series bold
 \size small
+\bar under
 2.
  main iteration:
 \end_layout
@@ -409,8 +429,11 @@ end for
 \series bold
 \size small
 3.
+
+\bar under
  return
 \series default
+\bar default
  
 \series bold
 

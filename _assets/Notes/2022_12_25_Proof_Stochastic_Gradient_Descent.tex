@@ -85,6 +85,8 @@ capable of producing a random vector $g_{k}$with the following properties:
 and
 \item (bounded variance) $\exists_{G>0}\;\forall_{k\geq0}\;\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]\leq G^{2}.$
 \end{itemize}
+{\small{}\hrulefill}{\small\par}
+
 \begin{algorithm}[h]
 {\small{}\hrulefill}{\small\par}
 
@@ -95,11 +97,11 @@ $C$, iteration limit $K$}{\small\par}
 
 \textbf{\small{}\uline{algorithm:}}{\small\par}
 
-\textbf{\small{}1. initialization}{\small{}:}{\small\par}
+\textbf{\small{}\uline{1. initialization}}{\small{}\uline{:}}{\small\par}
 
 {\small{}pick $x_{0}\in C$ arbitrarily}{\small\par}
 
-\textbf{\small{}2. main iteration:}{\small\par}
+\textbf{\small{}\uline{2. main iteration:}}{\small\par}
 
 \textbf{\small{}for}{\small{} $k=0,1,2,\ldots,K-1$}{\small\par}
 
@@ -110,7 +112,7 @@ $\quad$$x_{k+1}\gets\Pi_{C}\left(x_{k}-\alpha_{k}g_{k}\right)$
 
 \textbf{\small{}end for}{\small\par}
 
-\textbf{\small{}3. return}{\small{} }\textbf{\small{}$x_{K}$}{\small\par}
+\textbf{\small{}3.}\textbf{\small{}\uline{ return}}{\small{} }\textbf{\small{}$x_{K}$}{\small\par}
 
 {\small{}\hrulefill}\caption{SGD to solve \eqref{eq:problem}}
 \label{alg:sgd}
