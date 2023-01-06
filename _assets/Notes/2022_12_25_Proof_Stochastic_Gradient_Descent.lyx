@@ -110,10 +110,6 @@ theorems-ams
 
 \begin_body
 
-\begin_layout Section
-Algorithm description
-\end_layout
-
 \begin_layout Subsection*
 Problem setup
 \end_layout
@@ -249,25 +245,7 @@ with the following properties:
 placement h
 wide false
 sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\size small
-\begin_inset ERT
 status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-hrulefill
-\end_layout
-
-\end_inset
-
-
-\end_layout
 
 \begin_layout Plain Layout
 
@@ -488,6 +466,24 @@ name "alg:sgd"
 \end_inset
 
  
+\end_layout
+
+\begin_layout Standard
+
+\size small
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hrulefill
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection*
