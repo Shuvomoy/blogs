@@ -10,7 +10,7 @@
 
 In this blog, we study convergence of stochastic gradient method.
 
-```
+
 ~~~
 <!DOCTYPE html> 
 <html lang='en' xml:lang='en'> 
@@ -197,13 +197,11 @@ then we have </p><table class='equation-star'><tr><td>
 <!-- l. 185 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
                   <mstyle mathvariant='bold'><mi>E</mi></mstyle> <mrow><mo fence='true' form='prefix'> [</mo><mrow><munder class='msub'><mrow><mi class='qopname'>min</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo> </mrow><mrow><mi>i</mi><mo class='MathClass-rel'>∈</mo><mo class='MathClass-open' stretchy='false'>{</mo><mn>0</mn><mo class='MathClass-punc'>,</mo><mi class='qopname'>…</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><mo class='MathClass-punc'>,</mo><mi>k</mi><mo class='MathClass-close' stretchy='false'>}</mo></mrow></munder><mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow><mo fence='true' form='postfix'>]</mo></mrow> <mo class='MathClass-rel'>→</mo> <mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>⋆</mtext></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mi>.</mi>
 </mrow></math></td></tr></table>
-                                                           
-                                                           
-   
+                                                   
 </body> 
 </html>
 ~~~
-```
+
 
 ~~~
 <iframe src="https://shuvomoy.github.io/blogs/assets/Notes/2022_12_25_Proof_Stochastic_Gradient_Descent.pdf" style="min-height:100vh;width:150%"></iframe>
