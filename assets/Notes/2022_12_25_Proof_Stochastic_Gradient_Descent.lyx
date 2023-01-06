@@ -110,39 +110,16 @@ theorems-ams
 
 \begin_body
 
-\begin_layout Title
-Stochastic gradient descent proof
-\end_layout
-
-\begin_layout Author
-Shuvomoy Das Gupta
-\end_layout
-
-\begin_layout Abstract
-We study a simple proof of stochastic gradient descent.
- 
-\end_layout
-
 \begin_layout Section
 Algorithm description
 \end_layout
 
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-paragraph{{
-\backslash
-color{red}Problem setup.}}
+\begin_layout Subsection*
+Problem setup
 \end_layout
 
-\end_inset
-
- We are interested in solving the problem
+\begin_layout Standard
+We are interested in solving the problem
 \begin_inset Flex Marginnote
 status collapsed
 
@@ -179,24 +156,8 @@ p^{\star}=\left(\begin{array}{ll}
 where we have the following assumptions regarding the nature of the problem.
 \end_layout
 
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{assumption}[Structure of $
-\backslash
-mathcal{P}$]
-\backslash
-label{assum:problem}
-\end_layout
-
-\end_inset
-
-
+\begin_layout Subsection*
+Assumption 1
 \end_layout
 
 \begin_layout Standard
@@ -229,38 +190,12 @@ We assume:
  
 \end_layout
 
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{assumption}
-\end_layout
-
-\end_inset
-
-
+\begin_layout Subsection*
+Stochastic gradient descent
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-paragraph{{
-\backslash
-color{red}Stochastic gradient descent.}}
-\end_layout
-
-\end_inset
-
- The stochastic gradient descent (SGD) algorithm to solve 
+The stochastic gradient descent (SGD) algorithm to solve 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "eq:problem"
@@ -277,18 +212,89 @@ reference "alg:sgd"
 , where we make the following assumption regarding the nature of the oracle.
 \end_layout
 
+\begin_layout Subsection*
+Assumption 2
+\end_layout
+
+\begin_layout Standard
+We assume that given an iterate 
+\begin_inset Formula $x_{k}$
+\end_inset
+
+, the stochastic oracle is capable of producing a random vector 
+\begin_inset Formula $g_{k}$
+\end_inset
+
+with the following properties:
+\end_layout
+
+\begin_layout Itemize
+(unbiased) 
+\begin_inset Formula $\forall_{k\geq0}\;\mathbf{E}\left[g_{k}\mid x_{k}\right]\in\partial f(x_{k})$
+\end_inset
+
+, and
+\end_layout
+
+\begin_layout Itemize
+(bounded variance) 
+\begin_inset Formula $\exists_{G>0}\;\forall_{k\geq0}\;\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]\leq G^{2}.$
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float algorithm
 placement h
 wide false
 sideways false
+status collapsed
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset ERT
 status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hrulefill
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hrulefill
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \begin_layout Plain Layout
 
 \series bold
 \size small
-input: 
+\bar under
+input:
+\bar default
+ 
 \series default
 
 \begin_inset Formula $f$
@@ -327,6 +333,7 @@ hrulefill
 
 \series bold
 \size small
+\bar under
 algorithm:
 \end_layout
 
@@ -433,7 +440,24 @@ end for
 \end_inset
 
 
-\series default
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hrulefill
+\end_layout
+
+\end_inset
+
+
 \size default
 
 \begin_inset Caption Standard
@@ -466,84 +490,12 @@ name "alg:sgd"
  
 \end_layout
 
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{assumption}[Stochastic oracle]
-\backslash
-label{assum:oracle}
-\end_layout
-
-\end_inset
-
-
+\begin_layout Subsection*
+Convergence analysis
 \end_layout
 
 \begin_layout Standard
-We assume that given an iterate 
-\begin_inset Formula $x_{k}$
-\end_inset
-
-, the stochastic oracle is capable of producing a random vector 
-\begin_inset Formula $g_{k}$
-\end_inset
-
-with the following properties:
-\end_layout
-
-\begin_layout Itemize
-(unbiased) 
-\begin_inset Formula $\forall_{k\geq0}\;\mathbf{E}\left[g_{k}\mid x_{k}\right]\in\partial f(x_{k})$
-\end_inset
-
-, and
-\end_layout
-
-\begin_layout Itemize
-(bounded variance) 
-\begin_inset Formula $\exists_{G>0}\;\forall_{k\geq0}\;\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]\leq G^{2}.$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{assumption}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-paragraph{{
-\backslash
-color{red}Convergence analysis.}}
-\end_layout
-
-\end_inset
-
- First, note that, for all 
+First, note that, for all 
 \begin_inset Formula $k\geq0$
 \end_inset
 
@@ -558,7 +510,7 @@ color{red}Convergence analysis.}}
 \leq & \mathbf{E}\left[\overbrace{\|x_{k}-\alpha_{k}g_{k}-x_{\star}\|^{2}}^{=\|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}\|g_{k}\|^{2}-2\alpha_{k}\left\langle x_{k}-x_{\star};\,g_{k}\right\rangle }\mid x_{k}\right]\\
 = & \mathbf{E}\left[\|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}\|g_{k}\|^{2}-2\alpha_{k}\left\langle x_{k}-x_{\star};\,g_{k}\right\rangle \mid x_{k}\right]\\
 = & \mathbf{E}\left[\|x_{k}-x_{\star}\|^{2}\mid x_{k}\right]+\alpha_{k}^{2}\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]-2\alpha_{k}\mathbf{E}\left[\left\langle x_{k}-x_{\star};\,g_{k}\right\rangle \mid x_{k}\right]\mathnote{\textrm{\ensuremath{\rhd\;}using linearity of expectation}}\\
-= & \|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]-2\alpha_{k}\left\langle x_{k}-x_{\star};\,\mathbf{E}\left[g_{k}\mid x_{k}\right]\right\rangle \mathnote{\textrm{\ensuremath{\rhd\;}using "taking out what's known" rule \ensuremath{\mathbf{E}\left[h(X)Y\mid X\right]=h(X)\mathbf{E}\left[Y\mid X\right]}}}\\
+= & \|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]-2\alpha_{k}\left\langle x_{k}-x_{\star};\,\mathbf{E}\left[g_{k}\mid x_{k}\right]\right\rangle \mathnote{\textrm{\ensuremath{\rhd\;}using "taking out what's known" rule  \ensuremath{\;\mathbf{E}\left[h(X)Y\mid X\right]=h(X)\mathbf{E}\left[Y\mid X\right]}}}\\
 \leq & \|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}G^{2}-2\alpha_{k}\left\langle x_{k}-x_{\star};\,\mathbf{E}\left[g_{k}\mid x_{k}\right]\right\rangle \\
  & \quad\texttt{/*}\\
  & \quad\textrm{we have }\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]\ensuremath{\leq G^{2}}\\

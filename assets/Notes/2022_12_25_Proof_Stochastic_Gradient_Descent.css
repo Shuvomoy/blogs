@@ -43,20 +43,9 @@
 .zplmr7y-x-x-60{font-size:60%;}
 .zplmr7t-x-x-76{font-size:76%;}
 .zplmr7t-x-x-60{font-size:60%;}
-.pplri9d-x-x-144{font-size:144%;font-style: italic;}
-.pplri9d-x-x-144{font-style: italic;}
-.pplri9d-x-x-144{font-style: italic;}
-.pplri9d-x-x-120{font-size:120%;font-style: italic;}
-.pplri9d-x-x-120{font-style: italic;}
-.pplri9d-x-x-120{font-style: italic;}
-.pplr9d-x-x-90{font-size:90%;}
 .fvmr8t-x-x-85{font-size:85%;font-family: monospace,monospace;}
-.pplb9d-{font-weight: bold;}
-.pplb9d-{font-weight: bold;}
-.pplb9d-{font-weight: bold;}
 .pplr9d-x-x-80{font-size:80%;}
 .pplb9d-x-x-80{font-size:80%;font-weight: bold;}
-.pplb9d-x-x-80{font-weight: bold;}
 .pplb9d-x-x-80{font-weight: bold;}
 .pplr9t-x-x-80{font-size:80%;}
 .zplmr7m-x-x-80{font-size:80%;font-style: italic;}
@@ -69,11 +58,8 @@
 .zplmr7v-x-x-80{font-size:80%;}
 .zplmr7t-x-x-80{font-size:80%;}
 .msam-10x-x-83{font-size:83%;}
-.pplri9d-{font-style: italic;}
-.pplri9d-{font-style: italic;}
-.pplri9d-{font-style: italic;}
+.pplr9d-x-x-90{font-size:90%;}
 .pplb9d-x-x-90{font-size:90%;font-weight: bold;}
-.pplb9d-x-x-90{font-weight: bold;}
 .pplb9d-x-x-90{font-weight: bold;}
 .pplr9t-x-x-90{font-size:90%;}
 .pplr9t-x-x-70{font-size:70%;}
@@ -221,5 +207,15 @@ table.equation-star { width:100%; }
 mtd.align-odd{margin-left:2em; text-align:right;}
 mtd.align-even{margin-right:2em; text-align:left;}
 .boxed{border: 1px solid black; padding-left:2px; padding-right:2px;}
+.uline,.uline-math{ text-decoration:underline; }
+.uuline,.uuline-math{ text-decoration:underline double; }
+span.sout, .sout-math {text-decoration: line-through }
+span.xout, .xout-math {text-decoration: line-through underline }
+span.uwave, .uwave-math {text-decoration:underline wavy; }
+span.dashuline, .dashuline-math {text-decoration:underline dashed;}
+span.dotuline, .dotuline-math {text-decoration:underline dotted;}
+.uuline-math{ border-bottom:3px double black; }
+.dashuline-math {border-bottom: 1px dashed black;}
+.dotuline-math {border-bottom: 1px dotted black;}
 /* end css.sty */
 
