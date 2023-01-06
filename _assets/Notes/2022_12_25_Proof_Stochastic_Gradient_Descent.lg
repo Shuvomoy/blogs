@@ -5,13 +5,9 @@ htfcss: cmmi font-style: italic;
 htfcss: cmmib font-style: italic; font-weight: bold;
 htfcss: zplmr7m font-style: italic;
 htfcss: pplb9d font-weight: bold;
-htfcss: pplri9d font-style: italic;
 htfcss: zplmr7m font-style: italic;
 htfcss: pplb9d font-weight: bold;
-htfcss: pplb9d font-weight: bold;
 htfcss: fvmr8t font-family: monospace,monospace;
-htfcss: pplri9d font-style: italic;
-htfcss: pplri9d font-style: italic;
 htfcss: zplmr7m font-style: italic;
 htfcss: zplmr7m font-style: italic;
 htfcss: zplmr7m font-style: italic;
@@ -155,6 +151,16 @@ Css: table.equation-star { width:100%; }
 Css: mtd.align-odd{margin-left:2em; text-align:right;}
 Css: mtd.align-even{margin-right:2em; text-align:left;}
 Css: .boxed{border: 1px solid black; padding-left:2px; padding-right:2px;}
+Css: .uline,.uline-math{ text-decoration:underline; }
+Css: .uuline,.uuline-math{ text-decoration:underline double; }
+Css: span.sout, .sout-math {text-decoration: line-through }
+Css: span.xout, .xout-math {text-decoration: line-through underline }
+Css: span.uwave, .uwave-math {text-decoration:underline wavy; }
+Css: span.dashuline, .dashuline-math {text-decoration:underline dashed;}
+Css: span.dotuline, .dotuline-math {text-decoration:underline dotted;}
+Css: .uuline-math{ border-bottom:3px double black; }
+Css: .dashuline-math {border-bottom: 1px dashed black;}
+Css: .dotuline-math {border-bottom: 1px dotted black;}
 --- characters ---
 Font("pplr9d","","10","100")
 Font("zplmb7y","","10","100")
@@ -185,11 +191,7 @@ Font("zplmr7y","","10","60")
 Font("zplmr7t","","10","100")
 Font("zplmr7t","","10","76")
 Font("zplmr7t","","10","60")
-Font("pplri9d","","10","144")
-Font("pplri9d","","10","120")
-Font("pplr9d","","10","90")
 Font("fvmr8t","","10","85")
-Font("pplb9d","","10","100")
 Font("pplr9d","","10","80")
 Font("pplb9d","","10","80")
 Font("pplr9t","","10","80")
@@ -199,7 +201,7 @@ Font("zplmr7v","","10","80")
 Font("zplmr7t","","10","80")
 Font("msam","10","10","83")
 Font("fplmbb","","10","100")
-Font("pplri9d","","10","100")
+Font("pplr9d","","10","90")
 Font("pplb9d","","10","90")
 Font("pplr9t","","10","90")
 Font("pplr9t","","10","70")

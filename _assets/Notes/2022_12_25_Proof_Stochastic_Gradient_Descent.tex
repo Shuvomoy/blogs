@@ -9,6 +9,8 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
+\PassOptionsToPackage{normalem}{ulem}
+\usepackage{ulem}
 \usepackage[unicode=true,pdfusetitle,
  bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,
  breaklinks=true,pdfborder={0 0 0},pdfborderstyle={},backref=false,colorlinks=false]
@@ -17,11 +19,6 @@
 \makeatletter
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
-
-\title{Stochastic gradient descent proof}
-
-\author{Shuvomoy Das Gupta}
-
 \floatstyle{ruled}
 \newfloat{algorithm}{tbp}{loa}
 \providecommand{\algorithmname}{Algorithm}
@@ -47,15 +44,12 @@
 \makeatother
 
 \begin{document}
-\maketitle
-\begin{abstract}
-We study a simple proof of stochastic gradient descent. 
-\end{abstract}
 
 \section{Algorithm description}
 
-\paragraph{{\color{red}Problem setup.}} We are interested in solving
-the problem\marginnote{\textbf{Notation}
+\subsection*{Problem setup}
+
+We are interested in solving the problem\marginnote{\textbf{Notation}
 
 $\Pi_{C}$: projection onto the set $C$}
 \begin{equation}
@@ -67,7 +61,7 @@ p^{\star}=\left(\begin{array}{ll}
 where we have the following assumptions regarding the nature of the
 problem.
 
-\begin{assumption}[Structure of $\mathcal{P}$]\label{assum:problem}
+\subsection*{Assumption 1}
 
 We assume:
 \begin{itemize}
@@ -77,19 +71,33 @@ function,
 and 
 \item $\textrm{argmin}f(C)=X^{\star}\neq\emptyset$. 
 \end{itemize}
-\end{assumption}
 
-\paragraph{{\color{red}Stochastic gradient descent.}} The stochastic
-gradient descent (SGD) algorithm to solve \eqref{eq:problem} is described
-by Algorithm \ref{alg:sgd}, where we make the following assumption
-regarding the nature of the oracle.
+\subsection*{Stochastic gradient descent}
 
+The stochastic gradient descent (SGD) algorithm to solve \eqref{eq:problem}
+is described by Algorithm \ref{alg:sgd}, where we make the following
+assumption regarding the nature of the oracle.
+
+\subsection*{Assumption 2}
+
+We assume that given an iterate $x_{k}$, the stochastic oracle is
+capable of producing a random vector $g_{k}$with the following properties:
+\begin{itemize}
+\item (unbiased) $\forall_{k\geq0}\;\mathbf{E}\left[g_{k}\mid x_{k}\right]\in\partial f(x_{k})$,
+and
+\item (bounded variance) $\exists_{G>0}\;\forall_{k\geq0}\;\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]\leq G^{2}.$
+\end{itemize}
 \begin{algorithm}[h]
-\textbf{\small{}input: }{\small{}$f$, $C$, iteration limit $K$}{\small\par}
+{\small{}\hrulefill}{\small\par}
 
 {\small{}\hrulefill}{\small\par}
 
-\textbf{\small{}algorithm:}{\small\par}
+\textbf{\small{}\uline{input:}}\textbf{\small{} }{\small{}$f$,
+$C$, iteration limit $K$}{\small\par}
+
+{\small{}\hrulefill}{\small\par}
+
+\textbf{\small{}\uline{algorithm:}}{\small\par}
 
 \textbf{\small{}1. initialization}{\small{}:}{\small\par}
 
@@ -106,24 +114,16 @@ $\quad$$x_{k+1}\gets\Pi_{C}\left(x_{k}-\alpha_{k}g_{k}\right)$
 
 \textbf{\small{}end for}{\small\par}
 
-\textbf{\small{}3. return}{\small{} }\textbf{\small{}$x_{K}$}\caption{SGD to solve \eqref{eq:problem}}
+\textbf{\small{}3. return}{\small{} }\textbf{\small{}$x_{K}$}{\small\par}
+
+{\small{}\hrulefill}\caption{SGD to solve \eqref{eq:problem}}
 \label{alg:sgd}
 \end{algorithm}
  
 
-\begin{assumption}[Stochastic oracle]\label{assum:oracle}
+\subsection*{Convergence analysis}
 
-We assume that given an iterate $x_{k}$, the stochastic oracle is
-capable of producing a random vector $g_{k}$with the following properties:
-\begin{itemize}
-\item (unbiased) $\forall_{k\geq0}\;\mathbf{E}\left[g_{k}\mid x_{k}\right]\in\partial f(x_{k})$,
-and
-\item (bounded variance) $\exists_{G>0}\;\forall_{k\geq0}\;\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]\leq G^{2}.$
-\end{itemize}
-\end{assumption}
-
-\paragraph{{\color{red}Convergence analysis.}} First, note that,
-for all $k\geq0$:
+First, note that, for all $k\geq0$:
 
 \begin{align*}
  & \mathbf{E}\left[\|\overbrace{x_{k+1}}^{=\Pi_{C}(x_{k}-\alpha_{k}g_{k})}-\overbrace{x_{\star}}^{=\Pi_{C}(x_{\star})}\|^{2}\mid x_{k}\right]\\
@@ -131,7 +131,7 @@ for all $k\geq0$:
 \leq & \mathbf{E}\left[\overbrace{\|x_{k}-\alpha_{k}g_{k}-x_{\star}\|^{2}}^{=\|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}\|g_{k}\|^{2}-2\alpha_{k}\left\langle x_{k}-x_{\star};\,g_{k}\right\rangle }\mid x_{k}\right]\\
 = & \mathbf{E}\left[\|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}\|g_{k}\|^{2}-2\alpha_{k}\left\langle x_{k}-x_{\star};\,g_{k}\right\rangle \mid x_{k}\right]\\
 = & \mathbf{E}\left[\|x_{k}-x_{\star}\|^{2}\mid x_{k}\right]+\alpha_{k}^{2}\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]-2\alpha_{k}\mathbf{E}\left[\left\langle x_{k}-x_{\star};\,g_{k}\right\rangle \mid x_{k}\right]\mathnote{\textrm{\ensuremath{\rhd\;}using linearity of expectation}}\\
-= & \|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]-2\alpha_{k}\left\langle x_{k}-x_{\star};\,\mathbf{E}\left[g_{k}\mid x_{k}\right]\right\rangle \mathnote{\textrm{\ensuremath{\rhd\;}using "taking out what's known" rule \ensuremath{\mathbf{E}\left[h(X)Y\mid X\right]=h(X)\mathbf{E}\left[Y\mid X\right]}}}\\
+= & \|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]-2\alpha_{k}\left\langle x_{k}-x_{\star};\,\mathbf{E}\left[g_{k}\mid x_{k}\right]\right\rangle \mathnote{\textrm{\ensuremath{\rhd\;}using "taking out what's known" rule  \ensuremath{\;\mathbf{E}\left[h(X)Y\mid X\right]=h(X)\mathbf{E}\left[Y\mid X\right]}}}\\
 \leq & \|x_{k}-x_{\star}\|^{2}+\alpha_{k}^{2}G^{2}-2\alpha_{k}\left\langle x_{k}-x_{\star};\,\mathbf{E}\left[g_{k}\mid x_{k}\right]\right\rangle \\
  & \quad\texttt{/*}\\
  & \quad\textrm{we have }\mathbf{E}\left[\|g_{k}\|^{2}\mid x_{k}\right]\ensuremath{\leq G^{2}}\\
