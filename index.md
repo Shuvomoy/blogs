@@ -25,7 +25,7 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 
 ## [Posts]( #posts)
 
-* *(2023-01-06)* [Converting latex to html to markdown for Jekyll-based blogs](posts/Converting-latex-to-html.md)
+* *(2023-01-06)* [Converting latex to html to markdown for Jekyll-based blogs](posts/Converting-latex-to-html)
 
 * *(2022-12-27)* [Convergence of stochastic gradient descent](posts/Convergence_of_stochastic_gradient_method)
 
