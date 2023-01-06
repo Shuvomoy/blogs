@@ -1,8 +1,8 @@
 \expandafter\ifx\csname doTocEntry\endcsname\relax \expandafter\endinput\fi 
 \doTocEntry\toclikesubsection{}{\csname a:TocLink\endcsname{1}{x1-1000}{QQ2-1-1}{Problem setup}}{1}\relax 
 \doTocEntry\toclikesubsection{}{\csname a:TocLink\endcsname{1}{x1-2000}{QQ2-1-2}{Assumption 1}}{1}\relax 
-\doTocEntry\toclikesubsection{}{\csname a:TocLink\endcsname{1}{x1-3000}{QQ2-1-3}{Stochastic gradient descent}}{2}\relax 
+\doTocEntry\toclikesubsection{}{\csname a:TocLink\endcsname{1}{x1-3000}{QQ2-1-3}{Stochastic gradient descent}}{1}\relax 
 \doTocEntry\toclikesubsection{}{\csname a:TocLink\endcsname{1}{x1-4000}{QQ2-1-4}{Assumption 2}}{2}\relax 
 \doTocEntry\tocloa{1}{\csname a:TocLink\endcsname{1}{x1-4001r1}{}{\ignorespaces SGD to solve \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \o:ref {eq:problem}\unskip \@@italiccorr )}}}}{algorithm}\relax 
-\doTocEntry\toclikesubsection{}{\csname a:TocLink\endcsname{1}{x1-5000}{QQ2-1-6}{Convergence analysis}}{5}\relax 
+\doTocEntry\toclikesubsection{}{\csname a:TocLink\endcsname{1}{x1-5000}{QQ2-1-6}{Convergence analysis}}{4}\relax 
 \par 

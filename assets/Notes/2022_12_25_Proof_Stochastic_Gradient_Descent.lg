@@ -1,11 +1,11 @@
-htfcss: zplmb7t font-weight: bold;
 htfcss: pplb9o font-weight: bold;
+htfcss: zplmb7t font-weight: bold;
 htfcss: zplmr7m font-style: italic;
 htfcss: cmmi font-style: italic;
 htfcss: cmmib font-style: italic; font-weight: bold;
 htfcss: zplmr7m font-style: italic;
-htfcss: pplb9d font-weight: bold;
 htfcss: zplmr7m font-style: italic;
+htfcss: pplb9d font-weight: bold;
 htfcss: pplb9d font-weight: bold;
 htfcss: fvmr8t font-family: monospace,monospace;
 htfcss: zplmr7m font-style: italic;
@@ -194,12 +194,6 @@ Font("zplmr7t","","10","60")
 Font("fvmr8t","","10","85")
 Font("pplr9d","","10","80")
 Font("pplb9d","","10","80")
-Font("pplr9t","","10","80")
-Font("zplmr7m","","10","80")
-Font("zplmr7y","","10","80")
-Font("zplmr7v","","10","80")
-Font("zplmr7t","","10","80")
-Font("msam","10","10","83")
 Font("fplmbb","","10","100")
 Font("pplr9d","","10","90")
 Font("pplb9d","","10","90")
@@ -210,4 +204,10 @@ Font("zplmr7m","","10","70")
 Font("zplmr7y","","10","90")
 Font("zplmr7t","","10","90")
 Font("fplmbb","","10","90")
+Font("pplr9t","","10","80")
+Font("zplmr7m","","10","80")
+Font("zplmr7y","","10","80")
+Font("zplmr7v","","10","80")
 Font("zplmb7t","","10","80")
+Font("zplmr7t","","10","80")
+Font("msam","10","10","83")
