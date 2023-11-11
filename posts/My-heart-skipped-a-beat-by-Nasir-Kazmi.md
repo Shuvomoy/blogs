@@ -33,15 +33,21 @@ Ham bohat roye woh jab yaad aayaa\
 
 \
 
-My heart skipped a beat suddenly today,\
-And I remembered you, my beloved! \
+The reason my heart began to beat, I now recall,\
+It was your memory that came to visit, after all.\
+
 \
-I wanted to express the state of my heart,\
-But when that time came, you were not in my life.\
+
+My heart's tale I would have shared, but only then,\
+When you departed, did it come to mind again.\
+
 \
-Keeping up appearances was not so easy in that moment\
-My heart could think of only you, when I tried not to.\
+
+Today was tough, my friend, to keep my poise and stance,\
+In troubled times, your memory came like a trance.\
+
 \
-Sitting in a shadow of tranquility today,\
-This lonely heart  bleeds at your remembrance.\
+
+Sitting in the shade of blooms, 'Nasir', as I do,\
+I wept a lot when your memory into view.\
 
