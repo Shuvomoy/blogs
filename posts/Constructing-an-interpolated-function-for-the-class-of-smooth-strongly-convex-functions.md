@@ -10,7 +10,7 @@
 
 *December 1, 2021*
 
-In this blog, we study constructing an interpolated smooth and strongly convex function from a set of points due to Yoel Drori and Adrien Taylor from`[4]`.
+In this blog, we study constructing an interpolated smooth and strongly convex function from a set of points. The problem is studied by Yoel Drori and Adrien Taylor from`[4]`.
 
 ---
 **Table of contents**
@@ -139,7 +139,7 @@ where $\Delta=\{\beta\in\mathbf{R}^{\vert I\vert}\mid\beta\geq0,\sum_{i\in I}\be
 
 ## Main result.
 
-Now we are in a position to state our main result due to Yoel Drori and Adrien Taylor from`[4, Theorem 1]` followed by its proof. Their proof is direct and the proof we present here is based on interpolation argument.
+Now we are in a position to state our main result. The results appeared first in the paper by Yoel Drori and Adrien Taylor from`[4, Theorem 1]`. The proof we present here is based on interpolation argument.
 
 
 
