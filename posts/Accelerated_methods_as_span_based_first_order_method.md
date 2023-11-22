@@ -1,12 +1,12 @@
 @def title = "Accelerated first-order methods as span-based first-order methods: conversion between momentum form and standard form"   
-@def published = "August 06, 2022"   
+@def published = "July 23, 2023"   
 @def tags =["programming", "Mathematica", "performance-estimation-problem", "Julia"]  
 
 # Accelerated first-order methods as span-based first-order methods: conversion between momentum form and standard form
 
 **Shuvomoy Das Gupta**
 
-*August 06, 2022*
+*July 23, 2023*
 
 In this blog, we discuss how to write accelerated first-order methods as span-based first-order methods.
 
