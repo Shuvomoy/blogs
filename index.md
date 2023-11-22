@@ -26,12 +26,10 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 ## [Posts]( #posts)
 
 * *(2023-01-06)* [Converting latex to html to markdown for Jekyll-based blogs](posts/Converting-latex-to-html)
-
 * *(2022-12-27)* [Convergence of stochastic gradient descent](posts/Convergence_of_stochastic_gradient_method)
-
 * *(2022-10-03)* [Materials for the poster at the Cornell Young Researchers Workshop 2022](posts/Cornell_Young_Researchers_Workshop)
 * *(2022-08-30)* [Solving bilinear optimization problems using `Alpine.jl`](posts/solving_bilinear_optimization_problems_using_Alpine)
-- *(2021-08-06)* [Accelerated first-order methods as span-based first-order methods](posts/Accelerated_methods_as_span_based_first_order_method/)
+- *(2022-08-06)* [Accelerated first-order methods as span-based first-order methods](posts/Accelerated_methods_as_span_based_first_order_method/)
 * *(2022-06-06)* [Installing KNITRO in MacOS](posts/Installing-KNITRO-in-MacOS)
 * *(2022-05-16)* [Reproducing Optimized Gradient Method (OGM) in Julia+JuMP](posts/Reproducing_OGM_in_Julia)
 * *(2022-04-27)* [Automated SDP relaxation of QCQPs in JuMP+Julia](posts/Automatic_sdp_relaxation_of_QCQP_in_JuMP_Julia/)
@@ -39,7 +37,6 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 * *(2022-03-09)* [Solving bilinear optimization problem using JuMP](posts/Solving_bilinear_optimization_problem_using_JuMP)
 * *(2022-03-01)* [Favorite quotes and excerpts](posts/Quotes-and-excerpts/)
 * *(2022-02-02)* [Tutorial on Optimization in Julia for MIT IAP course 15.S60: Computing in Optimization and Statistics (2022)](posts/MIT_IAP_shuvos_tutorial)
-
 - *(2021-12-01)* [Constructing an interpolated function for the class of smooth strongly convex functions](posts/Constructing-an-interpolated-function-for-the-class-of-smooth-strongly-convex-functions)
 - *(2021-11-30)* [Publication-quality plots in Julia using PGFPlotsX](posts/Publication-quality-plots-in-Julia-using-PGFPlotsX)
 - *(2021-11-24)* [Properties of smooth nonconvex interpolated functions](posts/Properties_of_rho_smooth_nonconvex_interpolation_functions)
