@@ -31,6 +31,7 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 
 * *(2022-10-03)* [Materials for the poster at the Cornell Young Researchers Workshop 2022](posts/Cornell_Young_Researchers_Workshop)
 * *(2022-08-30)* [Solving bilinear optimization problems using `Alpine.jl`](posts/solving_bilinear_optimization_problems_using_Alpine)
+- *(2021-08-06)* [Accelerated first-order methods as span-based first-order methods](posts/Accelerated_methods_as_span_based_first_order_method/)
 * *(2022-06-06)* [Installing KNITRO in MacOS](posts/Installing-KNITRO-in-MacOS)
 * *(2022-05-16)* [Reproducing Optimized Gradient Method (OGM) in Julia+JuMP](posts/Reproducing_OGM_in_Julia)
 * *(2022-04-27)* [Automated SDP relaxation of QCQPs in JuMP+Julia](posts/Automatic_sdp_relaxation_of_QCQP_in_JuMP_Julia/)
@@ -47,7 +48,6 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 - *(2021-11-08)* [A lower-complexity bound for the class of convex and Lipschitz continuous functions](posts/A-lower-complexity-bound-for-the-class-of-convex-and-Lipschitz-continuous-functions/)
 - *(2021-08-26)* [Tips and tricks in Mathematica](posts/Tips_and_tricks_in_Mathematica/)
 - *(2021-08-24)* [“An Understanding” by Rabindranath Tagore](posts/An-understanding-by-Tagore/)
-- *(2021-08-06)* [Accelerated first-order methods as fixed-step first-order methods](posts/Accelerated_methods_as_fixed_step_first_order_method/)
 - *(2021-07-30)* [Geometry of a prox-regular set](posts/Geometry-of-proxregular-set/)
 - *(2021-07-10)* [Solving mixed integer programming (MIP) problems using Julia+JuMP](posts/Solving_mixed_integer_programming_problems_in_JuMP_and_Gurobi/)
 - *(2021-02-03)* [Solving transportation problems in Julia+JuMP](posts/Solving-transportation-problem-in-Julia-Jump/)
