@@ -6,7 +6,10 @@
 <div class="row">
   <div class="container">
     <img class="left" <img style="width: 300px; height: 350px;"
-	@@ -14,59 +13,100 @@
+ src="/assets/photo-2023.jpeg" alt="sdg">
+    <p> <br /> <br /> <br /> <br /> <br />
+        Shuvomoy Das Gupta  <br />
+        Ph.D. Student<br />
         <a href="https://orc.mit.edu/">Operations Research Center</a><br />
         <a href="http://www.mit.edu/">MIT</a><br />
         Email:<a href="mailto:sdgupta@mit.edu"> sdgupta@mit.edu</a><br />

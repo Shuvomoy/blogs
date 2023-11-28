@@ -21,7 +21,7 @@ In this blog, we discuss how to write accelerated first-order methods as span-ba
 ## Converting between momentum-form and and standard form of span-based first-order method
 
 Consider a $L$-smooth function. ​Span-based first order methods for this function $f$ are algorithms of the form (called the standard form)
-$$x_{k}=x_{0}-\sum_{j=0}^{k-1}\frac{h_{k,j}}{L}\nabla f(x_{j}),\quad\textrm{(FSFOM)}$$​​​ 
+$$x_{k}=x_{0}-\sum_{j=0}^{k-1}\frac{h_{k,j}}{L}\nabla f(x_{j}),\quad\textrm{(SBFOM)}$$​​​ 
 where $k\in\{1,\ldots,N\}$ and $x_0$ is the initial point​​​.
 
 Also, we have the following "momentum form" of the span-based first-order method, where $i\in \{0,\ldots, N-1\}$.
@@ -33,7 +33,7 @@ x_{i+1} & =y_{i+1}+\zeta_{i+1}(y_{i+1}-y_{i})+\eta_{i+1}(y_{i+1}-x_{i}),
 \end{array}\quad(\textrm{MomentumForm)}
 \end{align*}
 $$
-which we show to be equivalent to (FSFOM). To show that (MomentumForm) is in the form (FSFOM), we put, the iterative form $y_{+1}$​​ and $y_{i}$​​ in terms of the $x$​​ iterates in the second iterate. For simplification purpose, denote $g_{i}=\nabla f(x_{i})$​​​. We get:
+which we show to be equivalent to (SBFOM). To show that (MomentumForm) is in the form (SBFOM), we put, the iterative form $y_{+1}$​​ and $y_{i}$​​ in terms of the $x$​​ iterates in the second iterate. For simplification purpose, denote $g_{i}=\nabla f(x_{i})$​​​. We get:
 $$
 \begin{align*}
 x_{i+1}=x_{i}+\zeta_{i+1}\left(x_{i}-x_{i-1}\right)-\frac{\left(\zeta_{i+1}+\eta_{i+1}+1\right)}{L}g_{i}+\frac{\zeta_{i+1}}{L}g_{i-1},\quad \textrm{(MOM-SIMP)}
@@ -66,7 +66,7 @@ term1 = Collect[Subscript[x,
 
 ![image-20220111155941105](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Accelerated_methods_as_fixed_step_first_order_method.assets/image-20220111154904525.png)
 
-Now from (FSFOM):
+Now from (SBFOM):
 $$\begin{align*}
 x_{i} & =x_{0}-\sum_{j=0}^{i-1}\frac{h_{i,j}}{L}g_{j},\\
 x_{i-1} & =x_{0}-\sum_{j=0}^{i-2}\frac{h_{i-1,j}}{L}g_{j},\end{align*}$$​​
@@ -80,7 +80,7 @@ $$
 \begin{align*}
  & x_{i+1}\\
 = & x_{i}-\zeta_{i+1}\sum_{j=0}^{i-2}\frac{\left(h_{i,j}-h_{i-1,j}\right)}{L}g_{j}-\frac{\zeta_{i+1}\left(h_{i,i-1}-1\right)}{L}g_{i-1}-\frac{\left(\zeta_{i+1}+\eta_{i+1}+1\right)}{L}g_{i},
-\end{align*} \quad \textrm{(FSFOM-A)}
+\end{align*} \quad \textrm{(SBFOM-A)}
 $$
 where the Mathematica code for the simplification is shown below: 
 
@@ -100,11 +100,11 @@ term3 = Collect[term2, {Subscript[g, i], Subscript[g, i - 1]},
 
 ![image-20220111155941105](https://raw.githubusercontent.com/Shuvomoy/blogs/master/posts/Accelerated_methods_as_fixed_step_first_order_method.assets/image-20220111155941105.png)
 
-Recall that, using (Diff-x) any (FSFOM) satisfying sequence will obey: 
+Recall that, using (Diff-x) any (SBFOM) satisfying sequence will obey: 
 
 \nonumber{$$x_{i+1}=x_{i}-\sum_{j=0}^{i-1}\frac{(h_{i+1,j}-h_{i,j})}{L}g_{j}-\frac{h_{i+1,i}}{L}g_{i}\quad \textrm{(Diff-x-2)}$$}
 
-Note that (Diff-x-2) and (FSFOM-A) are in the same format now for a pattern matching. Comparing the terms part by part, we get the following recursive system for $i\in [0:N-1]$
+Note that (Diff-x-2) and (SBFOM-A) are in the same format now for a pattern matching. Comparing the terms part by part, we get the following recursive system for $i\in [0:N-1]$
 ​
 $$
 \begin{align*}\forall_{j\in[0:i-2]}\quad h_{i+1,j} & -h_{i,j}=\zeta_{i+1}\left(h_{i,j}-h_{i-1,j}\right)\\
@@ -576,8 +576,8 @@ So, we have the following "*momentum form*" of (OGM):
 y_{i+1} & =x_{i}-\frac{1}{L}\nabla f(x_{i})\\
 x_{i+1} & =y_{i+1}+\frac{\theta_{i}-1}{\theta_{i+1}}(y_{i+1}-y_{i})+\frac{\theta_{i}}{\theta_{i+1}}(y_{i+1}-x_{i}),
 \end{array}\quad(\textrm{MomentumOGM)}$$}​ 
-which we show to be equivalent to (FSFOM).
-To show that (MomentumOGM) is in the form (FSFOM), we put, the iterative form $y_{+1}$ and $y_{i}$ in terms of the $x$ iterates in the second iterate. For simplification purpose, denote $g_{i}=\nabla f(x_{i})$. We get:
+which we show to be equivalent to (SBFOM).
+To show that (MomentumOGM) is in the form (SBFOM), we put, the iterative form $y_{+1}$ and $y_{i}$ in terms of the $x$ iterates in the second iterate. For simplification purpose, denote $g_{i}=\nabla f(x_{i})$. We get:
 
 ```julia
 Subscript[y, 1 + i] = Subscript[x, i] - Subscript[g, i]/L;
@@ -599,7 +599,7 @@ Collect[Subscript[x,
 
 \nonumber{$$x_{i+1}=x_{i}+\frac{\left(\theta_{i}-1\right)\left(x_{i}-x_{i-1}\right)}{\theta_{i+1}}+\frac{g_{i-1}\left(\theta_{i}-1\right)}{L\theta_{i+1}}-\frac{g_{i}\left(2\theta_{i}+\theta_{i+1}-1\right)}{L\theta_{i+1}}\quad(1)$$}
 
-Now from (FSFOM):
+Now from (SBFOM):
 $$\begin{align*}
 x_{i} & =x_{0}-\sum_{j=0}^{i-1}\frac{h_{i,j}}{L}g_{j},\\
 x_{i-1} & =x_{0}-\sum_{j=0}^{i-2}\frac{h_{i-1,j}}{L}g_{j},\end{align*}$$​
@@ -644,10 +644,10 @@ i]+Subscript[\[Theta], 1+i]))/(L Subscript[\[Theta], \
 
 $$\begin{align*}
 x_{i+1} & =x_{i}-\frac{\left(\theta_{i}-1\right)}{\theta_{i+1}}\sum_{j=0}^{i-2}\frac{\left(h_{i,j}-h_{i-1,j}\right)}{L}g_{j}\\
- & -\frac{\left(\theta_{i}-1\right)\left(h_{i,i-1}-1\right)}{L\theta_{i+1}}g_{i-1}-\frac{\left(2\theta_{i}+\theta_{i+1}-1\right)}{L\theta_{i+1}}g_{i}.\quad(\textrm{FSFOM-OGM})\end{align*}$$​
-Recall that, using (2) any (FSFOM) satisfying sequence will obey: 
+ & -\frac{\left(\theta_{i}-1\right)\left(h_{i,i-1}-1\right)}{L\theta_{i+1}}g_{i-1}-\frac{\left(2\theta_{i}+\theta_{i+1}-1\right)}{L\theta_{i+1}}g_{i}.\quad(\textrm{SBFOM-OGM})\end{align*}$$​
+Recall that, using (2) any (SBFOM) satisfying sequence will obey: 
 $$x_{i+1}=x_{i}-\sum_{j=0}^{i-1}\frac{(h_{i+1,j}-h_{i,j})}{L}g_{j}-\frac{h_{i+1,i}}{L}g_{i}\quad(3)$$​
-Note that (3) and (FSFOM-OGM) are in the same format now for a pattern matching. Comparing the terms part by part, we get the following recursive system: 
+Note that (3) and (SBFOM-OGM) are in the same format now for a pattern matching. Comparing the terms part by part, we get the following recursive system: 
 $$\begin{align*}
 \forall_{j\in[0:i-2]}\quad h_{i+1,j} & -h_{i,j}=\frac{\left(\theta_{i}-1\right)}{\theta_{i+1}}\left(h_{i,j}-h_{i-1,j}\right)\\
 h_{i+1,i-1}-h_{i,i-1} & =\frac{\left(\theta_{i}-1\right)\left(h_{i,i-1}-1\right)}{\theta_{i+1}}\\
