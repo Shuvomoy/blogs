@@ -31,11 +31,11 @@ That's it, the markdown file can be used as a blog post in Jekyll based website.
 
 #### `.pdf` to `.html`
 
-For converting pdf to html in a linux based OS, do the following steps:
+For converting pdf to html in a linux based OS (or [Linux on Windows with WSL](https://learn.microsoft.com/en-us/windows/wsl/install)), do the following steps:
 
 * install `ttfautohint` by inputting the following in terminal `sudo apt install ttfautohint`
 
 * install `pdf2htmlEX` from the link [https://shuvomoy.github.io/blogs/assets/pdf2htmlEX/pdf2htmlEX-0.18.8.rc1-master-20200630-Ubuntu-focal-x86_64.deb] (download the deb and then install it via package manager or by inputting `sudo dpkg -i pdf2htmlEX-0.18.8.rc1-master-20200630-Ubuntu-focal-x86_64.deb.deb`)
 * go to the folder containing the pdf file by typing `cd DIR_NAME` in terminal
-* convert the file into html format by typing `pdf2htmlEX --zoom 1.3  filename.pdf`, which will create the `filename.html` file
+* convert the file into html format by typing `pdf2htmlEX --zoom 1.3 --external-hint-tool=ttfautohint filename.pdf`, which will create the `filename.html` file
 * copy the file in your `posts` folder, which will have url such as: `http://localhost:8000/posts/filename/`

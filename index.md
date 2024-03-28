@@ -26,7 +26,7 @@ Hello world! I am Shuvomoy Das Gupta, a Ph.D. student at the [MIT Operations Res
 
 
 
-* *(2024-03-28)*  [Study note on “Stochastic Polyak Step-size, a simple step-size tuner with optimal rates by F. Pedregosa”](posts/Studynote_Stochastic_Gradient_Descent_with_Polyak_Stepsizes)
+* *(2024-03-28)*  [Study note on “Stochastic Polyak Step-size, a simple step-size tuner with optimal rates" by F. Pedregosa](posts/Studynote_Stochastic_Gradient_Descent_with_Polyak_Stepsizes)
 * *(2023-01-06)* [Converting latex/pdf to html to markdown for Jekyll-based blogs](posts/Converting-latex-to-html)
 * *(2022-12-27)* [Convergence of stochastic gradient descent](posts/Convergence_of_stochastic_gradient_method)
 * *(2022-10-03)* [Materials for the poster at the Cornell Young Researchers Workshop 2022](posts/Cornell_Young_Researchers_Workshop)

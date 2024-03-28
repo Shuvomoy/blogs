@@ -134,17 +134,9 @@ theorems-ams
 \begin_body
 
 \begin_layout Title
-Study note on 
-\begin_inset Quotes eld
-\end_inset
-
-Stochastic Polyak Step-size, a simple step-size tuner with optimal rates
- by F.
+Study note on ``Stochastic Polyak Step-size, a simple step-size tuner with
+ optimal rates'' by F.
  Pedregosa
-\begin_inset Quotes erd
-\end_inset
-
-
 \end_layout
 
 \begin_layout Author
@@ -172,7 +164,18 @@ https://fa.bianp.net/blog/2023/sps/
 .
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Abstract
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+\color red
 Problem setup
 \end_layout
 
@@ -194,7 +197,9 @@ where the optimal solution is achieved at
  We have the following assumptions regarding the nature of the problem.
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
+
+\color red
 Notation
 \end_layout
 
@@ -233,6 +238,11 @@ Inner product between vectors
 \end_inset
 
 .
+ Comments are enclosed in 
+\begin_inset Formula $\text{\texttt{/*\;this is a comment\;*/}}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -240,11 +250,12 @@ Inner product between vectors
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
 \size small
+\color teal
 \begin_inset ERT
 status open
 
@@ -263,6 +274,7 @@ hrulefill
 \begin_layout Plain Layout
 
 \size small
+\color teal
 \begin_inset ERT
 status open
 
@@ -282,6 +294,7 @@ hrulefill
 
 \series bold
 \size small
+\color teal
 input: 
 \series default
 the functions 
@@ -302,6 +315,7 @@ the functions
 \begin_layout Plain Layout
 
 \size small
+\color teal
 \begin_inset ERT
 status open
 
@@ -321,6 +335,7 @@ hrulefill
 
 \series bold
 \size small
+\color teal
 algorithm:
 \end_layout
 
@@ -328,6 +343,7 @@ algorithm:
 
 \series bold
 \size small
+\color teal
 1.
  initialization
 \series default
@@ -337,6 +353,7 @@ algorithm:
 \begin_layout Plain Layout
 
 \size small
+\color teal
 pick 
 \begin_inset Formula $x_{0}\in\mathbb{R}^{d}$
 \end_inset
@@ -348,6 +365,7 @@ pick
 
 \series bold
 \size small
+\color teal
 2.
  main iteration:
 \end_layout
@@ -356,6 +374,7 @@ pick
 
 \series bold
 \size small
+\color teal
 for
 \series default
  
@@ -368,6 +387,7 @@ for
 \begin_layout Plain Layout
 
 \size small
+\color teal
 \begin_inset Formula $\quad$
 \end_inset
 
@@ -383,6 +403,8 @@ sample a function
 \end_layout
 
 \begin_layout Plain Layout
+
+\color teal
 \begin_inset Formula $\quad$
 \end_inset
 
@@ -397,6 +419,8 @@ set Polyak stepsize
 \end_layout
 
 \begin_layout Plain Layout
+
+\color teal
 \begin_inset Formula $\quad$
 \end_inset
 
@@ -411,6 +435,7 @@ update iterate
 
 \series bold
 \size small
+\color teal
 end for
 \end_layout
 
@@ -418,6 +443,7 @@ end for
 
 \series bold
 \size small
+\color teal
 3.
  return
 \series default
@@ -433,6 +459,7 @@ end for
 \begin_layout Plain Layout
 
 \size small
+\color teal
 \begin_inset ERT
 status open
 
@@ -473,6 +500,7 @@ name "alg:sgd"
 \begin_layout Plain Layout
 
 \size small
+\color teal
 \begin_inset ERT
 status open
 
@@ -493,8 +521,10 @@ hrulefill
  
 \end_layout
 
-\begin_layout Subsection*
-Stochastic gradient descent with Polyak Stepsize
+\begin_layout Subsection
+
+\color red
+Stochastic Gradient Descent with Polyak Stepsize
 \end_layout
 
 \begin_layout Standard
@@ -535,7 +565,9 @@ reference "alg:sgd"
  
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
+
+\color red
 Assumptions
 \end_layout
 
@@ -571,10 +603,16 @@ Star-convexity.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula $\overset{\text{def}}{\Leftrightarrow}$
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula $\forall_{x\in\text{dom}f}\;f^{[i]}(x)-f^{[i]}(x_{\star})\leq\left\langle \widetilde{\nabla}f^{[i]}(x)\mid x-x_{\star}\right\rangle .$
 \end_inset
 
@@ -599,7 +637,9 @@ Subgradient-boundedness.
 \end_layout
 
 \end_deeper
-\begin_layout Subsection*
+\begin_layout Subsection
+
+\color red
 Convergence analysis
 \end_layout
 
@@ -877,15 +917,16 @@ Now notice the LHS term in (8):
 From (7), (8), and (9), we have 
 \begin_inset Formula 
 \begin{align*}
-\mathop{{\bf E}}\left[\|x_{t+1}-x_{\star}\|^{2}\mid x_{t}\right]\leq & \|x_{t}-x_{\star}\|^{2}-\frac{1}{G^{2}}(\texttt{sqd}\circ\texttt{ReLU})\left(\mathop{{\bf E}}\left[\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\mid x_{t}\right]\right)\\
+ & \mathop{{\bf E}}\left[\|x_{t+1}-x_{\star}\|^{2}\mid x_{t}\right]\\
+\leq & \|x_{t}-x_{\star}\|^{2}-\frac{1}{G^{2}}(\texttt{sqd}\circ\texttt{ReLU})\left(\mathop{{\bf E}}\left[\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\mid x_{t}\right]\right)\\
 = & \|x_{t}-x_{\star}\|^{2}-\frac{1}{G^{2}}(\texttt{sqd}\circ\texttt{ReLU})\left(f(x_{t})-f(x_{\star})\right)\\
 = & \|x_{t}-x_{\star}\|^{2}-\frac{1}{G^{2}}\left(\max\{f(x_{t})-f(x_{\star}),0\}\right)^{2}\\
-= & \|x_{t}-x_{\star}\|^{2}-\frac{1}{G^{2}}\left(f(x_{t})-f(x_{\star})\right)^{2}\ldots(10)\mathnote{\textrm{\;as \ensuremath{f(x_{t})-f(x_{\star})\geq0}, by definition}}
+= & \|x_{t}-x_{\star}\|^{2}-\frac{1}{G^{2}}\left(f(x_{t})-f(x_{\star})\right)^{2}\mathnote{\textrm{\ensuremath{\rhd\;}as \ensuremath{f(x_{t})-f(x_{\star})\geq0}}}\ldots(10)
 \end{align*}
 
 \end_inset
 
- 
+
 \end_layout
 
 \begin_layout Standard
@@ -933,7 +974,7 @@ which yields:
 \begin_inset Formula 
 \begin{align*}
 \frac{1}{G^{2}}\sum_{k=0}^{T}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right] & \leq\mathop{{\bf E}}\left[\|x_{0}-x_{\star}\|^{2}\right]-\mathop{{\bf E}}\left[\|x_{T+1}-x_{\star}\|^{2}\right]\\
-= & \|x_{0}-x_{\star}\|^{2}-\mathop{{\bf E}}\left[\|x_{T+1}-x_{\star}\|^{2}\right]\mathnote{\textrm{\ensuremath{\rhd\;}as\ensuremath{x_{0}} is deterministic}}\\
+= & \|x_{0}-x_{\star}\|^{2}-\mathop{{\bf E}}\left[\|x_{T+1}-x_{\star}\|^{2}\right]\mathnote{\textrm{\ensuremath{\rhd\;}as \ensuremath{x_{0}} is deterministic}}\\
 \leq & \|x_{0}-x_{\star}\|^{2}\mathnote{\textrm{\ensuremath{\rhd\;}as\ensuremath{-\mathop{{\bf E}}\left[\|x_{T+1}-x_{\star}\|^{2}\right]\leq0} }}\\
 \Rightarrow & \sum_{k=0}^{T}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right]\leq G^{2}\|x_{0}-x_{\star}\|^{2}\\
 \therefore\frac{1}{T+1} & \sum_{k=0}^{T}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right]\leq\frac{G^{2}\|x_{0}-x_{\star}\|^{2}}{T+1}\ldots(12)
