@@ -1,14 +1,16 @@
-@def title = "Converting latex to html  for Jekyll-based blogs"
+@def title = "Converting latex/pdf to html/markdown  for Jekyll-based blogs"
 @def published ="January 6, 2023"
 @def tags =["programming"]
 
-# Converting latex to html to markdown for Jekyll-based blogs
+# Converting latex/pdf to html/markdown for Jekyll-based blogs
 
 **Shuvomoy Das Gupta**
 
 *January 6, 2023*
 
-In this blog, we will discuss how to convert a `.tex` file to `.html` and then use that `.html` in a markdown blog post.
+In this blog, we will discuss how to convert a `.tex` or `.pdf` file to `.html` and then use that `.html` in a markdown blog post.
+
+#### `.tex` to `.md` 
 
 Suppose, name of the  `.tex` file is `test.tex`. First, change the directory to the one where this file resides. Type the following in the terminal:
 
@@ -26,3 +28,14 @@ paste the content of test.html
 ```
 
 That's it, the markdown file can be used as a blog post in Jekyll based website. 
+
+#### `.pdf` to `.html`
+
+For converting pdf to html in a linux based OS, do the following steps:
+
+* install `ttfautohint` by inputting the following in terminal `sudo apt install ttfautohint`
+
+* install `pdf2htmlEX` from the link [https://shuvomoy.github.io/blogs/assets/pdf2htmlEX/pdf2htmlEX-0.18.8.rc1-master-20200630-Ubuntu-focal-x86_64.deb] (download the deb and then install it via package manager or by inputting `sudo dpkg -i pdf2htmlEX-0.18.8.rc1-master-20200630-Ubuntu-focal-x86_64.deb.deb`)
+* go to the folder containing the pdf file by typing `cd DIR_NAME` in terminal
+* convert the file into html format by typing `pdf2htmlEX --zoom 1.3  filename.pdf`, which will create the `filename.html` file
+* copy the file in your `posts` folder, which will have url such as: `http://localhost:8000/posts/filename/`

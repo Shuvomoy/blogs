@@ -1,0 +1,1063 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass tufte-handout
+\begin_preamble
+\usepackage{ stmaryrd }
+\usepackage{ textcomp }
+\newtheorem{assumption}{Assumption}
+
+\usepackage{graphicx,psfrag,amsfonts,verbatim, url}
+
+\makeatletter
+% Paragraph indentation and separation for normal text
+\renewcommand{\@tufte@reset@par}{%
+  \setlength{\RaggedRightParindent}{1.0pc}%
+  \setlength{\JustifyingParindent}{1.0pc}%
+  \setlength{\parindent}{0pc}%
+  \setlength{\parskip}{0pt}%
+}
+\@tufte@reset@par
+
+% Paragraph indentation and separation for marginal text
+\renewcommand{\@tufte@margin@par}{%
+  \setlength{\RaggedRightParindent}{0.5pc}%
+  \setlength{\JustifyingParindent}{0.5pc}%
+  \setlength{\parindent}{0pc}%
+  \setlength{\parskip}{0pt}%
+}
+\makeatother
+
+
+\newcommand{\filler}[1][10]%
+{   \foreach \x in {1,...,#1}
+    {   test 
+    }
+}
+
+\def\mathnote#1{%
+  \tag*{\rlap{\hspace\marginparsep\smash{\parbox[t]{\marginparwidth}{%
+  \footnotesize#1}}}}
+}
+
+\allowdisplaybreaks
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-ams
+\end_modules
+\maintain_unincluded_children false
+\begin_local_layout
+
+\end_local_layout
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "helvet" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format pdf2
+\output_sync 0
+\bibtex_command bibtex
+\index_command default
+\paperfontsize 12
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\notefontcolor #0000ff
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Study note on 
+\begin_inset Quotes eld
+\end_inset
+
+Stochastic Polyak Step-size, a simple step-size tuner with optimal rates
+ by F.
+ Pedregosa
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Shuvomoy Das Gupta
+\end_layout
+
+\begin_layout Abstract
+This is my study note for Fabian Pedregosa's amazing blog on Stochastic
+ Polyak Step-size; the full citation of Pedregosa's blog is:
+\emph on
+ Stochastic Polyak Step-size, a simple step-size tuner with optimal rates,
+ Fabian Pedregosa, 2023
+\emph default
+ available at 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://fa.bianp.net/blog/2023/sps/
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+Problem setup
+\end_layout
+
+\begin_layout Standard
+We are interested in solving the problem
+\begin_inset Formula 
+\[
+p^{\star}=\left(\begin{array}{ll}
+\underset{x\in\mathbb{R}^{d}}{\mbox{minimize}} & \left\{ f(x)=\frac{1}{n}\sum_{i=1}^{n}f^{[i]}(x)\right\} \end{array}\right)\ldots(\mathcal{P})
+\]
+
+\end_inset
+
+where the optimal solution is achieved at 
+\begin_inset Formula $x_{\star}$
+\end_inset
+
+.
+ We have the following assumptions regarding the nature of the problem.
+\end_layout
+
+\begin_layout Subsection*
+Notation
+\end_layout
+
+\begin_layout Standard
+Inner product between vectors 
+\begin_inset Formula $x,y$
+\end_inset
+
+ is denoted by 
+\begin_inset Formula $\left\langle x\mid y\right\rangle $
+\end_inset
+
+ and Euclidean norm of 
+\begin_inset Formula $x$
+\end_inset
+
+ is denoted by 
+\begin_inset Formula $\|x\|=\sqrt{\left\langle x\mid y\right\rangle }.$
+\end_inset
+
+ We let 
+\begin_inset Formula $[1:n]=\{1,2,\ldots,n\}$
+\end_inset
+
+ and 
+\begin_inset Formula $z_{+}=\max\{z,0\}$
+\end_inset
+
+.
+ Also, for notational convenience we denote: 
+\begin_inset Formula $\texttt{sqd}(x)=\|x\|^{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\texttt{ReLU}(z)=\max\{z,0\}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hrulefill
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hrulefill
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+input: 
+\series default
+the functions 
+\begin_inset Formula $f^{[i]}$
+\end_inset
+
+ for 
+\begin_inset Formula $i\in[1:n]$
+\end_inset
+
+, iteration limit 
+\begin_inset Formula $T$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hrulefill
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+algorithm:
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+1.
+ initialization
+\series default
+:
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+pick 
+\begin_inset Formula $x_{0}\in\mathbb{R}^{d}$
+\end_inset
+
+ arbitrarily
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+2.
+ main iteration:
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+for
+\series default
+ 
+\begin_inset Formula $t=0,1,2,\ldots,T-1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset Formula $\quad$
+\end_inset
+
+sample a function 
+\begin_inset Formula $f_{i}$
+\end_inset
+
+ uniformly at random 
+\begin_inset Formula $i\sim\texttt{unif}[1:n]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\quad$
+\end_inset
+
+set Polyak stepsize 
+\begin_inset Formula $\gamma_{t}=\begin{cases}
+\frac{\texttt{ReLU}\left(f^{[i]}(x_{t})-f^{[i]}(x_{\star})\right)}{\|\widetilde{\nabla}f^{[i]}(x_{t})\|^{2}}, & \text{if }\widetilde{\nabla}f^{[i]}(x_{t})\neq0\|\\
+0, & \text{else},
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\quad$
+\end_inset
+
+update iterate 
+\begin_inset Formula $x_{t+1}=x_{t}-\gamma_{t}\widetilde{\nabla}f^{[i]}(x_{t})(x_{t})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+end for
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+3.
+ return
+\series default
+ 
+\series bold
+
+\begin_inset Formula $x_{T}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hrulefill
+\end_layout
+
+\end_inset
+
+
+\size default
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+SGD-SPS to solve (
+\begin_inset Formula $\mathcal{P}$
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:sgd"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hrulefill
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsection*
+Stochastic gradient descent with Polyak Stepsize
+\end_layout
+
+\begin_layout Standard
+The algorithm called Stochastic Gradient Descent with Stochastic Polyak
+ Stepsize (SGD-SPS) to solve (
+\begin_inset Formula $\mathcal{P}$
+\end_inset
+
+) is described by Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:sgd"
+
+\end_inset
+
+.
+ The uniform distribution with support 
+\begin_inset Formula $\{1,\ldots,n\}$
+\end_inset
+
+ is denoted by 
+\begin_inset Formula $\texttt{unif}[1:n]$
+\end_inset
+
+.
+ One subgradient of the function 
+\begin_inset Formula $f^{[i]}$
+\end_inset
+
+ evaluated at 
+\begin_inset Formula $x$
+\end_inset
+
+ is denoted by 
+\begin_inset Formula $\widetilde{\nabla}f(x).$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsection*
+Assumptions
+\end_layout
+
+\begin_layout Standard
+We assume that for all 
+\begin_inset Formula $i$
+\end_inset
+
+,
+\begin_inset Formula $f^{[i]}:\mathbb{R}^{d}\to(-\infty,\infty]$
+\end_inset
+
+ is a nonsmooth, subgradient bounded, and star-convex function, i.e, 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Star-convexity.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula $\forall_{i\in[1:n]}$
+\end_inset
+
+
+\begin_inset Formula $f^{[i]}$
+\end_inset
+
+ star-convex around 
+\begin_inset Formula $x_{\star}$
+\end_inset
+
+
+\begin_inset Formula $\overset{\text{def}}{\Leftrightarrow}$
+\end_inset
+
+
+\begin_inset Formula $\forall_{x\in\text{dom}f}\;f^{[i]}(x)-f^{[i]}(x_{\star})\leq\left\langle \widetilde{\nabla}f^{[i]}(x)\mid x-x_{\star}\right\rangle .$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Subgradient-boundedness.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\series bold
+\begin_inset Formula $\forall_{i\in[1:N]}\;\forall{}_{x\in\mathcal{B}=\{y\mid\|y-x_{\star}\|\leq\|x_{0}-x_{\star}\|\}}\;\forall_{\widetilde{\nabla}f^{[i]}(x)\in\partial f^{[i]}(x)}\;\|\widetilde{\nabla}f^{[i]}(x)\|\leq G.$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsection*
+Convergence analysis
+\end_layout
+
+\begin_layout Standard
+Consider an arbitrary iteration number 
+\begin_inset Formula $t$
+\end_inset
+
+ and we want to compute iterate 
+\begin_inset Formula $x_{t+1}$
+\end_inset
+
+ from 
+\begin_inset Formula $x_{t}$
+\end_inset
+
+.
+ Going from 
+\begin_inset Formula $x_{t}$
+\end_inset
+
+ to 
+\begin_inset Formula $x_{t+1}$
+\end_inset
+
+ the randomness lies in the selection of the function 
+\begin_inset Formula $f_{i}$
+\end_inset
+
+ by 
+\begin_inset Formula $i\sim\texttt{unif}[1:N]$
+\end_inset
+
+.
+ We will come up with an inequality that works for any value of 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ We will use the notation 
+\begin_inset Formula $\widetilde{\nabla}f^{[i]}(x_{t})\triangleq g_{t}^{[i]},\widetilde{\nabla}f(x_{t})\triangleq g_{t},f^{[i]}(x_{t})\triangleq f_{t}^{[i]}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Consider the case 
+\begin_inset Formula $\|g_{t}^{[i]}\|\neq0$
+\end_inset
+
+.
+ We have 
+\begin_inset Formula 
+\begin{align*}
+ & \|x_{t+1}-x_{\star}\|^{2}\\
+ & \|x_{t}-\gamma_{t}g_{t}^{[i]}-x_{\star}\|^{2}\\
+ & \|(x_{t}-x_{\star})-\gamma_{t}g_{t}^{[i]}\|^{2}\mathnote{\textrm{\ensuremath{\rhd\;}expand squares}}\\
+ & \|x_{t}-x_{\star}\|^{2}+\gamma_{t}^{2}\|g_{t}^{[i]}\|^{2}-2\gamma_{t}\left\langle g_{t}^{[i]}\mid x_{t}-x_{\star}\right\rangle \\
+ & \quad\texttt{/*}\\
+ & \quad\textrm{we have }f^{[i]}(x)-f^{[i]}(x_{\star})\leq\left\langle \widetilde{\nabla}f^{[i]}(x)\mid x-x_{\star}\right\rangle \\
+ & \quad\overset{x\coloneqq x_{t}}{\Rightarrow}f^{[i]}(x_{t})-f^{[i]}(x_{\star})\leq\left\langle \widetilde{\nabla}f^{[i]}(x_{t})\mid x_{t}-x_{\star}\right\rangle \\
+ & \quad\Leftrightarrow f_{t}^{[i]}-f_{\star}^{[i]}\leq\left\langle g_{t}^{[i]}\mid x_{t}-x_{\star}\right\rangle \\
+ & \quad\ensuremath{\Leftrightarrow}-\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\geq-\left\langle g_{t}^{[i]}\mid x_{t}-x_{\star}\right\rangle \\
+ & \quad\therefore-2\gamma_{t}\left\langle g_{t}^{[i]}\mid x_{t}-x_{\star}\right\rangle \leq-2\gamma_{t}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\\
+ & \quad\texttt{*/}\\
+ & \leq\|x_{t}-x_{\star}\|^{2}+\gamma_{t}^{2}\|g_{t}^{[i]}\|^{2}-2\gamma_{t}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\mathnote{\textrm{\ensuremath{\rhd\;}in this case\ensuremath{\;\gamma_{t}=\frac{\texttt{ReLU}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}}}}\\
+ & =\|x_{t}-x_{\star}\|^{2}+\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{4}}\|g_{t}^{[i]}\|^{2}-2\frac{\texttt{ReLU}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\\
+ & \quad\texttt{/*}\\
+ & \quad\textrm{we have }z\times\texttt{ReLU}(z)=z\times\max\{z,0\}=\begin{cases}
+z^{2}, & \text{if }z\geq0\\
+0, & \text{else}
+\end{cases}=\left(\max\{z,0\}\right)^{2}=(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\\
+ & \quad\texttt{*/}\\
+ & =\|x_{t}-x_{\star}\|^{2}+\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}-2\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}\\
+ & =\|x_{t}-x_{\star}\|^{2}-\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}.\ldots(1)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now consider the case 
+\begin_inset Formula $\|g_{t}^{[i]}\|=0,$
+\end_inset
+
+ then 
+\begin_inset Formula $x_{t+1}=x_{t}$
+\end_inset
+
+ and 
+\begin_inset Formula 
+\[
+\|x_{t+1}-x_{\star}\|^{2}=\|x_{t}-x_{\star}\|^{2}.\ldots(2)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus from (1) and (2), we have
+\begin_inset Formula 
+\[
+\|x_{t+1}-x_{\star}\|^{2}\leq\begin{cases}
+\|x_{t}-x_{\star}\|^{2}-\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}, & \text{ with }i\sim\texttt{unif}[1:n]\text{ and }\|g_{t}^{[i]}\|\neq0,\\
+\|x_{t}-x_{\star}\|^{2}, & \text{ with }i\sim\texttt{unif}[1:n]\text{ and }\|g_{t}^{[i]}\|=0.
+\end{cases}\ldots(3)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+From (3), we see that irrespective of the randomness in selecting 
+\begin_inset Formula $i$
+\end_inset
+
+, we always have 
+\begin_inset Formula $\|x_{t+1}-x_{\star}\|^{2}\leq\|x_{t}-x_{\star}\|^{2}\leq\cdots\leq\|x_{0}-x_{\star}\|^{2}$
+\end_inset
+
+, hence we have 
+\begin_inset Formula $x_{t}\in\mathcal{B}=\{y\mid\|y-x_{\star}\|\leq\|x_{0}-x_{\star}\|\}$
+\end_inset
+
+ no matter what.
+ As a result, for the case 
+\begin_inset Formula $\|g_{t}^{[i]}\|\neq0$
+\end_inset
+
+, using the gradient-boundedness assumption we have 
+\begin_inset Formula 
+\begin{align*}
+ & \|g_{t}^{[i]}\|{}^{2}\leq G^{2}\\
+\Leftrightarrow & \frac{1}{\|g_{t}^{[i]}\|^{2}}\geq\frac{1}{G^{2}}\\
+\Leftrightarrow & -\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}\leq-\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{G^{2}}.\ldots(4)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Next, for the case 
+\begin_inset Formula $\|g_{t}^{[i]}\|=0\Leftrightarrow g_{t}^{[i]}=0$
+\end_inset
+
+, using star-convexity, we have 
+\begin_inset Formula 
+\begin{align*}
+ & f^{[i]}(x)-f^{[i]}(x_{\star})\leq\left\langle \widetilde{\nabla}f^{[i]}(x)\mid x-x_{\star}\right\rangle \\
+\overset{x\coloneqq x_{t}}{\Rightarrow} & f^{[i]}(x_{t})-f^{[i]}(x_{\star})\leq\left\langle g_{t}^{[i]}\mid x_{t}-x_{\star}\right\rangle =0\\
+\Rightarrow & f_{t}^{[i]}-f_{\star}^{[i]}\leq0\\
+\Rightarrow & \texttt{ReLU}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)=\max\left\{ f_{t}^{[i]}-f_{\star}^{[i]},0\right\} =0\\
+\Rightarrow & \frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{G^{2}}=0\ldots(5)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So, using (4) and (5) in the cases of (3) we get 
+\begin_inset Formula 
+\[
+\|x_{t+1}-x_{\star}\|^{2}\leq\|x_{t}-x_{\star}\|^{2}-\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{G^{2}}\text{\;with }i\sim\texttt{unif}[1:n].\ldots(6)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Next, on both sides of (6), we take conditional expectation with respect
+ to 
+\begin_inset Formula $i$
+\end_inset
+
+ given 
+\begin_inset Formula $x_{t},$
+\end_inset
+
+ which we denote by 
+\begin_inset Formula $\mathop{{\bf E}}\left[\cdot\mid x_{t}\right]\triangleq\mathop{{\bf E}}_{i\sim\texttt{unif}[1:N]}\left[\cdot\mid x_{t}\right]$
+\end_inset
+
+, and the resultant inequality is: 
+\begin_inset Formula 
+\begin{align*}
+ & \mathop{{\bf E}}\left[\|x_{t+1}-x_{\star}\|^{2}\mid x_{t}\right]\\
+\leq & \mathop{{\bf E}}\left[\|x_{t}-x_{\star}\|^{2}-\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{G^{2}}\mid x_{t}\right]\\
+= & \mathop{{\bf E}}\left[\|x_{t}-x_{\star}\|^{2}\mid x_{t}\right]-\mathop{{\bf E}}\left[\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{G^{2}}\mid x_{t}\right]\mathnote{\textrm{\ensuremath{\rhd\;}using linearity of expectation}}\\
+= & \|x_{t}-x_{\star}\|^{2}-\frac{1}{G^{2}}\mathop{{\bf E}}\left[(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\mid x_{t}\right]\ldots(7)\\
+ & \mathnote{\textrm{\ensuremath{\rhd\;}using "taking out what's known" rule \ensuremath{\;\mathbf{E}\left[h(X)Y\mid X\right]=h(X)\mathbf{E}\left[Y\mid X\right]}}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Recall now Jensen's inequality: if 
+\begin_inset Formula $\phi$
+\end_inset
+
+ is a convex function and 
+\begin_inset Formula $Z$
+\end_inset
+
+ is a random variable, then 
+\begin_inset Formula $\phi\left(\mathop{{\bf E}}\left[Z\right]\right)\leq\mathop{{\bf E}}\left[\phi(Z)\right]$
+\end_inset
+
+.
+ Setting 
+\begin_inset Formula $\phi\coloneqq\texttt{sqd}\circ\texttt{ReLU}=\texttt{sqd}\left(\texttt{ReLU}(\cdot)\right)$
+\end_inset
+
+, which is convex (see Boyd Vandenberghe, Convex Optimization, Figure 3.7)
+ and 
+\begin_inset Formula $Z\coloneqq\left[(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\mid x_{t}\right]$
+\end_inset
+
+ we have 
+\begin_inset Formula 
+\begin{align*}
+ & (\texttt{sqd}\circ\texttt{ReLU})\left(\mathop{{\bf E}}\left[\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\mid x_{t}\right]\right)\leq\mathop{{\bf E}}\left[(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\mid x_{t}\right)\right]\\
+\Leftrightarrow & -(\texttt{sqd}\circ\texttt{ReLU})\left(\mathop{{\bf E}}\left[\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\mid x_{t}\right]\right)\geq-\mathop{{\bf E}}\left[(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\mid x_{t}\right)\right]\\
+\Leftrightarrow & -\frac{1}{G^{2}}(\texttt{sqd}\circ\texttt{ReLU})\left(\mathop{{\bf E}}\left[\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\mid x_{t}\right]\right)\geq-\frac{1}{G^{2}}\mathop{{\bf E}}\left[(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\mid x_{t}\right)\right].\ldots(8)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now notice the LHS term in (8):
+\begin_inset Formula 
+\begin{align*}
+ & \mathop{{\bf E}}\left[\left(\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\mid x_{t}\right)\right]\\
+= & \mathop{{\bf E}}_{i\sim\texttt{unif}[1:n]}\left[\left(\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\mid x_{t}\right)\right]\\
+= & \left(\left(\frac{1}{n}\sum_{i=1}^{n}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\right)\mid x_{t}\right)\\
+= & f(x_{t})-f(x_{\star}),
+\end{align*}
+
+\end_inset
+
+ where the last term is a random variable in 
+\begin_inset Formula $x_{t}$
+\end_inset
+
+ (recall that 
+\begin_inset Formula $\mathop{{\bf E}}\left[Y\mid X\right]$
+\end_inset
+
+ is a random variable in 
+\begin_inset Formula $X$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+From (7), (8), and (9), we have 
+\begin_inset Formula 
+\begin{align*}
+\mathop{{\bf E}}\left[\|x_{t+1}-x_{\star}\|^{2}\mid x_{t}\right]\leq & \|x_{t}-x_{\star}\|^{2}-\frac{1}{G^{2}}(\texttt{sqd}\circ\texttt{ReLU})\left(\mathop{{\bf E}}\left[\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\mid x_{t}\right]\right)\\
+= & \|x_{t}-x_{\star}\|^{2}-\frac{1}{G^{2}}(\texttt{sqd}\circ\texttt{ReLU})\left(f(x_{t})-f(x_{\star})\right)\\
+= & \|x_{t}-x_{\star}\|^{2}-\frac{1}{G^{2}}\left(\max\{f(x_{t})-f(x_{\star}),0\}\right)^{2}\\
+= & \|x_{t}-x_{\star}\|^{2}-\frac{1}{G^{2}}\left(f(x_{t})-f(x_{\star})\right)^{2}\ldots(10)\mathnote{\textrm{\;as \ensuremath{f(x_{t})-f(x_{\star})\geq0}, by definition}}
+\end{align*}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Now taking expectation with respect to 
+\begin_inset Formula $x_{t}$
+\end_inset
+
+ on both sides of (10) and then using Adam's law 
+\begin_inset Formula $\mathop{{\bf E}}\left[\mathop{{\bf E}}\left[Y\mid X\right]\right]=\mathop{{\bf E}}\left[Y\right],$
+\end_inset
+
+we get:
+\begin_inset Formula 
+\begin{align*}
+ & \mathop{{\bf E}}\left[\mathop{{\bf E}}\left[\|x_{t+1}-x_{\star}\|^{2}\mid x_{t}\right]\right]\leq\mathop{{\bf E}}\left[\|x_{t}-x_{\star}\|^{2}-\frac{1}{G^{2}}\left(f(x_{t})-f(x_{\star})\right)^{2}\right]\\
+\Leftrightarrow & \mathop{{\bf E}}\left[\|x_{t+1}-x_{\star}\|^{2}\right]\leq\mathop{{\bf E}}\left[\|x_{t}-x_{\star}\|^{2}\right]-\mathop{{\bf E}}\left[\frac{1}{G^{2}}\left(f(x_{t})-f(x_{\star})\right)^{2}\right]\mathnote{\textrm{\ensuremath{\rhd\;}using linearity of expectation on RHS and Adam's law on LHS}}\\
+\Leftrightarrow & \mathop{{\bf E}}\left[\|x_{t+1}-x_{\star}\|^{2}\right]\leq\mathop{{\bf E}}\left[\|x_{t}-x_{\star}\|^{2}\right]-\frac{1}{G^{2}}\mathop{{\bf E}}\left[\left(f(x_{t})-f(x_{\star})\right)^{2}\right]\\
+\Leftrightarrow & \frac{1}{G^{2}}\mathop{{\bf E}}\left[\left(f(x_{t})-f(x_{\star})\right)^{2}\right]\leq\mathop{{\bf E}}\left[\|x_{t}-x_{\star}\|^{2}\right]-\mathop{{\bf E}}\left[\|x_{t+1}-x_{\star}\|^{2}\right].\ldots(11)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, let us do a telescoping sum on (11) for 
+\begin_inset Formula $t=0,\ldots,T$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+ & \frac{1}{G^{2}}\mathop{{\bf E}}\left[\left(f(x_{0})-f(x_{\star})\right)^{2}\right]\leq\mathop{{\bf E}}\left[\|x_{0}-x_{\star}\|^{2}\right]-\mathop{{\bf E}}\left[\|x_{1}-x_{\star}\|^{2}\right]\\
+ & \frac{1}{G^{2}}\mathop{{\bf E}}\left[\left(f(x_{1})-f(x_{\star})\right)^{2}\right]\leq\mathop{{\bf E}}\left[\|x_{1}-x_{\star}\|^{2}\right]-\mathop{{\bf E}}\left[\|x_{2}-x_{\star}\|^{2}\right]\\
+ & \frac{1}{G^{2}}\mathop{{\bf E}}\left[\left(f(x_{2})-f(x_{\star})\right)^{2}\right]\leq\mathop{{\bf E}}\left[\|x_{2}-x_{\star}\|^{2}\right]-\mathop{{\bf E}}\left[\|x_{3}-x_{\star}\|^{2}\right]\\
+ & \vdots\vdots\\
+ & \frac{1}{G^{2}}\mathop{{\bf E}}\left[\left(f(x_{T-1})-f(x_{\star})\right)^{2}\right]\leq\mathop{{\bf E}}\left[\|x_{T-1}-x_{\star}\|^{2}\right]-\mathop{{\bf E}}\left[\|x_{T}-x_{\star}\|^{2}\right]\\
+ & \frac{1}{G^{2}}\mathop{{\bf E}}\left[\left(f(x_{T})-f(x_{\star})\right)^{2}\right]\leq\mathop{{\bf E}}\left[\|x_{T}-x_{\star}\|^{2}\right]-\mathop{{\bf E}}\left[\|x_{T+1}-x_{\star}\|^{2}\right]
+\end{align*}
+
+\end_inset
+
+which yields: 
+\begin_inset Formula 
+\begin{align*}
+\frac{1}{G^{2}}\sum_{k=0}^{T}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right] & \leq\mathop{{\bf E}}\left[\|x_{0}-x_{\star}\|^{2}\right]-\mathop{{\bf E}}\left[\|x_{T+1}-x_{\star}\|^{2}\right]\\
+= & \|x_{0}-x_{\star}\|^{2}-\mathop{{\bf E}}\left[\|x_{T+1}-x_{\star}\|^{2}\right]\mathnote{\textrm{\ensuremath{\rhd\;}as\ensuremath{x_{0}} is deterministic}}\\
+\leq & \|x_{0}-x_{\star}\|^{2}\mathnote{\textrm{\ensuremath{\rhd\;}as\ensuremath{-\mathop{{\bf E}}\left[\|x_{T+1}-x_{\star}\|^{2}\right]\leq0} }}\\
+\Rightarrow & \sum_{k=0}^{T}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right]\leq G^{2}\|x_{0}-x_{\star}\|^{2}\\
+\therefore\frac{1}{T+1} & \sum_{k=0}^{T}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right]\leq\frac{G^{2}\|x_{0}-x_{\star}\|^{2}}{T+1}\ldots(12)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Recall now Jensen's inequality again: if 
+\begin_inset Formula $\phi$
+\end_inset
+
+ is a convex function and 
+\begin_inset Formula $Z$
+\end_inset
+
+ is a random variable, then 
+\begin_inset Formula $\phi\left(\mathop{{\bf E}}\left[Z\right]\right)\leq\mathop{{\bf E}}\left[\phi(Z)\right]$
+\end_inset
+
+.
+ Setting 
+\begin_inset Formula $\phi\coloneqq\texttt{sqd}$
+\end_inset
+
+ and 
+\begin_inset Formula $Z\coloneqq f(x_{k})-f(x_{\star})$
+\end_inset
+
+ we have 
+\begin_inset Formula 
+\begin{align*}
+ & \texttt{sqd}\left(\mathop{{\bf E}}\left[f(x_{k})-f(x_{\star})\right]\right)\leq\mathop{{\bf E}}\left[\texttt{sqd}\left(f(x_{k})-f(x_{\star})\right)\right]\\
+\Rightarrow & \min_{k\in[0:T]}\left(\mathop{{\bf E}}\left[f(x_{k})-f(x_{\star})\right]\right)^{2}\leq\min_{k\in[0:T]}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right].\ldots(13)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Also, 
+\begin_inset Formula 
+\begin{align*}
+\sum_{k=0}^{T}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right] & \geq\sum_{k=0}^{T}\left(\min_{k\in[0:T]}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right]\right)\\
+ & =\left(\min_{k\in[0:T]}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right]\right)\sum_{k=0}^{T}1\\
+ & =(T+1)\left(\min_{k\in[0:T]}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right]\right)\\
+\Rightarrow\frac{1}{T+1}\sum_{k=0}^{T}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right] & \geq\min_{k\in[0:T]}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right].\ldots(14)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+From (13) and (14), we have 
+\begin_inset Formula 
+\[
+\min_{k\in[0:T]}\left(\mathop{{\bf E}}\left[f(x_{k})-f(x_{\star})\right]\right)^{2}\leq\min_{k\in[0:T]}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right]\leq\frac{1}{T+1}\sum_{k=0}^{T}\mathop{{\bf E}}\left[\left(f(x_{k})-f(x_{\star})\right)^{2}\right].\ldots(15)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, from (15) and (12), we have 
+\begin_inset Formula 
+\[
+\min_{k\in[0:T]}\left(\mathop{{\bf E}}\left[f(x_{k})-f(x_{\star})\right]\right)^{2}\leq\frac{G^{2}\|x_{0}-x_{\star}\|^{2}}{T+1}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let the min be achieved at index 
+\begin_inset Formula $\ell\in[0:T]$
+\end_inset
+
+, hence using the fact that 
+\begin_inset Formula $\sqrt{\cdot}$
+\end_inset
+
+ is monotonically increasing on 
+\begin_inset Formula $\mathbb{R}_{+}$
+\end_inset
+
+ (hence would not change direction of inequalities when both sides are nonnegati
+ve), we have
+\begin_inset Formula 
+\begin{align*}
+ & \left(\mathop{{\bf E}}\left[f(x_{\ell})-f(x_{\star})\right]\right)^{2}\leq\frac{G^{2}\|x_{0}-x_{\star}\|^{2}}{T+1}\\
+\Rightarrow & \mathop{{\bf E}}\left[f(x_{\ell})-f(x_{\star})\right]\leq\frac{G\|x_{0}-x_{\star}\|}{\sqrt{T+1}}.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus we have proven that: 
+\begin_inset Formula 
+\[
+\min_{k\in[0:T]}\left(\mathop{{\bf E}}\left[f(x_{k})-f(x_{\star})\right]\right)\leq\frac{G\|x_{0}-x_{\star}\|}{\sqrt{T+1}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_body
+\end_document
