@@ -43,6 +43,8 @@
   \footnotesize#1}}}}
 }
 
+
+
 \allowdisplaybreaks
 \end_preamble
 \use_default_options true
@@ -703,9 +705,9 @@ Consider the case
 \begin_inset Formula 
 \begin{align*}
  & \|x_{t+1}-x_{\star}\|^{2}\\
- & \|x_{t}-\gamma_{t}g_{t}^{[i]}-x_{\star}\|^{2}\\
- & \|(x_{t}-x_{\star})-\gamma_{t}g_{t}^{[i]}\|^{2}\mathnote{\textrm{\ensuremath{\rhd\;}expand squares}}\\
- & \|x_{t}-x_{\star}\|^{2}+\gamma_{t}^{2}\|g_{t}^{[i]}\|^{2}-2\gamma_{t}\left\langle g_{t}^{[i]}\mid x_{t}-x_{\star}\right\rangle \\
+= & \|x_{t}-\gamma_{t}g_{t}^{[i]}-x_{\star}\|^{2}\\
+= & \|(x_{t}-x_{\star})-\gamma_{t}g_{t}^{[i]}\|^{2}\mathnote{\textrm{\ensuremath{\rhd\;}expand squares}}\\
+= & \|x_{t}-x_{\star}\|^{2}+\gamma_{t}^{2}\|g_{t}^{[i]}\|^{2}-2\gamma_{t}\left\langle g_{t}^{[i]}\mid x_{t}-x_{\star}\right\rangle \\
  & \quad\textcolor{gray}{\texttt{/*}}\\
  & \quad\textcolor{gray}{\textrm{we have }f^{[i]}(x)-f^{[i]}(x_{\star})\leq\left\langle \widetilde{\nabla}f^{[i]}(x)\mid x-x_{\star}\right\rangle }\\
  & \quad\textcolor{gray}{\overset{x\coloneqq x_{t}}{\Rightarrow}f^{[i]}(x_{t})-f^{[i]}(x_{\star})\leq\left\langle \widetilde{\nabla}f^{[i]}(x_{t})\mid x_{t}-x_{\star}\right\rangle }\\
@@ -717,8 +719,8 @@ Consider the case
  & =\|x_{t}-x_{\star}\|^{2}+\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{4}}\|g_{t}^{[i]}\|^{2}-2\frac{\texttt{ReLU}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\\
  & \quad\textcolor{gray}{\texttt{/*}}\\
  & \quad\textcolor{gray}{\textrm{we have }z\times\texttt{ReLU}(z)=z\times\max\{z,0\}=\begin{cases}
-z^{2}, & \text{if }z\geq0\\
-0, & \text{else}
+ z^{2},  &  \text{if }z\geq0\\
+ 0,  &  \text{else} 
 \end{cases}=\left(\max\{z,0\}\right)^{2}=(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}\\
  & \quad\textcolor{gray}{\texttt{*/}}\\
  & =\|x_{t}-x_{\star}\|^{2}+\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}-2\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}\\
