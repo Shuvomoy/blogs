@@ -134,15 +134,8 @@ theorems-ams
 \begin_body
 
 \begin_layout Title
-Study notes on 
-\begin_inset Quotes eld
-\end_inset
-
-Stochastic Polyak Step-size, a simple step-size tuner with optimal rates
-\begin_inset Quotes erd
-\end_inset
-
- by F.
+Study note on ``Stochastic Polyak Step-size, a simple step-size tuner with
+ optimal rates'' by F.
  Pedregosa
 \end_layout
 
@@ -151,7 +144,7 @@ Shuvomoy Das Gupta
 \end_layout
 
 \begin_layout Abstract
-Here are my study notes for Fabian Pedregosa's amazing blog on Stochastic
+This is my study note for Fabian Pedregosa's amazing blog on Stochastic
  Polyak Step-size; the full citation of Pedregosa's blog is:
 \emph on
  Stochastic Polyak Step-size, a simple step-size tuner with optimal rates,
@@ -570,6 +563,16 @@ reference "alg:sgd"
 \end_inset
 
  
+\backslash
+textcolor{red}{}
+\begin_inset Formula 
+\[
+\alpha=\textcolor{red}{\beta^{2}}
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -709,18 +712,18 @@ Consider the case
  & \quad\textcolor{gray}{\texttt{/*}}\\
  & \quad\textcolor{gray}{\textrm{we have }f^{[i]}(x)-f^{[i]}(x_{\star})\leq\left\langle \widetilde{\nabla}f^{[i]}(x)\mid x-x_{\star}\right\rangle }\\
  & \quad\textcolor{gray}{\overset{x\coloneqq x_{t}}{\Rightarrow}f^{[i]}(x_{t})-f^{[i]}(x_{\star})\leq\left\langle \widetilde{\nabla}f^{[i]}(x_{t})\mid x_{t}-x_{\star}\right\rangle }\\
- & \quad\textcolor{gray}{\Leftrightarrow f_{t}^{[i]}-f_{\star}^{[i]}\leq\left\langle g_{t}^{[i]}\mid x_{t}-x_{\star}\right\rangle }\\
- & \quad\textcolor{gray}{\ensuremath{\Leftrightarrow}-\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\geq-\left\langle g_{t}^{[i]}\mid x_{t}-x_{\star}\right\rangle }\\
- & \quad\textcolor{gray}{\therefore-2\gamma_{t}\left\langle g_{t}^{[i]}\mid x_{t}-x_{\star}\right\rangle \leq-2\gamma_{t}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}\\
- & \quad\textcolor{gray}{\texttt{*/}}\\
+ & \quad\textcolor{gray}{}\Leftrightarrow f_{t}^{[i]}-f_{\star}^{[i]}\leq\left\langle g_{t}^{[i]}\mid x_{t}-x_{\star}\right\rangle \\
+ & \quad\ensuremath{\Leftrightarrow}-\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\geq-\left\langle g_{t}^{[i]}\mid x_{t}-x_{\star}\right\rangle \\
+ & \quad\therefore-2\gamma_{t}\left\langle g_{t}^{[i]}\mid x_{t}-x_{\star}\right\rangle \leq-2\gamma_{t}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\\
+ & \quad\texttt{*/}\\
  & \leq\|x_{t}-x_{\star}\|^{2}+\gamma_{t}^{2}\|g_{t}^{[i]}\|^{2}-2\gamma_{t}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\mathnote{\textrm{\ensuremath{\rhd\;}in this case\ensuremath{\;\gamma_{t}=\frac{\texttt{ReLU}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}}}}\\
  & =\|x_{t}-x_{\star}\|^{2}+\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{4}}\|g_{t}^{[i]}\|^{2}-2\frac{\texttt{ReLU}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\\
- & \quad\textcolor{gray}{\texttt{/*}}\\
- & \quad\textcolor{gray}{\textrm{we have }z\times\texttt{ReLU}(z)=z\times\max\{z,0\}=\begin{cases}
+ & \quad\texttt{/*}\\
+ & \quad\textrm{we have }z\times\texttt{ReLU}(z)=z\times\max\{z,0\}=\begin{cases}
 z^{2}, & \text{if }z\geq0\\
 0, & \text{else}
-\end{cases}=\left(\max\{z,0\}\right)^{2}=(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}\\
- & \quad\textcolor{gray}{\texttt{*/}}\\
+\end{cases}=\left(\max\{z,0\}\right)^{2}=(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)\\
+ & \quad\texttt{*/}\\
  & =\|x_{t}-x_{\star}\|^{2}+\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}-2\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}\\
  & =\|x_{t}-x_{\star}\|^{2}-\frac{(\texttt{sqd}\circ\texttt{ReLU})\left(f_{t}^{[i]}-f_{\star}^{[i]}\right)}{\|g_{t}^{[i]}\|^{2}}.\ldots(1)
 \end{align*}
