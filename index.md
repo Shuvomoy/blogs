@@ -38,8 +38,7 @@ I am a Postdoctoral Research Scientist at the [Department of Industrial Engineer
 
 ## [Posts]( #posts)
 
-
-
+* *(2024-09-17)*  [Solving Mixed-Integer Optimization Problems using Benders Decomposition](posts/Benders_Decomposition_Notes)
 * *(2024-03-28)*  [Study notes on “Stochastic Polyak Step-size, a simple step-size tuner with optimal rates" by F. Pedregosa](posts/Studynote_Stochastic_Gradient_Descent_with_Polyak_Stepsizes)
 * *(2023-01-06)* [Converting latex/pdf to html to markdown for Jekyll-based blogs](posts/Converting-latex-to-html)
 * *(2022-12-27)* [Convergence of stochastic gradient descent](posts/Convergence_of_stochastic_gradient_method)
