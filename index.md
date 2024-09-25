@@ -37,7 +37,7 @@ I am a Postdoctoral Research Scientist at the [Department of Industrial Engineer
 **Update.** I will join the [Department of Computational Applied Mathematics & Operations Research](https://cmor.rice.edu/) at [Rice University](https://www.rice.edu/) as an Assistant Professor starting July 2025. 
 
 ## [Posts]( #posts)
-
+* *(2024-09-25)*  [From Fenchel-Rockafellar Duality to Lagrangian Duality](posts/Fenchel_Rockafellar_to_Lagrangian_duality)
 * *(2024-09-17)*  [Solving Mixed-Integer Optimization Problems using Benders Decomposition](posts/Benders_Decomposition_Notes)
 * *(2024-03-28)*  [Study notes on “Stochastic Polyak Step-size, a simple step-size tuner with optimal rates" by F. Pedregosa](posts/Studynote_Stochastic_Gradient_Descent_with_Polyak_Stepsizes)
 * *(2023-01-06)* [Converting latex/pdf to html to markdown for Jekyll-based blogs](posts/Converting-latex-to-html)
