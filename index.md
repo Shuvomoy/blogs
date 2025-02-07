@@ -38,6 +38,7 @@ I am a Postdoctoral Research Scientist at the [Department of Industrial Engineer
 
 ## [Posts]( #posts)
 
+* *(2025-02-07)* [Notes on Monotone Operator Theory](https://shuvomoy.github.io/misc/)
 * *(2024-11-22)* [Geometry of Integer Optimization](posts/Geometry_of_Integer_Optimization)
 * *(2024-09-27)*  [KKT Operator and KKT Conditions](posts/KKT_operator_and_KKT_conditions)
 * *(2024-09-25)*  [From Fenchel-Rockafellar Duality to Lagrangian Duality](posts/Fenchel_Rockafellar_to_Lagrangian_duality)
