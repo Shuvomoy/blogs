@@ -29,7 +29,17 @@ paste the content of test.html
 
 That's it, the markdown file can be used as a blog post in Jekyll based website. 
 
-#### `.pdf` to `.html`
+#### `.pdf` to `.html` using `pdf2htmlEX` 
+
+#### On Windows 
+
+*  download `pdf2htmlEX` zip file from the link [https://shuvomoy.github.io/blogs/assets/pdf2htmlEX/pdf2htmlEX-win32-0.14.6-with-poppler-data.zip](https://shuvomoy.github.io/blogs/assets/pdf2htmlEX/pdf2htmlEX-win32-0.14.6-with-poppler-data.zip)
+* extract it to a location of your choice, eg, `C:\Program Files (x86)\`
+* now copy the pdf (say `filename.pdf`) file to the same folder `C:\Program Files (x86)\pdf2htmlEX-win32-0.14.6-with-poppler-data` which contains the `pdf2htmlEX.exe`
+* in that folder, right-click to open a terminal (it will open `windows powershell`) and then run ` .\pdf2htmlEX --zoom 1.75 --process-outline=0 ".\filename.pdf"`
+* which will create a `filename.html` in the same folder
+
+#### On Linux
 
 For converting pdf to html in a linux based OS (or [Linux on Windows with WSL](https://learn.microsoft.com/en-us/windows/wsl/install)), do the following steps:
 
