@@ -38,6 +38,7 @@ I am a Postdoctoral Research Scientist at the [Department of Industrial Engineer
 
 ## [Posts]( #posts)
 
+* *(2025-05-30)* [Study notes for “A constructive approach to strengthen algebraic descriptions of function and operator classes” by Rubbens, Hendrickx, and Taylor](posts/Study_Notes_Rubbens_Hendrickx_Taylor_blog)
 * *(2025-05-03)* [How to run Julia and R in LyX using knitr](posts/How_to_install_KNITR_in_LyX_and_run_Julia_and_R)
 * *(2025-04-27)* [Online Gradient Descent and Solving Saddle Point Problems](posts/Online_gradient_descent_saddle_point_min_max_problem_blog)
 * *(2025-03-31)* [How to run Python from Julia](posts/PyCall_tutorial)
