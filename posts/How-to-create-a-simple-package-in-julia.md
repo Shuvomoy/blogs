@@ -92,7 +92,7 @@ using PkgTemplates
 Now create a specific template for our project.
 
 ```julia
-template = Template(user = "shuvomoy") # change it to your specification
+template = Template(user = "shuvomoy", dir = "C:\\Users\\shuvo\\directory_to_place_packages_in") # change it to your specification
 ```
 
 
@@ -118,7 +118,7 @@ First, in the Julia REPL type the following:
 
 ```julia
 
-cd("C:\\Users\\shuvo\\.julia\\dev\\TestPackage")
+cd("C:\\Users\\shuvo\\directory_to_place_packages_in\\TestPackage")
 # alternatively The following will also work
 # cd(joinpath(DEPOT_PATH[1], "dev", "TestPackage"))
 ```

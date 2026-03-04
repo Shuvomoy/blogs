@@ -35,6 +35,7 @@ I am an assistant professor in the [Department of Computational Applied Mathemat
 
 ## [Posts]( #posts)
 
+* *(2026-02-15)* [Studynote on Single-Matrix Face Detection and Exact Kernel Recovery for PSD Matrices in  ClusteredLowRankSolver.jl](posts/Face_detection_and_kernel_recovery_using_ClusteredLowRankSolver)
 * *(2025-08-11)* [Study notes on Python class and Julia struct+methods](posts/Python_class_to_Julia_struct_and_methods)
 
 * *(2025-05-30)* [Study notes for “A constructive approach to strengthen algebraic descriptions of function and operator classes” by Rubbens, Hendrickx, and Taylor](posts/Study_Notes_Rubbens_Hendrickx_Taylor_blog)
@@ -117,6 +118,10 @@ I am an assistant professor in the [Department of Computational Applied Mathemat
 - *(2020-01-24)* [Running Julia code on MIT Supercloud](posts/Running-Julia-code-on-MIT-supercloud/)
 
 - *(2020-01-20)* [Solving mixed-integer quadratic programming (MIQP) using Julia+JuMP](posts/Solving_mixed_integer_quadratic_programming_Julia/)
+
+## Handwritten Notes
+
+Browse handwritten blogs in HTML/PDF format on the [Handwritten Notes](/handwritten-notes/) page.
 
 ## Tags
 

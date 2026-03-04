@@ -26,3 +26,97 @@ end
 function hfun_timestamp_now()
     return string(Dates.now()) * "+00:00"
 end
+
+function _escape_html(s::AbstractString)
+    s = replace(s, "&" => "&amp;")
+    s = replace(s, "<" => "&lt;")
+    s = replace(s, ">" => "&gt;")
+    s = replace(s, "\"" => "&quot;")
+    return replace(s, "'" => "&#39;")
+end
+
+function _note_link(filename::AbstractString)
+    # Franklin emits HTML files as page routes (.../index.html), so link to
+    # the stem path for .html notes and direct file path for other formats.
+    stem, ext = splitext(filename)
+    if lowercase(ext) == ".html"
+        return "/assets/Notes/" * replace(stem, " " => "%20") * "/"
+    end
+    return "/assets/Notes/" * replace(filename, " " => "%20")
+end
+
+function hfun_handwritten_notes()
+    notes_dir = joinpath(@__DIR__, "assets", "Notes")
+    if !isdir(notes_dir)
+        return "<p>No handwritten notes are available yet.</p>"
+    end
+
+    pattern = r"^(\d{4})_(\d{2})_(\d{2})_(.+)\.(html|pdf)$"i
+    entries = Dict{String, Dict{Symbol, Any}}()
+
+    for filename in readdir(notes_dir)
+        fullpath = joinpath(notes_dir, filename)
+        isfile(fullpath) || continue
+
+        m = match(pattern, filename)
+        m === nothing && continue
+
+        y, mo, d, raw_title, ext = m.captures
+        note_date = try
+            Date(parse(Int, y), parse(Int, mo), parse(Int, d))
+        catch
+            continue
+        end
+
+        key = "$(y)_$(mo)_$(d)_$(raw_title)"
+        if !haskey(entries, key)
+            entries[key] = Dict(
+                :date => note_date,
+                :title => replace(raw_title, "_" => " "),
+                :html => nothing,
+                :pdf => nothing,
+            )
+        end
+
+        ext = lowercase(ext)
+        if ext == "html"
+            entries[key][:html] = filename
+        elseif ext == "pdf"
+            entries[key][:pdf] = filename
+        end
+    end
+
+    if isempty(entries)
+        return "<p>No handwritten notes are available yet. Add files to <code>assets/Notes/</code> using <code>YYYY_MM_DD_Title.html</code> or <code>YYYY_MM_DD_Title.pdf</code>.</p>"
+    end
+
+    sorted_entries = sort(
+        collect(values(entries));
+        by = entry -> (entry[:date], entry[:title]),
+        rev = true,
+    )
+
+    io = IOBuffer()
+    write(io, "<table class=\"handwritten-notes-table\">")
+    write(io, "<thead><tr><th>Date</th><th>Title</th><th>Formats</th></tr></thead><tbody>")
+    for entry in sorted_entries
+        date_str = Dates.format(entry[:date], dateformat"yyyy-mm-dd")
+        title_str = _escape_html(string(entry[:title]))
+
+        links = String[]
+        if !isnothing(entry[:html])
+            href = _escape_html(_note_link(string(entry[:html])))
+            push!(links, "<a href=\"$href\">HTML</a>")
+        end
+        if !isnothing(entry[:pdf])
+            href = _escape_html(_note_link(string(entry[:pdf])))
+            push!(links, "<a href=\"$href\">PDF</a>")
+        end
+
+        formats = isempty(links) ? "&#8212;" : join(links, " | ")
+        write(io, "<tr><td>$date_str</td><td>$title_str</td><td>$formats</td></tr>")
+    end
+    write(io, "</tbody></table>")
+
+    return String(take!(io))
+end
