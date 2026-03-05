@@ -97,26 +97,24 @@ function hfun_handwritten_notes()
     )
 
     io = IOBuffer()
-    write(io, "<table class=\"handwritten-notes-table\">")
-    write(io, "<thead><tr><th>Date</th><th>Title</th><th>Formats</th></tr></thead><tbody>")
+    write(io, "<ul class=\"handwritten-notes-list\">")
     for entry in sorted_entries
         date_str = Dates.format(entry[:date], dateformat"yyyy-mm-dd")
         title_str = _escape_html(string(entry[:title]))
 
-        links = String[]
-        if !isnothing(entry[:html])
-            href = _escape_html(_note_link(string(entry[:html])))
-            push!(links, "<a href=\"$href\">HTML</a>")
-        end
-        if !isnothing(entry[:pdf])
-            href = _escape_html(_note_link(string(entry[:pdf])))
-            push!(links, "<a href=\"$href\">PDF</a>")
-        end
+        html_href = isnothing(entry[:html]) ? nothing : _escape_html(_note_link(string(entry[:html])))
+        pdf_href = isnothing(entry[:pdf]) ? nothing : _escape_html(_note_link(string(entry[:pdf])))
 
-        formats = isempty(links) ? "&#8212;" : join(links, " | ")
-        write(io, "<tr><td>$date_str</td><td>$title_str</td><td>$formats</td></tr>")
+        primary_href = isnothing(html_href) ? pdf_href : html_href
+        primary_href === nothing && continue
+
+        write(io, "<li>($date_str) <a href=\"$primary_href\">$title_str</a>")
+        if !isnothing(html_href) && !isnothing(pdf_href)
+            write(io, " (<a href=\"$html_href\">HTML</a> | <a href=\"$pdf_href\">PDF</a>)")
+        end
+        write(io, "</li>")
     end
-    write(io, "</tbody></table>")
+    write(io, "</ul>")
 
     return String(take!(io))
 end
