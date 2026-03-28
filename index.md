@@ -35,6 +35,8 @@ I am an assistant professor in the [Department of Computational Applied Mathemat
 
 ## [Posts]( #posts)
 
+* *(2026-02-15)* [Studynote on Single-Matrix Face Detection and Exact Kernel Recovery for PSD Matrices in  ClusteredLowRankSolver.jl](posts/Face_detection_and_kernel_recovery_using_ClusteredLowRankSolver)
+
 * *(2025-08-11)* [Study notes on Python class and Julia struct+methods](posts/Python_class_to_Julia_struct_and_methods)
 
 * *(2025-05-30)* [Study notes for “A constructive approach to strengthen algebraic descriptions of function and operator classes” by Rubbens, Hendrickx, and Taylor](posts/Study_Notes_Rubbens_Hendrickx_Taylor_blog)

@@ -5,7 +5,7 @@
 # Studynote on Single-Matrix Face Detection and Exact Kernel Recovery for PSD Matrices in  ClusteredLowRankSolver.jl
 
 **Shuvomoy Das Gupta**
-*February 15, 2026"*
+*February 15, 2026*
 
 **Table of contents**
 \toc
